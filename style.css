@@ -1,0 +1,397 @@
+h1, h2{
+	font-weight: 300;
+}
+body{
+	font-family:"Segoe UI","Helvetica","Verdana","Arial",sans-serif;
+	font-size:14px;
+	color:#666;
+	background-color: #000;
+}
+img{
+	border: none;
+}
+a{
+	color:#FFFFFF;
+}
+a:hover{
+	color:#FFFFFF;
+}
+.on_img{
+  background-image:url(img/on.gif);
+  background-repeat:no-repeat;
+  padding-left:35px;
+  cursor:pointer;
+  width:60px;
+}       
+.over_img{
+  background-image:url(img/over.gif);
+  background-repeat:no-repeat;
+  padding-left:35px;
+  cursor:pointer;
+  width:60px;
+}
+#wrap {
+	width: 95%;
+	margin: auto;
+}
+#admin_wrap{
+	margin-left: 60px;
+}
+.box{
+	background-color:#303030; padding:6px;
+	padding-top: 4px;
+	color: #FFF;
+	font-weight: 400;
+	margin: auto;
+}
+.box:after{
+	clear: right;
+}
+a{
+	text-decoration:none;
+}
+a:hover{
+	text-decoration:none;
+}
+.pull-right{
+	float: right;
+}
+.img-container{
+	margin:25px 10px;
+	/*background-color: #303030;*/
+	float: left;
+}
+
+.img{
+	vertical-align: middle;
+	padding: 0px;
+	margin: 0px;
+	opacity:0.8;
+  filter:alpha(opacity=80);
+	border: none;
+}
+#header{
+	font-weight: 300;
+	font-size: 3em;
+	margin-left: 50px;
+	margin-top: 20px;
+}
+#header img{
+	vertical-align: top;
+	padding-top: 8px;
+}
+.header-contest{
+	font-size: 1.3em;
+	color: #ff0056;
+}
+#contest_title{
+	font-size: 0.8em;
+	color: #ff0056;
+}
+#contests_list{
+	font-weight: 300;
+	font-size: 1.4em;
+	margin-left: 60px;
+}
+#settings-button{
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+div#tooltipDiv {
+	padding: 5px;
+	border: solid 1px #303030;
+	display: none; /*white-space: nowrap;*/
+	background: #fff;
+	color: #ff0056; /*#2B3D2B; */
+	font-size: 12px;
+	text-align: left;
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 1000;
+	filter: alpha(opacity=85);
+	opacity: .85;
+}
+
+/* ALERTS */
+.alert{
+	max-width: 600px;
+	margin: 30px;
+	margin-left: 50px;
+	font-size: 1.4em;
+	padding: 12px;
+	border: 1px solid #FFF;
+}
+.success{
+	background-color: #ff0056;
+	color: #FFF;
+}
+.error{
+	background-color: #333;
+	color: #999;
+}
+.close{
+	float: right;
+}
+
+/* TABLES */
+.table{
+	margin: 4px;
+	width: 80%;
+}
+.table li{
+	padding: 8px;
+	display: inline-block;
+}
+
+.table .item_wrap{
+	display: block;
+	margin-bottom: 10px;
+	border: 1px solid #303030;
+	padding: 6px;
+	padding-bottom: 10px;
+}
+.table .item_title{
+	font-size: 3.4em;
+	color: #ff0056;
+	font-weight: 300;
+}
+.table .date_begin, .table .date_end{
+	color: #999;
+}
+.table .item_desc{
+	font-style: italic;
+}
+
+.table .item_id{
+	display: block;
+}
+.table .item_actions{
+	float: right;
+	display:block;
+	height: 50px;
+	margin-top: 8px;
+}
+.table .item_dates{
+	text-align: right;
+	display: block;
+}
+.active{
+	border: 1px solid #ff0056 !important;
+}
+.not_added{
+	color: #999 !important;
+}
+
+/* FORMS */
+form{
+	padding: 10px;
+	margin: 0;
+	width: 400px;
+}
+label{
+	font-size: 16px;
+}
+input, textarea{
+	background-color: #303030;
+	padding: 6px;
+	border: 1px solid #303030;
+	font-size: 1.2em;
+	margin-left: 10px;
+	color: #999;
+	font-family:"Segoe UI","Helvetica","Verdana","Arial",sans-serif;
+	width: 80%;
+}
+input:hover, textarea:hover, input:focus, textarea:focus{
+	border: 1px solid #ff0056; 
+	color: #ccc;
+}
+textarea{
+	height: 100px;
+}
+label:after{
+	content: '\A';
+	white-space:pre;
+}
+.input_group{
+	margin-bottom: 20px;
+}
+.form_buttons{
+	float: right;
+	margin: 20px;
+}
+.form_buttons input{
+	color: #ff0056;
+	width: 150px;
+	font-size: 1.4em;
+	font-weight: 300;
+}
+.form_buttons .btn_primary{
+	color: #FFF;
+	background-color: #ff0056;
+	border: 1px solid #ff0056;
+}
+.form_buttons .btn_primary:hover{
+	border: 1px solid #fff;
+}
+
+
+
+/* SLIMBOX */
+/* Modifie par Charly Le Prof (30/05/2012) */
+
+#lbOverlay {
+	position: fixed;
+	z-index: 9999;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+	cursor: pointer;
+}
+#lbCenter, #lbBottomContainer {
+	position: absolute;
+	z-index: 9999;
+	overflow: hidden;
+	background-color: #303030;
+}
+.lbLoading {
+	background: #303030 url(img/loading.gif) no-repeat center;
+}
+#lbImage {
+	position: absolute;
+	left: 0;
+	top: 0;
+	border: 10px solid #303030;
+	background-repeat: no-repeat;
+}
+#lbPrevLink, #lbNextLink {
+	display: block;
+	position: absolute;
+	top: 0;
+	width: 50%;
+	outline: none;
+	z-index: 9999; /* Ajout Charly (image resize) */
+	background-image:url(img/transparent.gif); /* Ajout Charly (image resize) ie7 ie8 ie9 */
+}
+#lbPrevLink {
+	left: 0;
+}
+#lbPrevLink:hover {
+	background: transparent url(img/prev.png) no-repeat 0 15%;
+}
+#lbNextLink {
+	right: 0;
+}
+#lbNextLink:hover {
+	background: transparent url(img/next.png) no-repeat 100% 15%;
+}
+#lbBottom {
+	font-size: 12px;
+	color: #999;
+	line-height: 1.4em;
+	text-align: left;
+	border: 10px solid #303030;
+	border-bottom: 3px solid #303030; /* Ajout Charly */
+	border-top-style: none;
+}
+#lbCloseLink {
+	display: block;
+	float: right;
+	width: 20px; /* 66px Charly */
+	height: 22px;
+	background: transparent url(img/close.png) no-repeat center;
+	margin: 5px 0px 5px 0px; /* 5px 0 Charly */
+	outline: none;
+}
+#lbCaption, #lbNumber {
+	margin-right: 20px; /* 71px Charly */
+}
+#lbCaption {
+
+}
+
+/*
+
+    Zebra_DatePicker: a lightweight jQuery date picker plugin
+
+    default stylesheet
+    copyright (c) 2011 - 2012 Stefan Gabos
+    http://stefangabos.ro/jquery/zebra-datepicker/
+
+*/
+
+.Zebra_DatePicker *                          { margin: 0; padding: 0; color: #000 }
+.Zebra_DatePicker                            { position: absolute; background: #303030; border: 1px solid #ccc; display: none; z-index: 100; }
+
+/* = GLOBALS
+----------------------------------------------------------------------------------------------------------------------*/
+.Zebra_DatePicker table                      { border-collapse: collapse; border-spacing: 0 }
+
+.Zebra_DatePicker td,
+.Zebra_DatePicker th                         { text-align: center; padding: 5px 0 }
+
+.Zebra_DatePicker td                         { cursor: pointer }
+
+.Zebra_DatePicker .dp_daypicker,
+.Zebra_DatePicker .dp_monthpicker,
+.Zebra_DatePicker .dp_yearpicker             { margin-top: 3px }
+
+.Zebra_DatePicker .dp_daypicker td,
+.Zebra_DatePicker .dp_daypicker th,
+.Zebra_DatePicker .dp_monthpicker td,
+.Zebra_DatePicker .dp_yearpicker td         { background: #999; width: 30px; border: 1px solid #303030 }
+
+/* = HEADER
+----------------------------------------------------------------------------------------------------------------------*/
+.Zebra_DatePicker .dp_header td             { color: #FFF }
+
+.Zebra_DatePicker .dp_header .dp_previous,
+.Zebra_DatePicker .dp_header .dp_next       { width: 30px }
+
+.Zebra_DatePicker .dp_header .dp_caption    { font-weight: bold }
+.Zebra_DatePicker .dp_header .dp_hover      { color: #ff0056;background-color: transparent;}
+.Zebra_DatePicker .dp_header .dp_blocked    { color: #888; cursor: default }
+
+/* = DATEPICKER
+----------------------------------------------------------------------------------------------------------------------*/
+.Zebra_DatePicker .dp_daypicker th          { background: #ff0056 }
+.Zebra_DatePicker td.dp_not_in_month        { background: #666; color: #CDCDCD; cursor: default }
+.Zebra_DatePicker td.dp_weekend             { background: #D8D8D8 }
+.Zebra_DatePicker td.dp_weekend_disabled    { color: #CCC; cursor: default }
+.Zebra_DatePicker td.dp_selected            { background: #ff0056; color: #FFF !important }
+.Zebra_DatePicker td.dp_week_number         { background: #FFCC33; color: #555; cursor: text; font-style: italic }
+
+/* = MONTHPICKER
+----------------------------------------------------------------------------------------------------------------------*/
+.Zebra_DatePicker .dp_monthpicker td        { width: 33% }
+
+/* = YEARPICKER
+----------------------------------------------------------------------------------------------------------------------*/
+.Zebra_DatePicker .dp_yearpicker td         { width: 33% }
+
+/* = FOOTER
+----------------------------------------------------------------------------------------------------------------------*/
+.Zebra_DatePicker .dp_footer                { margin-top: 3px }
+.Zebra_DatePicker .dp_footer td             { color: #FFF; padding: 2px; font-weight: bold }
+.Zebra_DatePicker .dp_footer .dp_hover      { color: #ff0056;background-color: transparent; }
+
+/* = SOME MORE GLOBALS (MUST BE LAST IN ORDER TO OVERWRITE PREVIOUS PROPERTIES)
+----------------------------------------------------------------------------------------------------------------------*/
+.Zebra_DatePicker td.dp_current             { color: #ff0056 }
+.Zebra_DatePicker td.dp_disabled_current    { color: #E38585 }
+.Zebra_DatePicker td.dp_disabled            { background: #666; color: #CDCDCD; cursor: default }
+.Zebra_DatePicker td.dp_hover               { background: #303030; color: #ff0056 }
+
+/* = ICON
+----------------------------------------------------------------------------------------------------------------------*/
+button.Zebra_DatePicker_Icon                { position: absolute; width: 16px; height: 16px; background: url('img/calendar.png') no-repeat left top; text-indent: -9000px; border: none; cursor: pointer; margin: 0 0 0 5px; padding: 0; line-height: 0 }
+/*button.Zebra_DatePicker_Icon_Disabled       { background-image: url('calendar-disabled.png') }*/
+button.Zebra_DatePicker_Icon_Inside         { margin: 0 8px 0 0 }
+
+/* Fix icon position in Chrome & Safari */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    button.Zebra_DatePicker_Icon_Inside     { margin: 0 5px 0 0 }
+}
