@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Simple Photos Contest\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-12-13 15:03+0100\n"
-"PO-Revision-Date: 2012-12-13 15:14+0100\n"
+"PO-Revision-Date: 2012-12-13 16:50+0100\n"
 "Last-Translator: Dric <cedric@driczone.net>\n"
 "Language-Team:  <cedric@driczone.net>\n"
 "Language: French\n"
@@ -20,7 +20,7 @@ msgstr ""
 #: ../love.php:22 ../love.php:50
 #, php-format
 msgid "Select your favorites photos for %s contest"
-msgstr "Choisir vos photos favories pour le concours %s"
+msgstr "Mes photos favories pour le concours %s"
 
 #: ../love.php:33 ../love.php:37
 msgid "settings"

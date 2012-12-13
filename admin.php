@@ -66,9 +66,9 @@ if (isset($_GET['contest']) and !empty($_GET['contest'])){
 			$i_added = $i_deleted = 0;
 			if ($handle = opendir($c_path.$contest)) {
 		    while (false !== ($entry = readdir($handle))) {
-		      if ($entry != "." && $entry != "..") {
+					if ($entry != "." && $entry != "..") {
             if(in_array(substr($entry, strrpos($entry, ".")+1), $allowed_ext)){
-							$images[str_replace('_', ' ',substr($entry, 0, strlen($entry) - (strrpos($entry, ".")+2)))] = $entry;
+							$images[str_replace('_', ' ',substr($entry, 0, strrpos($entry, ".")))] = $entry;
 						}
 					}
 		    }
@@ -112,7 +112,7 @@ if (isset($_GET['contest']) and !empty($_GET['contest'])){
 				if ($i_deleted ==0 or $i_deleted > 1){
 					$s_d = 's';
 				}
-				$message->text = sprintf(_('%s contest photos updated !', $contest)).'<br /> <small>('.sprintf(ngettext('%s photo added', '%s photos added', $i_added), $i_added).' '.sprintf(ngettext('%s photo deleted', '%s photos deleted', $i_deleted), $i_deleted).')</small>';
+				$message->text = sprintf(_('%s contest photos updated !'), $contest).'<br /> <small>('.sprintf(ngettext('%s photo added', '%s photos added', $i_added), $i_added).' '.sprintf(ngettext('%s photo deleted', '%s photos deleted', $i_deleted), $i_deleted).')</small>';
 				$message->type = 'success';
 			}else{
 				$message->text = sprintf(_('Error : I couldn\'t update photos for %s contest !'), $contest);
@@ -128,7 +128,7 @@ if (isset($_GET['contest']) and !empty($_GET['contest'])){
 			$begin = date('Y/m/d');
 			$end = date_create();
 			date_add($end, date_interval_create_from_date_string('1 month'));
-			$end = date_formatting($end, 'Y/m/d');
+			$end = date_format($end, 'Y/m/d');
       $contest_dir = opendir($c_path.$contest);
       /*while (false !== ($sub_entry = readdir($contest_dir))) {
         if ($sub_entry == 'description'){

@@ -19,7 +19,7 @@ Installation
 + Make the cache dir writable (777).
 + import install.sql in your mysql db.
 + Rename config-sample.php into config.php.
-+ Edit config.php to change db connect values.
++ Edit config.php to change db connect values, admin password and localization settings.
 
 Quick Start
 -----------
@@ -27,23 +27,36 @@ Quick Start
 + Create directory in your photos dir.
 + Put your photos into this dir.
 + Activate it in admin panel.
-+ Enjoy !
++ The first load of a contest page is slow. No panic, it's because TimThumb needs to create thumbnails of all the gallery photos. The next load will be a lot faster !
 
 FAQ
 ---
 
 <dl>
-	<dt>Where are the contests settings ?</dt>
-	<dd>There is small icon in upper right corner of the main page. Just click on it, enter password and you will get the admin panel</dd>
+	<dt>Where is the admin panel ?</dt>
+	<dd>There is small icon in upper right corner of the main page. Just click on it, enter password and you will get the admin panel.</dd>
 	<dt>How can I translate Simple Photos contest ?</dt>
-	<dd>There is a pot template file in lang dir, then mimic the french translation files tree.</dd>
+	<dd>There is a pot template file in lang dir. Edit it with a po editor (PoEdit in Windows - http://www.poedit.net), then mimic the french translation files tree.</dd>
 </dl>
 
+TO-DO
+-----
+
++ Stats and contests results (this the main goal of a contest, but having stats without photos to display is a bit useless...)
+
+Components used
+---------------
+
++ TimThumb 2.8.11 - http://www.binarymoon.co.uk/projects/timthumb/
++ jQuery 1.8.2 - http://jquery.com
++ Freetile (customized jQuery plugin) - https://github.com/yconst/Freetile
++ SlimBox 2.04 (customized jQuery plugin) - http://www.digitalia.be/software/slimbox2
++ Zebra DatePicker 1.6.2 (jQuery Plugin) - http://stefangabos.ro/jquery/zebra-datepicker/
 
 Bug tracker
 -----------
 
-Have a bug? Please create an issue here on GitHub!
+Have a bug? Being shocked by a poor translation (I'm french) ? Please create an issue here on GitHub !
 
 https://github.com/Dric/contests-gallery/issues
 
@@ -60,6 +73,8 @@ Author
 
 Copyright and license
 ---------------------
+
+Simple Photos Contest is released under MIT licence.
 
 The MIT License (MIT)
 
