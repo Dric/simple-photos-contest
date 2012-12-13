@@ -98,6 +98,17 @@ a:hover{
 	top: 5px;
 	right: 5px;
 }
+#login{
+	display: none;
+	border: 1px solid #303030;
+	padding: 5px;
+	margin: 5px;
+}
+#log_send{
+	vertical-align:bottom;
+	cursor: pointer;
+	margin-left: 4px;
+}
 div#tooltipDiv {
 	padding: 5px;
 	border: solid 1px #303030;
@@ -133,6 +144,8 @@ div#tooltipDiv {
 }
 .close{
 	float: right;
+	cursor: pointer;
+	padding-left: 5px;
 }
 
 /* TABLES */
@@ -189,6 +202,12 @@ form{
 	padding: 10px;
 	margin: 0;
 	width: 400px;
+}
+form.small{
+	width: 300px;
+}
+.small input{
+	width: 70%;
 }
 label{
 	font-size: 16px;

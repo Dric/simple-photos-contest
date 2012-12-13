@@ -1,0 +1,171 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Simple Photos Contest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-12-13 15:04+0100\n"
+"PO-Revision-Date: 2012-12-13 15:05+0100\n"
+"Last-Translator: Dric <cedric@driczone.net>\n"
+"Language-Team:  <cedric@driczone.net>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;ngettext\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.5.4\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../love.php:22 ../love.php:50
+#, php-format
+msgid "Select your favorites photos for %s contest"
+msgstr ""
+
+#: ../love.php:33 ../love.php:37
+msgid "settings"
+msgstr ""
+
+#: ../love.php:41
+msgid "Password"
+msgstr ""
+
+#: ../love.php:42
+msgid "Login"
+msgstr ""
+
+#: ../love.php:54
+msgid "Other contests"
+msgstr ""
+
+#: ../love.php:94
+msgid "I'm in love !"
+msgstr ""
+
+#: ../admin.php:41
+#, php-format
+msgid "Settings for %s contest saved !"
+msgstr ""
+
+#: ../admin.php:44
+#, php-format
+msgid "Error : I couldn't save the %s contest settings !"
+msgstr ""
+
+#: ../admin.php:52
+#, php-format
+msgid "Votes for %s contest reinitialized !"
+msgstr ""
+
+#: ../admin.php:55
+#, php-format
+msgid "Error : I couldn't reinitialize votes for %s contest !"
+msgstr ""
+
+#: ../admin.php:115
+#, php-format
+msgid "%s contest photos updated !"
+msgstr ""
+
+#: ../admin.php:115
+#, php-format
+msgid "%s photo added"
+msgid_plural "%s photos added"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../admin.php:115
+#, php-format
+msgid "%s photo deleted"
+msgid_plural "%s photos deleted"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../admin.php:118
+#, php-format
+msgid "Error : I couldn't update photos for %s contest !"
+msgstr ""
+
+#: ../admin.php:181
+#, php-format
+msgid "%s contest deleted !"
+msgstr ""
+
+#: ../admin.php:184
+#, php-format
+msgid "Error : I couldn't delete %s contest !"
+msgstr ""
+
+#: ../admin.php:209 ../admin.php:218
+msgid "Admin panel"
+msgstr ""
+
+#: ../admin.php:217
+msgid "Back"
+msgstr ""
+
+#: ../admin.php:244
+msgid "Contest"
+msgstr ""
+
+#: ../admin.php:252
+msgid "Add"
+msgstr ""
+
+#: ../admin.php:256
+msgid "This album has not been added to db yet."
+msgstr ""
+
+#: ../admin.php:272
+msgid "Update"
+msgstr ""
+
+#: ../admin.php:273
+msgid "Edit"
+msgstr ""
+
+#: ../admin.php:274
+msgid "Reinitialize votes"
+msgstr ""
+
+#: ../admin.php:275
+msgid "Delete contest"
+msgstr ""
+
+#: ../admin.php:280
+#, php-format
+msgid "Contest open to votes between %s and %s"
+msgstr ""
+
+#: ../admin.php:292
+#, php-format
+msgid "%s contest"
+msgstr ""
+
+#: ../admin.php:295
+msgid "Name"
+msgstr ""
+
+#: ../admin.php:299
+msgid "Description"
+msgstr ""
+
+#: ../admin.php:302
+msgid "Contest opening"
+msgstr ""
+
+#: ../admin.php:304
+msgid "From"
+msgstr ""
+
+#: ../admin.php:307
+msgid "To"
+msgstr ""
+
+#: ../admin.php:311
+msgid "Save"
+msgstr ""
+
+#: ../admin.php:312
+msgid "Delete"
+msgstr ""

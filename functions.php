@@ -1,27 +1,40 @@
 <?php 
+
+/** Connexion en tant qu'admin */
+$admin_logged = admin_logged();
+
 /**
 * Transcrit une date au format sql en format français.
 *
 * @param string $mysql_date DATE ou DATETIME SQL
 * @param string $time Si valeur égale à 'notime' (valeur par défaut), on ne retourne pas les heures:minutes:secondes.
 */
-function date_french($mysql_date, $to_sql = false){
+function date_formatting($mysql_date, $to_sql = false){
   if (!$to_sql){
-    return date_format(date_create($mysql_date), 'd/m/Y');
+    return date_format(date_create($mysql_date), DATE_FORMAT);
   }else{
-    return date_format(date_create_from_format('d/m/Y', $mysql_date), 'Y-m-d');
+    return date_format(date_create_from_format(DATE_FORMAT, $mysql_date), 'Y-m-d');
   }
 }
 
 /**
 * Valide une date suivant un format.
 * 
-* [http://www.php.net/manual/fr/function.checkdate.php#107569]
-*
 * @param string $date Date à valider
 * @param string $format Format que doit avoir la date à valider
 */
-function date_valid($date, $format = 'DD/MM/YYYY'){
+function date_valid($date, $format = null) {
+	if (empty($format)){
+		$format = DATE_FORMAT;
+	}
+   if (date($format, strtotime($date)) == $date) {
+       return true;
+   } else {
+       return false;
+   }
+ }
+ 
+/* function date_valid($date, $format = 'DD/MM/YYYY'){
   if(strlen($date) >= 8 && strlen($date) <= 10){
     $separator_only = str_replace(array('M','D','Y'),'', $format);
     $separator = $separator_only[0];
@@ -45,6 +58,21 @@ function date_valid($date, $format = 'DD/MM/YYYY'){
     }
   }
   return false;
+} */
+
+/**
+ * Permet de savoir si l'admin est connecté.
+ *
+ * @return bool
+ */
+function admin_logged(){
+  if (isset($_COOKIE[COOKIE_NAME])){
+    $cookie = $_COOKIE[COOKIE_NAME];
+    if ($cookie == sha1(PASSWD.HASH)){
+			return true;
+		}
+  }
+	return false;
 }
 
 function disp_message($message){

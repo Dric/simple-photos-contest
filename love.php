@@ -1,8 +1,8 @@
 <?php
 include('config.php');
 include('functions.php');
-if (isset($_GET['annee']) and !empty($_GET['annee'])){
-	$contest = htmlspecialchars($_GET['annee']);
+if (isset($_GET['contest']) and !empty($_GET['contest'])){
+	$contest = htmlspecialchars($_GET['contest']);
 }else{
 	$contest = $default_contest;
 }
@@ -17,21 +17,41 @@ while($row=mysql_fetch_array($sql)){
 }
 ?>
 <!DOCTYPE html>
-<html lang="fr-FR">
+<html lang="<?php echo LANG; ?>">
   <head>
-    <title>Sélection pour le calendrier <?php echo $contest; ?></title>
+    <title><?php echo sprintf(_('Select your favorites photos for %s contest'), $contest); ?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 		<link rel="icon" type="image/png" href="favicon.png" />
 	</head>
 	<body>
-		<div id="settings-button"><a href="admin.php" title="Paramètres"><img alt="Paramètres" src="img/settings.png" /></a></div>
-		<div id="header">Sélectionnez les madames du calendrier <span class="header-contest"><?php echo $contest; ?></span></div>
+		<div id="settings-button">
+			<?php
+			if ($admin_logged){
+				?>
+			<a href="admin.php" title="<?php echo _('settings'); ?>"><img alt="<?php echo _('settings'); ?>" src="img/settings.png" /></a>
+				<?php
+			}else{
+				?>
+			<a href="#" title="<?php echo _('settings'); ?>" id="log_button"><img alt="<?php echo _('settings'); ?>" src="img/settings.png" /></a>
+			<div id="login">
+				<form class="small">
+					<div class="input_group">
+						<label><?php echo _('Password'); ?> : </label>
+						<input type="password" id="login_auth"/> <img id="log_send" alt="<?php echo _('Login'); ?>" src="img/go.png" />
+					</div>
+				</form> 
+			</div>
+				<?php
+			}
+			?>
+		</div>
+		<div id="header"><?php echo sprintf(_('Select your favorites photos for %s contest'), '<span class="header-contest">'.$contest.'</span>'); ?></div>
 		<div id="contests_list">
 			<?php
 			if (count($contests) > 1){
-				?>Autres années : <?php
+				echo _('Other contests').' : ';
 				foreach ($contests as $cont => $cont_item){
 					if ($cont != $contest){
 						if (!empty($cont_item->contest_name)){
@@ -39,7 +59,7 @@ while($row=mysql_fetch_array($sql)){
 						}else{
 							$cont_disp = $cont;
 						}
-						?><span class="contests"><a title="<?php echo $cont_item->description; ?>" href="?annee=<?php echo $cont; ?>"><?php echo $cont_disp; ?></a></span> <?php
+						?><span class="contests"><a title="<?php echo $cont_item->description; ?>" href="?contest=<?php echo $cont; ?>"><?php echo $cont_disp; ?></a></span> <?php
 					}
 				}
 			}
@@ -71,11 +91,11 @@ while($row=mysql_fetch_array($sql)){
 				<div class="img-container" <?php echo $attr; ?>>
 					<div class="box" align="left">
 						<a href="#" class="love" id="<?php echo $img_id; ?>" data-contest="<?php echo $contest; ?>">
-							<span title="Je suis amoureux !" class="on_img" align="left"> <?php echo $love; ?> </span> 
+							<span title="<?php echo _('I\'m in love !'); ?>" class="on_img" align="left"> <?php echo $love; ?> </span> 
 						</a> 
 						<div class="pull-right"><?php echo $img_name; ?></div>
 					</div>
-					<a href="<?php echo $img_url; ?>" title="<?php echo $img_name; ?>" rel="lightbox"><img alt="<?php echo $img_name; ?>" class="img" src="timthumb.php?src=<?php echo 'calendrier/'.$img_url.$param; //virer l'url calendrier ?>" /></a>
+					<a href="<?php echo $img_url; ?>" title="<?php echo $img_name; ?>" rel="lightbox"><img alt="<?php echo $img_name; ?>" class="img" src="timthumb.php?src=<?php echo $img_url.$param; //virer l'url calendrier ?>" /></a>
 				</div>
 				<?php
 					}

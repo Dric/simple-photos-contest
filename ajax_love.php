@@ -2,7 +2,7 @@
 include("config.php");
 $ip=$_SERVER['REMOTE_ADDR']; 
 
-if($_POST['id']){
+if(isset($_POST['id']) and !empty($_POST['id'])){
 	$id= intval($_POST['id']);
 	$contest= htmlspecialchars($_POST['contest']);
 	$ip_sql=mysql_query("select ip_add from image_IP where img_id_fk=$id and ip_add='$ip'");
@@ -24,6 +24,18 @@ if($_POST['id']){
 		<?php
 	}else{
 		echo 'Vous avez déjà voté !';
+	}
+}
+
+if (isset($_POST['action'])){
+	if ($_POST['action'] == 'login'){
+		$pwd = $_POST['pwd'];
+		if ($pwd == PASSWD){
+			echo 'Success !';
+			setcookie(COOKIE_NAME, sha1(PASSWD.HASH), 0, '/', '', FALSE, TRUE);
+		}else{
+			echo '<div class="alert error"><a class="close" href="#" title="Fermer">×</a>Le mot de passe est incorrect ! </div>';
+		}
 	}
 }
 ?>

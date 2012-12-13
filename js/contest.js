@@ -6,13 +6,17 @@ $(document).ready(function(){
     $(this).removeClass("over_img");
   });
 	$('.img').mouseover(function (){
-  	$(this).stop().animate({ opacity: 1.0 }, 400);
+  	$(this).stop().animate({ opacity: 1.0 }, 350);
   });
   $('.img').mouseout(function (){
-    $(this).stop().animate({ opacity: 0.8 }, 400);
+    $(this).stop().animate({ opacity: 0.8 }, 350);
   });
 });
 $(function() {
+	$(document).on('click', '.close', function(){
+		$(this).parent().remove();
+		tooltip.hide();
+	});
 	if ($('#wrap').length){
 		$('#wrap').freetile();
 	}
@@ -30,6 +34,26 @@ $(function() {
 			success: function(html)	{
 				parent.html(html);
 				parent.fadeIn(300);
+			} 
+		});
+		return false;
+	});
+	$('#log_button').click(function(){
+		$('#login').toggle('slow');
+	});
+	$('#log_send').click(function(){
+		var dataString = 'action=login&pwd=' + $('#login_auth').val() ;
+		$.ajax({
+			type: "POST",
+			url: "ajax_love.php",
+			data: dataString,
+			cache: false,
+			success: function(data)	{
+				if (data.indexOf('<div class="alert error">') != -1){
+					$('#login').prepend(data);
+				}else{
+					location.href = 'admin.php';
+				}
 			} 
 		});
 		return false;
