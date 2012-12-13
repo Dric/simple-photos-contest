@@ -16,7 +16,7 @@ mysql_query("SET NAMES 'utf8';",$bd);
 $c_path = 'photos/';
 $max_value = 250;
 $default_contest = '2013';
-$allowed_ext = array('jpg', 'png', 'gif', 'bmp');
+$allowed_ext = array('jpg', 'png', 'gif');
 
 /** Authentification constants ! */
 define('COOKIE_NAME', 'gallery-contest');

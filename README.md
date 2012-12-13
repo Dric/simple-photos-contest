@@ -1,7 +1,17 @@
 [Simple Photos Contest](https://github.com/Dric/contests-gallery)
 ==========
 
-A Simple photos contest gallery. Vote for your favorite photo.
+A Simple photos contest gallery. Vote for your favorites photos.
+
+Requirements
+------------
+
++ PHP 5.3
++ MySQL 5.5
++ Gettext enabled (for translations)
++ GD Image Library
+
+There is nothing unusual, as GD and gettext are enabled on most of web hosting platforms. Simple Photos Contest could work with previous versions of PHP and MySQL, but it hasn't been tested.
 
 Installation
 ------------
@@ -18,6 +28,16 @@ Quick Start
 + Put your photos into this dir.
 + Activate it in admin panel.
 + Enjoy !
+
+FAQ
+---
+
+<dl>
+	<dt>Where are the contests settings ?</dt>
+	<dd>There is small icon in upper right corner of the main page. Just click on it, enter password and you will get the admin panel</dd>
+	<dt>How can I translate Simple Photos contest ?</dt>
+	<dd>There is a pot template file in lang dir, then mimic the french translation files tree.</dd>
+</dl>
 
 
 Bug tracker
