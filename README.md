@@ -19,7 +19,8 @@ Installation
 + Make the cache dir writable (777).
 + import install.sql in your mysql db.
 + Rename config-sample.php into config.php.
-+ Edit config.php to change db connect values, admin password and localization settings.
++ Edit config.php to change db connect values and admin password.
++ Configure SPC in admin panel.
 
 Quick Start
 -----------

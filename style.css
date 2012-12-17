@@ -84,9 +84,27 @@ a:hover{
 	font-size: 1.3em;
 	color: #ff0056;
 }
-#contest_title{
+#sub_title{
 	font-size: 0.8em;
 	color: #ff0056;
+}
+#tab_list{
+	list-style: none;
+}
+#tab_list li{
+	display: inline-block;
+	padding: 5px;
+	text-align: center;
+	font-weight: 300;
+	font-size: 1.5em;
+	background-color: #303030;
+	width: 150px;
+}
+#tab_list li a{
+	color: #ff0056;
+}
+#tab_list li a:hover{
+	color: #fff;
 }
 #contests_list{
 	font-weight: 300;
@@ -108,6 +126,13 @@ a:hover{
 	vertical-align:bottom;
 	cursor: pointer;
 	margin-left: 4px;
+}
+.img_info{
+	vertical-align: text-bottom;
+	cursor: help;
+	margin-left: 4px;
+	position: absolute;
+	right:0px;
 }
 div#tooltipDiv {
 	padding: 5px;
@@ -212,7 +237,7 @@ form.small{
 label{
 	font-size: 16px;
 }
-input, textarea{
+input, select, textarea{
 	background-color: #303030;
 	padding: 6px;
 	border: 1px solid #303030;
@@ -234,11 +259,14 @@ label:after{
 	white-space:pre;
 }
 .input_group{
+	position: relative;
 	margin-bottom: 20px;
 }
 .form_buttons{
 	float: right;
 	margin: 20px;
+	width: 400px;
+	text-align: right;
 }
 .form_buttons input{
 	color: #ff0056;

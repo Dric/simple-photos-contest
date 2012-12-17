@@ -1,7 +1,29 @@
 <?php 
 
+$sql=mysql_query("SELECT * FROM settings");
+$settings = mysql_fetch_object($sql);
+
+if (!empty($settings)){
+	/** Translations ! */
+
+	/** Define language used
+	*
+	* To see the locales installed in your ubuntu server, type locale -a in shell.
+	*/
+	define('LANG',$settings->language);
+
+	/** Nothing to do below */
+	putenv("LC_ALL=".LANG);
+	setlocale(LC_ALL, LANG);
+	bindtextdomain("messages", "lang");
+	bind_textdomain_codeset('messages', 'UTF-8');
+	textdomain("messages");
+
+}
+
 /** Connexion en tant qu'admin */
 $admin_logged = admin_logged();
+
 
 /**
 * Transcrit une date au format sql en format français.
@@ -10,10 +32,11 @@ $admin_logged = admin_logged();
 * @param string $time Si valeur égale à 'notime' (valeur par défaut), on ne retourne pas les heures:minutes:secondes.
 */
 function date_formatting($mysql_date, $to_sql = false){
+	global $settings;
   if (!$to_sql){
-    return date_format(date_create($mysql_date), DATE_FORMAT);
+    return date_format(date_create($mysql_date), $settings->date_format);
   }else{
-    return date_format(date_create_from_format(DATE_FORMAT, $mysql_date), 'Y-m-d');
+    return date_format(date_create_from_format($settings->date_format, $mysql_date), 'Y-m-d');
   }
 }
 
@@ -24,8 +47,9 @@ function date_formatting($mysql_date, $to_sql = false){
 * @param string $format Format que doit avoir la date à valider
 */
 function date_valid($date, $format = null) {
+	global $settings;
 	if (empty($format)){
-		$format = DATE_FORMAT;
+		$format = $settings->date_format;
 	}
    if (date($format, strtotime($date)) == $date) {
        return true;
@@ -74,10 +98,18 @@ function admin_logged(){
   }
 	return false;
 }
-
+/**
+ * Affiche un message de notification.
+ *
+ * @param object $message
+ */
 function disp_message($message){
 	if (isset($message->type)){
 		return '<div class="alert '.$message->type.'"><a class="close" href="#" title="Fermer">×</a>'.$message->text.'</div>';
 	}
+}
+
+function info_disp($message){
+	return '<img alt="'.$message.'" class="img_info" src="img/info.png" />';
 }
 ?>

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Simple Photos Contest\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-13 15:04+0100\n"
-"PO-Revision-Date: 2012-12-13 15:05+0100\n"
+"POT-Creation-Date: 2012-12-17 15:17+0100\n"
+"PO-Revision-Date: 2012-12-17 15:17+0100\n"
 "Last-Translator: Dric <cedric@driczone.net>\n"
 "Language-Team:  <cedric@driczone.net>\n"
 "Language: en_US\n"
@@ -17,155 +17,266 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../love.php:22 ../love.php:50
-#, php-format
-msgid "Select your favorites photos for %s contest"
-msgstr ""
-
-#: ../love.php:33 ../love.php:37
-msgid "settings"
-msgstr ""
-
-#: ../love.php:41
-msgid "Password"
-msgstr ""
-
-#: ../love.php:42
-msgid "Login"
-msgstr ""
-
-#: ../love.php:54
-msgid "Other contests"
-msgstr ""
-
-#: ../love.php:94
-msgid "I'm in love !"
-msgstr ""
-
-#: ../admin.php:41
+#: ../admin.php:46
 #, php-format
 msgid "Settings for %s contest saved !"
 msgstr ""
 
-#: ../admin.php:44
+#: ../admin.php:49
 #, php-format
 msgid "Error : I couldn't save the %s contest settings !"
 msgstr ""
 
-#: ../admin.php:52
+#: ../admin.php:57
 #, php-format
 msgid "Votes for %s contest reinitialized !"
 msgstr ""
 
-#: ../admin.php:55
+#: ../admin.php:60
 #, php-format
 msgid "Error : I couldn't reinitialize votes for %s contest !"
 msgstr ""
 
-#: ../admin.php:115
+#: ../admin.php:120
 #, php-format
 msgid "%s contest photos updated !"
 msgstr ""
 
-#: ../admin.php:115
+#: ../admin.php:120
 #, php-format
 msgid "%s photo added"
 msgid_plural "%s photos added"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../admin.php:115
+#: ../admin.php:120
 #, php-format
 msgid "%s photo deleted"
 msgid_plural "%s photos deleted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../admin.php:118
+#: ../admin.php:123
 #, php-format
 msgid "Error : I couldn't update photos for %s contest !"
 msgstr ""
 
-#: ../admin.php:181
+#: ../admin.php:186
 #, php-format
 msgid "%s contest deleted !"
 msgstr ""
 
-#: ../admin.php:184
+#: ../admin.php:189
 #, php-format
 msgid "Error : I couldn't delete %s contest !"
 msgstr ""
 
-#: ../admin.php:209 ../admin.php:218
-msgid "Admin panel"
+#: ../admin.php:205
+msgid "Settings updated !"
 msgstr ""
 
-#: ../admin.php:217
-msgid "Back"
+#: ../admin.php:208
+msgid "Error : I was unable to update settings !"
 msgstr ""
 
-#: ../admin.php:244
+#: ../admin.php:230
+msgid "Contests Name"
+msgstr ""
+
+#: ../admin.php:231
 msgid "Contest"
 msgstr ""
 
-#: ../admin.php:252
-msgid "Add"
+#: ../admin.php:231
+msgid ""
+"Contests name examples : 'Calendar', 'Country', 'Category'. Defaut value : "
+"'Contest'"
 msgstr ""
 
-#: ../admin.php:256
-msgid "This album has not been added to db yet."
+#: ../admin.php:234
+msgid "Gallery only"
+msgstr ""
+
+#: ../admin.php:246
+msgid ""
+"Disable voting system. This will transform Simple Photos Contest in a photos "
+"gallery."
+msgstr ""
+
+#: ../admin.php:249
+msgid "Contest display title"
+msgstr ""
+
+#: ../admin.php:250
+#, php-format
+msgid "Select your favorites photos for %s contest"
+msgstr ""
+
+#: ../admin.php:250
+#, php-format
+msgid ""
+"This is the short text displayed in header of a contest page. The %s "
+"variable is replaced by the contest name and must be present."
+msgstr ""
+
+#: ../admin.php:253
+msgid "Display other contests"
+msgstr ""
+
+#: ../admin.php:265
+msgid "Display a link to the other contests (if present)."
+msgstr ""
+
+#: ../admin.php:268
+msgid "Max thumbnail length"
+msgstr ""
+
+#: ../admin.php:269
+msgid ""
+"This value is the max width or height of thumbnails, depending of the "
+"biggest side of the photo."
 msgstr ""
 
 #: ../admin.php:272
+msgid "Language"
+msgstr ""
+
+#: ../admin.php:296
+msgid ""
+"Select one of the available languages (based on languages files present in "
+"'lang' dir."
+msgstr ""
+
+#: ../admin.php:299
+msgid "Date format"
+msgstr ""
+
+#: ../admin.php:312
+msgid ""
+"The date format is the same as php date format. d = days, m = months, Y = "
+"year (4 digits)."
+msgstr ""
+
+#: ../admin.php:315
+msgid "Default contest"
+msgstr ""
+
+#: ../admin.php:324
+msgid "No contests registered in db !"
+msgstr ""
+
+#: ../admin.php:335
+msgid ""
+"Select one the registered contests in db to be the default contest displayed "
+"in frontend."
+msgstr ""
+
+#: ../admin.php:338 ../admin.php:444
+msgid "Save"
+msgstr ""
+
+#: ../admin.php:339 ../admin.php:445
+msgid "Delete"
+msgstr ""
+
+#: ../admin.php:385
+msgid "Add"
+msgstr ""
+
+#: ../admin.php:389
+msgid "This album has not been added to db yet."
+msgstr ""
+
+#: ../admin.php:405
 msgid "Update"
 msgstr ""
 
-#: ../admin.php:273
+#: ../admin.php:406
 msgid "Edit"
 msgstr ""
 
-#: ../admin.php:274
+#: ../admin.php:407
 msgid "Reinitialize votes"
 msgstr ""
 
-#: ../admin.php:275
+#: ../admin.php:408
 msgid "Delete contest"
 msgstr ""
 
-#: ../admin.php:280
+#: ../admin.php:413
 #, php-format
 msgid "Contest open to votes between %s and %s"
 msgstr ""
 
-#: ../admin.php:292
+#: ../admin.php:425
 #, php-format
 msgid "%s contest"
 msgstr ""
 
-#: ../admin.php:295
+#: ../admin.php:428
 msgid "Name"
 msgstr ""
 
-#: ../admin.php:299
+#: ../admin.php:432
 msgid "Description"
 msgstr ""
 
-#: ../admin.php:302
+#: ../admin.php:435
 msgid "Contest opening"
 msgstr ""
 
-#: ../admin.php:304
+#: ../admin.php:437
 msgid "From"
 msgstr ""
 
-#: ../admin.php:307
+#: ../admin.php:440
 msgid "To"
 msgstr ""
 
-#: ../admin.php:311
-msgid "Save"
+#: ../admin.php:458 ../admin.php:467
+msgid "Admin panel"
 msgstr ""
 
-#: ../admin.php:312
-msgid "Delete"
+#: ../admin.php:466
+msgid "Back"
+msgstr ""
+
+#: ../admin.php:477
+msgid "Contests"
+msgstr ""
+
+#: ../admin.php:478
+msgid "Settings"
+msgstr ""
+
+#: ../index.php:35 ../index.php:39
+msgid "settings"
+msgstr ""
+
+#: ../index.php:43
+msgid "Password"
+msgstr ""
+
+#: ../index.php:44
+msgid "Login"
+msgstr ""
+
+#: ../index.php:55
+msgid ""
+"It seems that you just installed Simple Photos Contest. Please click on the "
+"settings button and log in to configure this site."
+msgstr ""
+
+#: ../index.php:58
+msgid ""
+"There is no default contest defined. Please click on the settings button and "
+"log in to set one."
+msgstr ""
+
+#: ../index.php:67
+msgid "Other contests"
+msgstr ""
+
+#: ../index.php:108
+msgid "I'm in love !"
 msgstr ""

@@ -9,7 +9,12 @@ if (!$admin_logged){
 $contests = array();
 /** Notification message. */
 $message = new stdClass;
-if (isset($_GET['contest']) and !empty($_GET['contest'])){
+if (isset($_GET['tab']) and !empty($_GET['tab'])){
+	$tab = htmlspecialchars($_GET['tab']); 
+}else{
+	$tab = 'contests';
+}
+if (isset($_GET['contest']) and !empty($_GET['contest']) and $tab == 'contests'){
 	$contest = htmlspecialchars($_GET['contest']);
 	if (isset($_GET['action'])){
 		$action = htmlspecialchars($_GET['action']);
@@ -186,23 +191,267 @@ if (isset($_GET['contest']) and !empty($_GET['contest'])){
 			}
 			break;
 	}
-}else{
+}elseif ($tab == 'contests'){
 	$contest = null;
+}elseif ($tab == 'settings' and isset($_POST['save'])){
+	if (!empty($settings)){
+		$sql = 'UPDATE settings SET contests_name="'.htmlspecialchars($_POST['contests_name']).'", gallery_only = '.intval((isset($_POST['gallery_only']))?1:0).', contest_disp_title="'.htmlspecialchars($_POST['contest_disp_title']).'", display_other_contests='.intval((isset($_POST['display_other_contests']))?1:0).', max_length='.intval($_POST['max_length']).', language="'.htmlspecialchars($_POST['language']).'", date_format="'.htmlspecialchars($_POST['date_format']).'", default_contest="'.htmlspecialchars($_POST['default_contest']).'"';
+	}else{
+		$sql = 'INSERT INTO settings values ("'.htmlspecialchars($_POST['contests_name']).'", '.intval((isset($_POST['gallery_only']))?1:0).', "'.htmlspecialchars($_POST['contest_disp_title']).'", '.intval((isset($_POST['display_other_contests']))?1:0).', '.intval($_POST['max_length']).', "'.htmlspecialchars($_POST['language']).'", "'.htmlspecialchars($_POST['date_format']).'", "'.htmlspecialchars($_POST['default_contest']).'")';
+	}
+	$res = mysql_query($sql);
+	$nb = mysql_affected_rows();
+	if ($nb > 0){
+		$message->text = _('Settings updated !');
+		$message->type = 'success';
+	}else{
+		$message->text = _('Error : I was unable to update settings !');
+		$message->type = 'error';
+	}
+	$sql=mysql_query("SELECT * FROM settings");
+	$settings = mysql_fetch_object($sql);
 }
-/** Let's populate $contests array. */
-$sql=mysql_query("SELECT * FROM contests");
-while($row=mysql_fetch_array($sql)){
-	$contests[$row['contest']] = (object)array(	'contest_name'=> $row['contest_name'],
-																							'description' => $row['description'],
-																							'date_begin'	=> $row['date_begin'],
-																							'date_end'		=> $row['date_end']
-																						);
+
+switch ($tab){
+	case 'contests':
+		contest_tab($c_path, $contest, $message);
+		break;
+	case 'settings':
+		settings_tab($message);
+		break;
 }
-/** Prevent trying to display settings of deleted or non-existant contests. */
-if (!empty($contest) and !isset($contests[$contest])){
-	$contest = null;
+
+function settings_tab($message = null){
+	global $settings, $c_path;
+	admin_header('Settings', null, $message);
+	?>
+	<form action="?tab=settings" method="post">
+		<div class="input_group">
+			<label><?php echo _('Contests Name'); ?> : </label>
+			<input type="text" name="contests_name" id="contests_name" value="<?php echo (isset($settings->contests_name)) ? $settings->contests_name : _('Contest'); ?>" /> <?php echo info_disp(_('Contests name examples : \'Calendar\', \'Country\', \'Category\'. Defaut value : \'Contest\'')); ?>
+		</div>
+		<div class="input_group">
+			<label><?php echo _('Gallery only'); ?> : </label>
+			<?php
+			if(isset($settings->gallery_only)){
+				if ($settings->gallery_only){
+					$checked = 'checked';
+				}else{
+					$checked = '';
+				}
+			}else{
+				$checked = '';
+			}
+			?>
+			<input type="checkbox" name="gallery_only" id="gallery_only" <?php echo $checked; ?> /> <?php echo info_disp(_('Disable voting system. This will transform Simple Photos Contest in a photos gallery.')); ?>
+		</div>
+		<div class="input_group">
+			<label><?php echo _('Contest display title'); ?> </label>
+			<input type="text" name="contest_disp_title" id="contest_disp_title" value="<?php echo (isset($settings->contest_disp_title)) ? $settings->contest_disp_title : _('Select your favorites photos for %s contest'); ?>" /> <?php echo info_disp(_('This is the short text displayed in header of a contest page. The %s variable is replaced by the contest name and must be present.')); ?>
+		</div>
+		<div class="input_group">
+			<label><?php echo _('Display other contests'); ?> </label>
+			<?php
+			if(isset($settings->display_other_contests)){
+				if ($settings->display_other_contests){
+					$checked = 'checked';
+				}else{
+					$checked = '';
+				}
+			}else{
+				$checked = '';
+			}
+			?>
+			<input type="checkbox" name="display_other_contests" id="display_other_contests" <?php echo $checked; ?> /> <?php echo info_disp(_('Display a link to the other contests (if present).')); ?>
+		</div>
+		<div class="input_group">
+			<label><?php echo _('Max thumbnail length'); ?> </label>
+			<input type="text" name="max_length" id="max_length" value="<?php echo (isset($settings->max_length)) ? $settings->max_length : '250'; ?>" />px <?php echo info_disp(_('This value is the max width or height of thumbnails, depending of the biggest side of the photo.')); ?>
+		</div>
+		<div class="input_group">
+			<label><?php echo _('Language'); ?> </label>
+			<select name="language" id="language"> 
+			<?php
+			$languages = array();
+			$languages[] = 'en_US.utf8';
+			if ($handle = opendir('lang')) {
+		    while (false !== ($entry = readdir($handle))) {
+		      if ($entry != "." && $entry != "..") {
+		        if (is_dir('lang/'.$entry)){
+							$languages[] = $entry;
+		        }
+		      }
+		    }
+		    closedir($handle);
+		  }
+			sort($languages);
+			foreach($languages as $language){
+				?> <option <?php
+				if ((isset($settings->language) and $language == $settings->language) or (!isset($settings->language) and $language == 'en_US.utf8')){
+					?>selected<?php
+				}
+				?>><?php echo $language; ?></option><?php
+			}
+			?>
+			</select> <?php echo info_disp(_('Select one of the available languages (based on languages files present in \'lang\' dir.')); ?>
+		</div>
+		<div class="input_group">
+			<label><?php echo _('Date format'); ?> </label>
+			<select name="date_format" id="date_format"> 
+			<?php
+			$formats = array('d/m/Y', 'm/d/Y', 'Y/m/d');
+
+			foreach($formats as $format){
+				?> <option <?php
+				if ((isset($settings->date_format) and $format == $settings->date_format) or (!isset($settings->date_format) and $format == 'Y/m/d')){
+					?>selected<?php
+				}
+				?>><?php echo $format; ?></option><?php
+			}
+			?>
+			</select> <?php echo info_disp(_('The date format is the same as php date format. d = days, m = months, Y = year (4 digits).')); ?>
+		</div>
+		<div class="input_group">
+			<label><?php echo _('Default contest'); ?> </label>
+			<select name="default_contest" id="default_contest"> 
+			<?php
+			$contests = array();
+			$sql=mysql_query("SELECT contest FROM contests");
+			while($row=mysql_fetch_array($sql)){
+				$contests[] = $row['contest'];
+			}
+			if (empty($contests)){
+				?><option><em><?php echo _('No contests registered in db !'); ?></em></option><?php
+			}else{
+				foreach($contests as $contest){
+					?> <option <?php
+					if (isset($settings->default_contest) and $contest == $settings->default_contest){
+						?>selected<?php
+					}
+					?>><?php echo $contest; ?></option><?php
+				}
+			}
+			?>
+			</select> <?php echo info_disp(_('Select one the registered contests in db to be the default contest displayed in frontend.')); ?>
+		</div>
+		<div class="form_buttons">
+			<input type="submit" class="btn_primary" value="<?php echo _('Save'); ?>" id="save" name="save" /> 
+			<input type="submit" value="<?php echo _('Delete'); ?>" id="del" name="del" />
+		</div>
+	</form>
+	<?php
+	admin_footer();
 }
-?>
+
+function contest_tab($c_path, $contest = null, $message = null){
+	/** Let's populate $contests array. */
+	$sql=mysql_query("SELECT * FROM contests");
+	while($row=mysql_fetch_array($sql)){
+		$contests[$row['contest']] = (object)array(	'contest_name'=> $row['contest_name'],
+																								'description' => $row['description'],
+																								'date_begin'	=> $row['date_begin'],
+																								'date_end'		=> $row['date_end']
+																							);
+	}
+	/** Prevent trying to display settings of deleted or non-existant contests. */
+	if (!empty($contest) and !isset($contests[$contest])){
+		$contest = null;
+	}
+	/** Display contests added in filesystem but not in db. */ 
+	if (empty($contest)){
+	  if ($handle = opendir($c_path)) {
+	    while (false !== ($entry = readdir($handle))) {
+	      if ($entry != "." && $entry != "..") {
+	        if (is_dir($c_path.$entry)){
+						if (!isset($contests[$entry])){
+							$contests[$entry] = (object)array('not_added' => true);
+						}
+	        }
+	      }
+	    }
+	    closedir($handle);
+	  } 
+	}
+	admin_header('Contests', $contest, $message);
+	if (empty($contest)){
+		?>
+		<div id="contest_table" class="table">
+		<?php
+		foreach ($contests as $cont_id => $cont){
+			if (isset($cont->not_added)){
+				/** contests who are not in db yet. */
+				?>
+				<ul class="item_wrap">
+					<li class="item_actions"><a href="?tab=contests&contest=<?php echo $cont_id; ?>&action=add" title="<?php echo _('Add'); ?>"><img src="img/add.png" alt="<?php echo _('Add'); ?>"/></a></li>
+					<li class="item_title not_added"><?php echo $cont_id; ?></li>
+					<li class="item_desc"></li>
+					<li class="item_id">Id : <?php echo $cont_id; ?></li>
+					<li class="item_dates"><?php echo _('This album has not been added to db yet.'); ?></li>
+				</ul>
+				<?php
+			}else{
+				/** Contests registered in db. */
+				/** Is the contest closed ? */
+				list($byear, $bmonth, $bday) = explode('-', $cont->date_begin);
+				list($eyear, $emonth, $eday) = explode('-', $cont->date_end);
+				if (time() >= mktime(0,0,0,$bmonth,$bday,$byear) and time() <= mktime(0,0,0,$emonth,$eday,$eyear)){
+					$class = 'active';
+				}else{
+					$class = '';
+				}
+				?>
+				<ul class="item_wrap <?php echo $class; ?>">
+					<li class="item_actions">
+						<a href="?tab=contests&contest=<?php echo $cont_id; ?>&action=update" title="<?php echo _('Update'); ?>"><img src="img/refresh.png" alt="<?php echo _('Update'); ?>"/></a>&nbsp;
+						<a href="?tab=contests&contest=<?php echo $cont_id; ?>" title="<?php echo _('Edit'); ?>"><img src="img/edit.png" alt="<?php echo _('Edit'); ?>"/></a>
+						<a href="?tab=contests&contest=<?php echo $cont_id; ?>&action=reset" title="<?php echo _('Reinitialize votes'); ?>"><img src="img/reset.png" alt="<?php echo _('Reinitialize votes'); ?>"/></a>&nbsp;
+						<a href="?tab=contests&contest=<?php echo $cont_id; ?>&action=del" title="<?php echo _('Delete contest'); ?>"><img src="img/del.png" alt="<?php echo _('Delete contest'); ?>"/></a>&nbsp;
+					</li>
+					<li class="item_title"><?php echo $cont->contest_name; ?></li>
+					<li class="item_desc"><?php echo $cont->description; ?></li>
+					<li class="item_id">Id : <?php echo $cont_id; ?></li>
+					<li class="item_dates"><?php echo sprintf(_('Contest open to votes between %s and %s'), '<span class="date_begin">'.date_formatting($cont->date_begin).'</span>', '<span class="date_end">'.date_formatting($cont->date_end).'</span>'); ?></li>
+				</ul>
+				<?php
+			}
+		}
+		?>
+	</div>
+	<?php 
+	} else {
+		/** Contest settings. */ 
+		$cont = $contests[$contest];
+	?>
+		<h2><?php echo sprintf(_('%s contest'), $cont->contest_name); ?> : </h2>
+		<form action="?tab=contests&contest=<?php echo $contest; ?>" method="post">
+			<div class="input_group">
+				<label><?php echo _('Name'); ?> : </label>
+				<input type="text" name="contest_name" id="contest_name" value="<?php echo $cont->contest_name; ?>" />
+			</div>
+			<div class="input_group">
+				<label><?php echo _('Description'); ?> : </label>
+				<textarea name="description" id="description"><?php echo $cont->description; ?></textarea>
+			</div>
+			<label><?php echo _('Contest opening'); ?></label>
+			<div class="input_group">
+				<label for="date_begin"><?php echo _('From'); ?> </label>
+				<input type="text" name="date_begin" id="date_begin" value="<?php echo date_formatting($cont->date_begin); ?>" />
+				<br />
+				<label for="date_end"><?php echo _('To'); ?> </label>
+				<input type="text" name="date_end" id="date_end" value="<?php echo date_formatting($cont->date_end); ?>" />
+			</div>
+			<div class="form_buttons">
+				<input type="submit" class="btn_primary" value="<?php echo _('Save'); ?>" id="save" name="save" /> 
+				<input type="submit" value="<?php echo _('Delete'); ?>" id="del" name="del" />
+			</div>
+		</form>
+	<?php 
+	}
+	admin_footer();
+}
+
+function admin_header($tab, $sub = null, $message = null){
+	?>
 <!DOCTYPE html>
 <html lang="fr-FR">
   <head>
@@ -214,106 +463,26 @@ if (!empty($contest) and !isset($contests[$contest])){
 	</head>
 	<body>
 		<div id="header">
-			<a href="<?php if (!empty($contest)){ echo 'admin'; } else { echo 'love'; } ?>.php" title="<?php echo _('Back'); ?>"><img src="img/back.png" /></a> 
-			<?php echo _('Admin panel'); ?>
+			<a href="<?php if (!empty($sub)){ echo 'admin'; } else { echo 'index'; } ?>.php<?php if (!empty($sub)){ echo '?tab='.strtolower($tab);} ?>" title="<?php echo _('Back'); ?>"><img src="img/back.png" /></a> 
+			<?php echo _('Admin panel').' / '._($tab); ?>
 			<?php
-			if (!empty($contest)){
-				?> / <span id="contest_title"><?php echo $contests[$contest]->contest_name;
+			if (!empty($sub)){
+				?> / <span id="sub_title"><?php echo $sub;
 			}
 			?></span>
 		</div>
 		<?php echo disp_message($message); ?>
 			<div id="admin_wrap">
-				<?php
-				/** Display contests added in filesystem but not in db. */ 
-				if (empty($contest)){
-				  if ($handle = opendir($c_path)) {
-				    while (false !== ($entry = readdir($handle))) {
-				      if ($entry != "." && $entry != "..") {
-				        if (is_dir($c_path.$entry)){
-									if (!isset($contests[$entry])){
-										$contests[$entry] = (object)array('not_added' => true);
-									}
-				        }
-				      }
-				    }
-				    closedir($handle);
-				  } 
-				
-				?>
-				<h2><?php echo _('Contest'); ?> :</h2>
-				<div id="contest_table" class="table">
-				<?php
-					foreach ($contests as $cont_id => $cont){
-						if (isset($cont->not_added)){
-							/** contests who are not in db yet. */
-							?>
-							<ul class="item_wrap">
-								<li class="item_actions"><a href="?contest=<?php echo $cont_id; ?>&action=add" title="<?php echo _('Add'); ?>"><img src="img/add.png" alt="<?php echo _('Add'); ?>"/></a></li>
-								<li class="item_title not_added"><?php echo $cont_id; ?></li>
-								<li class="item_desc"></li>
-								<li class="item_id">Id : <?php echo $cont_id; ?></li>
-								<li class="item_dates"><?php echo _('This album has not been added to db yet.'); ?></li>
-							</ul>
-							<?php
-						}else{
-							/** Contests registered in db. */
-							/** Is the contest closed ? */
-							list($byear, $bmonth, $bday) = explode('-', $cont->date_begin);
-							list($eyear, $emonth, $eday) = explode('-', $cont->date_end);
-							if (time() >= mktime(0,0,0,$bmonth,$bday,$byear) and time() <= mktime(0,0,0,$emonth,$eday,$eyear)){
-								$class = 'active';
-							}else{
-								$class = '';
-							}
-							?>
-							<ul class="item_wrap <?php echo $class; ?>">
-								<li class="item_actions">
-									<a href="?contest=<?php echo $cont_id; ?>&action=update" title="<?php echo _('Update'); ?>"><img src="img/refresh.png" alt="<?php echo _('Update'); ?>"/></a>&nbsp;
-									<a href="?contest=<?php echo $cont_id; ?>" title="<?php echo _('Edit'); ?>"><img src="img/edit.png" alt="<?php echo _('Edit'); ?>"/></a>
-									<a href="?contest=<?php echo $cont_id; ?>&action=reset" title="<?php echo _('Reinitialize votes'); ?>"><img src="img/reset.png" alt="<?php echo _('Reinitialize votes'); ?>"/></a>&nbsp;
-									<a href="?contest=<?php echo $cont_id; ?>&action=del" title="<?php echo _('Delete contest'); ?>"><img src="img/del.png" alt="<?php echo _('Delete contest'); ?>"/></a>&nbsp;
-								</li>
-								<li class="item_title"><?php echo $cont->contest_name; ?></li>
-								<li class="item_desc"><?php echo $cont->description; ?></li>
-								<li class="item_id">Id : <?php echo $cont_id; ?></li>
-								<li class="item_dates"><?php echo sprintf(_('Contest open to votes between %s and %s'), '<span class="date_begin">'.date_formatting($cont->date_begin).'</span>', '<span class="date_end">'.date_formatting($cont->date_end).'</span>'); ?></li>
-							</ul>
-							<?php
-						}
-					}
-					?>
+				<ul id="tab_list">
+					<li><a href="?tab=contests"><?php echo _('Contests'); ?></a></li>
+					<li><a href="?tab=settings"><?php echo _('Settings'); ?></a></li>
+				</ul>
+	<?php
+}
+
+function admin_footer(){
+	?>
 				</div>
-				<?php 
-					} else {
-						/** Contest settings. */ 
-						$cont = $contests[$contest];
-				?>
-					<h2><?php echo sprintf(_('%s contest'), $cont->contest_name); ?> : </h2>
-					<form action="?contest=<?php echo $contest; ?>" method="post">
-						<div class="input_group">
-							<label><?php echo _('Name'); ?> : </label>
-							<input type="text" name="contest_name" id="contest_name" value="<?php echo $cont->contest_name; ?>" />
-						</div>
-						<div class="input_group">
-							<label><?php echo _('Description'); ?> : </label>
-							<textarea name="description" id="description"><?php echo $cont->description; ?></textarea>
-						</div>
-						<label><?php echo _('Contest opening'); ?></label>
-						<div class="input_group">
-							<label for="date_begin"><?php echo _('From'); ?> </label>
-							<input type="text" name="date_begin" id="date_begin" value="<?php echo date_formatting($cont->date_begin); ?>" />
-							<br />
-							<label for="date_end"><?php echo _('To'); ?> </label>
-							<input type="text" name="date_end" id="date_end" value="<?php echo date_formatting($cont->date_end); ?>" />
-						</div>
-						<div class="form_buttons">
-							<input type="submit" class="btn_primary" value="<?php echo _('Save'); ?>" id="save" name="save" /> 
-							<input type="submit" value="<?php echo _('Delete'); ?>" id="del" name="del" />
-						</div>
-					</form>
-				<?php } ?>
-			</div>
 			<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
 			<script type="text/javascript" src="js/slimbox2.js"></script>
 			<script type="text/javascript" src="js/zebra_datepicker.js"></script>
@@ -321,3 +490,5 @@ if (!empty($contest) and !isset($contests[$contest])){
 			<script type="text/javascript" src="js/admin.js"></script>
 	</body>
 </html>
+	<?php
+}
