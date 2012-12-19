@@ -1,4 +1,4 @@
-[Simple Photos Contest](https://github.com/Dric/contests-gallery)
+[Simple Photos Contest](https://github.com/Dric/simple-photos-contest)
 ==========
 
 A Simple photos contest gallery. Vote for your favorites photos.
@@ -11,7 +11,9 @@ Requirements
 + Gettext enabled (for translations)
 + GD Image Library
 
-There is nothing unusual, as GD and gettext are enabled on most of web hosting platforms. Simple Photos Contest could work with previous versions of PHP and MySQL, but it hasn't been tested.
+There is nothing unusual, as GD and gettext are enabled on most of web hosting platforms. Simple Photos Contest may work with previous versions of PHP and MySQL, but it hasn't been tested.
+
+Runs well on IE 8+, FF, Opera, Chrome (and probably Safari, but it hasn't been tested). Javascript is required.
 
 Installation
 ------------
@@ -37,29 +39,31 @@ FAQ
 	<dt>Where is the admin panel ?</dt>
 	<dd>There is small icon in upper right corner of the main page. Just click on it, enter password and you will get the admin panel.</dd>
 	<dt>How can I translate Simple Photos contest ?</dt>
-	<dd>There is a pot template file in lang dir. Edit it with a po editor (PoEdit in Windows - http://www.poedit.net), then mimic the french translation files tree.</dd>
+	<dd>There is a pot template file in lang dir. Edit it with a po editor like [PoEdit](http://www.poedit.net) in Windows, then mimic the french translation files tree.</dd>
 </dl>
 
 TO-DO
 -----
 
-+ Stats and contests results (this the main goal of a contest, but having stats without photos to display is a bit useless...)
++ Display stats in frontend (with setting to disable it)
 
 Components used
 ---------------
 
-+ TimThumb 2.8.11 - http://www.binarymoon.co.uk/projects/timthumb/
-+ jQuery 1.8.2 - http://jquery.com
-+ Freetile (customized jQuery plugin) - https://github.com/yconst/Freetile
-+ SlimBox 2.04 (customized jQuery plugin) - http://www.digitalia.be/software/slimbox2
-+ Zebra DatePicker 1.6.2 (jQuery Plugin) - http://stefangabos.ro/jquery/zebra-datepicker/
++ [TimThumb](http://www.binarymoon.co.uk/projects/timthumb/) 2.8.11
++ [jQuery](http://jquery.com) 1.8.2
++ [Freetile](https://github.com/yconst/Freetile) (customized)
++ [SlimBox 2.04](http://www.digitalia.be/software/slimbox2) (customized)
++ [Zebra DatePicker](http://stefangabos.ro/jquery/zebra-datepicker/) 1.6.2
++ [jqBarGraph](http://workshop.rs/jqbargraph/) 1.1
++ [Tiny Scrollbar](http://baijs.nl/tinyscrollbar/) 1.81
 
 Bug tracker
 -----------
 
 Have a bug? Being shocked by a poor translation (I'm french) ? Please create an issue here on GitHub !
 
-https://github.com/Dric/contests-gallery/issues
+<https://github.com/Dric/contests-gallery/issues>
 
 
 Author
@@ -67,9 +71,9 @@ Author
 
 **Dric**
 
-+ http://www.driczone.net
-+ http://twitter.com/Dric
-+ http://github.com/Dric
++ Blog : <http://www.driczone.net>
++ Twitter : <http://twitter.com/Dric>
++ Github : <http://github.com/Dric>
 
 
 Copyright and license

@@ -24,9 +24,11 @@ CREATE TABLE `image_IP` (
   `ip_id` int(11) NOT NULL AUTO_INCREMENT,
   `img_id_fk` int(11) DEFAULT NULL,
   `ip_add` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
+  `contest` varchar(200) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`ip_id`),
-  KEY `img_id_fk` (`img_id_fk`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+  KEY `img_id_fk` (`img_id_fk`),
+  KEY `contest` (`contest`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 CREATE TABLE `settings` (
   `contests_name` varchar(200) NOT NULL,

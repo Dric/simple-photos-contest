@@ -23,5 +23,5 @@ $allowed_ext = array('jpg', 'png', 'gif');
 /** Authentification constants ! */
 define('COOKIE_NAME', 'gallery-contest');
 define('PASSWD', 'admin');
-define('HASH', 'DFKJJLkllù*!kdfjgsdDg45+654eytsdfg5d4h@');
+define('HASH', 'DFKJJLkllù*!kdfjgJHhvkjJK5263/$ytsdfg5d4h@');
 ?>

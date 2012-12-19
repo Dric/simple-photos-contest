@@ -14,7 +14,6 @@ if(isset($_POST['id']) and !empty($_POST['id'])){
 		mysql_query( $sql);
 		$sql_in = "insert into image_IP (ip_add,img_id_fk,contest) values ('$ip',$id,'$contest')";
 		mysql_query( $sql_in);
-		
 		$result=mysql_query("select love from images where img_id=$id");
 		//var_dump($result);
 		$row=mysql_fetch_array($result);

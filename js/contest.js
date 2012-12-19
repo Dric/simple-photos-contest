@@ -13,6 +13,21 @@ $(document).ready(function(){
   });
 });
 $(function() {
+	if ($(".graph").length > 0){
+  	// We have a graph to display !
+		$(".graph").each(function(){
+			var contest = $(this).data('contest');
+			$('#contest_graph_'+contest).jqBarGraph({
+				data: arrayOfData[contest],
+				title: $(this).data('title'),
+				//barSpace: 20,
+				color: '#ff0056',
+				width: '90%' 
+			});
+		});
+		jQuery(".lightbox").slimbox();
+	}
+
 	$(document).on('click', '.close', function(){
 		$(this).parent().remove();
 		tooltip.hide();
@@ -41,7 +56,16 @@ $(function() {
 	$('#log_button').click(function(){
 		$('#login').toggle('slow');
 	});
+	$(document).keypress(function(e) {
+    if(e.which == 13 && $('#login_auth').val().length > 0) {
+			login_ajax();
+    }
+	});
 	$('#log_send').click(function(){
+		login_ajax();
+	});
+	
+	function login_ajax(){
 		var dataString = 'action=login&pwd=' + $('#login_auth').val() ;
 		$.ajax({
 			type: "POST",
@@ -57,8 +81,9 @@ $(function() {
 			} 
 		});
 		return false;
-	});
+	}
 });
+
 // Coded by Travis Beckham
 // Heavily modified by Craig Erskine
 // extended to TagName img by reddog (and little personal tip)

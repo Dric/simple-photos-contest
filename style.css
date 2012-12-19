@@ -1,11 +1,17 @@
-h1, h2{
-	font-weight: 300;
+* {
+	margin: 0;
 }
-body{
+html, body {
+	height: 100%;
 	font-family:"Segoe UI","Helvetica","Verdana","Arial",sans-serif;
 	font-size:14px;
 	color:#666;
 	background-color: #000;
+	margin: 0;
+	padding: 0;
+}
+h1, h2{
+	font-weight: 300;
 }
 img{
 	border: none;
@@ -30,12 +36,32 @@ a:hover{
   cursor:pointer;
   width:60px;
 }
+#content{
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	padding: 0;
+	margin: 0 auto -38px; /* the bottom margin is the negative value of the footer's height */
+}
 #wrap {
 	width: 95%;
 	margin: auto;
 }
 #admin_wrap{
 	margin-left: 60px;
+	margin-top: 40px;
+}
+#footer, .push{
+	height: 26px;
+	padding: 5px;
+	padding-right: 70px;
+	text-align: right;
+}
+#footer a{
+	color: #999;
+}
+.colored{
+	color: #ff0056;
 }
 .box{
 	background-color:#303030; padding:6px;
@@ -56,6 +82,14 @@ a:hover{
 .pull-right{
 	float: right;
 }
+.stats_data{
+	margin: 5px;
+	padding: 8px;
+}
+.stats_numbers{
+	color: #ff0056;
+	font-size: 1.3em;
+}
 .img-container{
 	margin:25px 10px;
 	/*background-color: #303030;*/
@@ -74,7 +108,8 @@ a:hover{
 	font-weight: 300;
 	font-size: 3em;
 	margin-left: 50px;
-	margin-top: 20px;
+	padding-top: 20px;
+
 }
 #header img{
 	vertical-align: top;
@@ -121,6 +156,8 @@ a:hover{
 	border: 1px solid #303030;
 	padding: 5px;
 	margin: 5px;
+	z-index: 100;
+	background-color: #000;
 }
 #log_send{
 	vertical-align:bottom;
@@ -247,13 +284,17 @@ input, select, textarea{
 	font-family:"Segoe UI","Helvetica","Verdana","Arial",sans-serif;
 	width: 80%;
 }
-input:hover, textarea:hover, input:focus, textarea:focus{
+#settings_wrap input, #settings_wrap select, #settings_wrap textarea{
+	background-color: #000;
+}
+input:hover, textarea:hover, select:hover, input:focus, textarea:focus, select:focus{
 	border: 1px solid #ff0056; 
 	color: #ccc;
 }
 textarea{
 	height: 100px;
 }
+
 label:after{
 	content: '\A';
 	white-space:pre;
@@ -283,7 +324,34 @@ label:after{
 	border: 1px solid #fff;
 }
 
+/* settings bar */
 
+#settings_disp{
+	float: left;
+	margin-left: 6px;
+	margin-top: 6px;
+}
+#settings_bar{
+	background-color: #303030;
+	right: 0px;
+	top: 0px;
+	width: 60px;
+	line-height: normal;
+	margin:0;
+	padding:0;
+	position:absolute;
+	overflow: hidden;
+	height:100%;
+	z-index:1000;
+}
+#settings_wrap{
+	width: 330px;
+	margin-left: 60px;
+	margin-right: 20px;
+	margin-top: 10px;
+	height: 100%;
+
+}
 
 /* SLIMBOX */
 /* Modifie par Charly Le Prof (30/05/2012) */
@@ -442,3 +510,14 @@ button.Zebra_DatePicker_Icon_Inside         { margin: 0 8px 0 0 }
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     button.Zebra_DatePicker_Icon_Inside     { margin: 0 5px 0 0 }
 }
+
+/* Tiny Scrollbar */
+
+#settings_wrap .viewport { height: 90%; overflow: hidden; position: relative;}
+#settings_wrap .overview { list-style: none; position: absolute; left: 0; top: 0; padding: 0; margin: 0; }
+#settings_wrap .scrollbar{ background-color: #000;position: relative; background-position: 0 0; float: right; width: 5px; }
+#settings_wrap .track { height: 100%; width:13px; position: relative; padding: 0 1px; }
+#settings_wrap .thumb { background-color: #ff0056; backheight: 20px; width: 5px; cursor: pointer; overflow: hidden; position: absolute; top: 0; left: 0px; }
+#settings_wrap .thumb .end { overflow: hidden; height: 5px; width: 25px; }
+#settings_wrap .disable { display: none; }
+.noSelect { user-select: none; -o-user-select: none; -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; }

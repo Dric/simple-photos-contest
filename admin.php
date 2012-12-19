@@ -2,18 +2,23 @@
 include('config.php');
 include('functions.php');
 
+/** Prevent unauthorized access to admin panel. */
 if (!$admin_logged){
 	die('Nice tried, but your are not logged in.');
 }
+
 /** List of db recorded contests. */
 $contests = array();
-/** Notification message. */
+/** Notification message init. */
 $message = new stdClass;
-if (isset($_GET['tab']) and !empty($_GET['tab'])){
+
+
+if (isset($_GET['tab']) and !empty($_GET['tab']) and $_GET['tab'] != 'stats'){
 	$tab = htmlspecialchars($_GET['tab']); 
 }else{
 	$tab = 'contests';
 }
+
 if (isset($_GET['contest']) and !empty($_GET['contest']) and $tab == 'contests'){
 	$contest = htmlspecialchars($_GET['contest']);
 	if (isset($_GET['action'])){
@@ -193,39 +198,54 @@ if (isset($_GET['contest']) and !empty($_GET['contest']) and $tab == 'contests')
 	}
 }elseif ($tab == 'contests'){
 	$contest = null;
-}elseif ($tab == 'settings' and isset($_POST['save'])){
+}
+
+if (isset($_POST['action']) and $_POST['action'] == 'settings_save'){
+	
+	/** Let's deal with settings saving ! */
+	/** Settings are on one row. If this row is present, then we update it. If not, we create it. */
 	if (!empty($settings)){
 		$sql = 'UPDATE settings SET contests_name="'.htmlspecialchars($_POST['contests_name']).'", gallery_only = '.intval((isset($_POST['gallery_only']))?1:0).', contest_disp_title="'.htmlspecialchars($_POST['contest_disp_title']).'", display_other_contests='.intval((isset($_POST['display_other_contests']))?1:0).', max_length='.intval($_POST['max_length']).', language="'.htmlspecialchars($_POST['language']).'", date_format="'.htmlspecialchars($_POST['date_format']).'", default_contest="'.htmlspecialchars($_POST['default_contest']).'"';
 	}else{
 		$sql = 'INSERT INTO settings values ("'.htmlspecialchars($_POST['contests_name']).'", '.intval((isset($_POST['gallery_only']))?1:0).', "'.htmlspecialchars($_POST['contest_disp_title']).'", '.intval((isset($_POST['display_other_contests']))?1:0).', '.intval($_POST['max_length']).', "'.htmlspecialchars($_POST['language']).'", "'.htmlspecialchars($_POST['date_format']).'", "'.htmlspecialchars($_POST['default_contest']).'")';
 	}
 	$res = mysql_query($sql);
+	$error = mysql_error();
+	/** Get number of rows affected. If equal to 0, it means that the settings has not been saved. */
 	$nb = mysql_affected_rows();
+	
+	/** reloading settings now. */
+	$sql=mysql_query("SELECT * FROM settings");
+	$settings = mysql_fetch_object($sql);
+	
+	/** Language could have changed, let's reset it. */
+	putenv("LC_ALL=".$settings->language);
+	setlocale(LC_ALL, $settings->language);
+	bindtextdomain("messages", "lang");
+	bind_textdomain_codeset('messages', 'UTF-8');
+	textdomain("messages");
+	
+	/** Notification message, processed after language reset. */
 	if ($nb > 0){
 		$message->text = _('Settings updated !');
 		$message->type = 'success';
 	}else{
-		$message->text = _('Error : I was unable to update settings !');
+		$message->text = _('Error : I was unable to update settings !').'<br />'.$error;
 		$message->type = 'error';
 	}
-	$sql=mysql_query("SELECT * FROM settings");
-	$settings = mysql_fetch_object($sql);
 }
 
 switch ($tab){
 	case 'contests':
 		contest_tab($c_path, $contest, $message);
 		break;
-	case 'settings':
-		settings_tab($message);
-		break;
+
 }
 
 function settings_tab($message = null){
 	global $settings, $c_path;
-	admin_header('Settings', null, $message);
 	?>
-	<form action="?tab=settings" method="post">
+	<form action="" class="small" method="post">
 		<div class="input_group">
 			<label><?php echo _('Contests Name'); ?> : </label>
 			<input type="text" name="contests_name" id="contests_name" value="<?php echo (isset($settings->contests_name)) ? $settings->contests_name : _('Contest'); ?>" /> <?php echo info_disp(_('Contests name examples : \'Calendar\', \'Country\', \'Category\'. Defaut value : \'Contest\'')); ?>
@@ -336,11 +356,10 @@ function settings_tab($message = null){
 		</div>
 		<div class="form_buttons">
 			<input type="submit" class="btn_primary" value="<?php echo _('Save'); ?>" id="save" name="save" /> 
-			<input type="submit" value="<?php echo _('Delete'); ?>" id="del" name="del" />
+			<input type="hidden" name="action" value="settings_save"/>
 		</div>
 	</form>
 	<?php
-	admin_footer();
 }
 
 function contest_tab($c_path, $contest = null, $message = null){
@@ -372,8 +391,8 @@ function contest_tab($c_path, $contest = null, $message = null){
 	    closedir($handle);
 	  } 
 	}
-	admin_header('Contests', $contest, $message);
 	if (empty($contest)){
+		admin_header('Contests', $contest, $message);
 		?>
 		<div id="contest_table" class="table">
 		<?php
@@ -402,6 +421,7 @@ function contest_tab($c_path, $contest = null, $message = null){
 				?>
 				<ul class="item_wrap <?php echo $class; ?>">
 					<li class="item_actions">
+						<a href="?tab=contests&contest=<?php echo $cont_id; ?>&action=stats" title="<?php echo _('Stats'); ?>"><img src="img/stats.png" alt="<?php echo _('Stats'); ?>"/></a>&nbsp;
 						<a href="?tab=contests&contest=<?php echo $cont_id; ?>&action=update" title="<?php echo _('Update'); ?>"><img src="img/refresh.png" alt="<?php echo _('Update'); ?>"/></a>&nbsp;
 						<a href="?tab=contests&contest=<?php echo $cont_id; ?>" title="<?php echo _('Edit'); ?>"><img src="img/edit.png" alt="<?php echo _('Edit'); ?>"/></a>
 						<a href="?tab=contests&contest=<?php echo $cont_id; ?>&action=reset" title="<?php echo _('Reinitialize votes'); ?>"><img src="img/reset.png" alt="<?php echo _('Reinitialize votes'); ?>"/></a>&nbsp;
@@ -418,11 +438,16 @@ function contest_tab($c_path, $contest = null, $message = null){
 		?>
 	</div>
 	<?php 
+	} elseif (isset($_GET['action']) and $_GET['action'] == 'stats'){
+		/** Contest stats. */ 
+		admin_header('Stats', $contest, $message);
+		contest_stats($contest);
 	} else {
 		/** Contest settings. */ 
 		$cont = $contests[$contest];
+		admin_header('Contests', $contest, $message);
 	?>
-		<h2><?php echo sprintf(_('%s contest'), $cont->contest_name); ?> : </h2>
+		<!--<h2><?php echo sprintf(_('%s contest'), $cont->contest_name); ?> : </h2>-->
 		<form action="?tab=contests&contest=<?php echo $contest; ?>" method="post">
 			<div class="input_group">
 				<label><?php echo _('Name'); ?> : </label>
@@ -462,6 +487,7 @@ function admin_header($tab, $sub = null, $message = null){
 		<link rel="icon" type="image/png" href="favicon.png" />
 	</head>
 	<body>
+		<div id="content">
 		<div id="header">
 			<a href="<?php if (!empty($sub)){ echo 'admin'; } else { echo 'index'; } ?>.php<?php if (!empty($sub)){ echo '?tab='.strtolower($tab);} ?>" title="<?php echo _('Back'); ?>"><img src="img/back.png" /></a> 
 			<?php echo _('Admin panel').' / '._($tab); ?>
@@ -473,19 +499,46 @@ function admin_header($tab, $sub = null, $message = null){
 		</div>
 		<?php echo disp_message($message); ?>
 			<div id="admin_wrap">
-				<ul id="tab_list">
+				<div id="settings_bar">
+					<a href="#" title="<?php echo _('General settings'); ?>" id="settings_disp"><img alt="<?php echo _('General settings'); ?>" src="img/settings2.png" /></a>
+					<div id="settings_wrap">
+						<h1><?php echo _('General settings'); ?></h1>
+						<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+						<div class="viewport">
+        			<div class="overview">
+								<?php settings_tab($message); ?>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--<ul id="tab_list">
 					<li><a href="?tab=contests"><?php echo _('Contests'); ?></a></li>
 					<li><a href="?tab=settings"><?php echo _('Settings'); ?></a></li>
-				</ul>
+				</ul>-->
 	<?php
 }
 
 function admin_footer(){
+	global $settings;
 	?>
 				</div>
+				<div class="push"></div>
+				</div>
+				<div id="footer">
+					<a href="https://github.com/Dric/simple-photos-contest"><img src="img/github.png" /></a> <a href="about.php" class="lightbox"><span class="colored">S</span>imple <span class="colored">P</span>hotos <span class="colored">C</span>ontest</a> <span class="colored"><?php echo SPC_VERSION; ?></span> by <a href="http://www.driczone.net"><span class="colored">Dric</span></a>.
+				</div>
+			<script>
+				/** Localization for datePicker. */
+				var monthNames = ["<?php echo _('January'); ?>", "<?php echo _('February'); ?>", "<?php echo _('March'); ?>", "<?php echo _('April'); ?>", "<?php echo _('May'); ?>", "<?php echo _('June'); ?>", "<?php echo _('July'); ?>", "<?php echo _('August'); ?>", "<?php echo _('September'); ?>", "<?php echo _('October'); ?>", "<?php echo _('November'); ?>", "<?php echo _('December'); ?>"];
+				var dayNames = ["<?php echo _('Sunday'); ?>", "<?php echo _('Monday'); ?>", "<?php echo _('Tuesday'); ?>", "<?php echo _('Wednesday'); ?>", "<?php echo _('Thursday'); ?>", "<?php echo _('Friday'); ?>", "<?php echo _('Saturday'); ?>"];
+				var dateFormat = "<?php echo $settings->date_format; ?>";
+				var resetLabel = "<?php echo _('Reset'); ?>";
+			</script>
 			<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
 			<script type="text/javascript" src="js/slimbox2.js"></script>
 			<script type="text/javascript" src="js/zebra_datepicker.js"></script>
+			<script type="text/javascript" src="js/jqBarGraph.1.1.min.js"></script>
+			<script type="text/javascript" src="js/jquery.tinyscrollbar.min.js"></script>
 			<script type="text/javascript" src="js/contest.js"></script>
 			<script type="text/javascript" src="js/admin.js"></script>
 	</body>

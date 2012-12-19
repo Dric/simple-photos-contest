@@ -1,5 +1,5 @@
 <?php 
-
+DEFINE('SPC_VERSION', '1.0');
 $sql=mysql_query("SELECT * FROM settings");
 $settings = mysql_fetch_object($sql);
 
@@ -10,11 +10,8 @@ if (!empty($settings)){
 	*
 	* To see the locales installed in your ubuntu server, type locale -a in shell.
 	*/
-	define('LANG',$settings->language);
-
-	/** Nothing to do below */
-	putenv("LC_ALL=".LANG);
-	setlocale(LC_ALL, LANG);
+	putenv("LC_ALL=".$settings->language);
+	setlocale(LC_ALL, $settings->language);
 	bindtextdomain("messages", "lang");
 	bind_textdomain_codeset('messages', 'UTF-8');
 	textdomain("messages");
@@ -58,32 +55,6 @@ function date_valid($date, $format = null) {
    }
  }
  
-/* function date_valid($date, $format = 'DD/MM/YYYY'){
-  if(strlen($date) >= 8 && strlen($date) <= 10){
-    $separator_only = str_replace(array('M','D','Y'),'', $format);
-    $separator = $separator_only[0];
-    if($separator){
-      $regexp = str_replace($separator, "\\" . $separator, $format);
-      $regexp = str_replace('MM', '(0[1-9]|1[0-2])', $regexp);
-      $regexp = str_replace('M', '(0?[1-9]|1[0-2])', $regexp);
-      $regexp = str_replace('DD', '(0[1-9]|[1-2][0-9]|3[0-1])', $regexp);
-      $regexp = str_replace('D', '(0?[1-9]|[1-2][0-9]|3[0-1])', $regexp);
-      $regexp = str_replace('YYYY', '\d{4}', $regexp);
-      $regexp = str_replace('YY', '\d{2}', $regexp);
-      if($regexp != $date && preg_match('/'.$regexp.'$/', $date)){
-        foreach (array_combine(explode($separator,$format), explode($separator,$date)) as $key=>$value) {
-          if ($key == 'YY') $year = '20'.$value;
-          if ($key == 'YYYY') $year = $value;
-          if ($key[0] == 'M') $month = $value;
-          if ($key[0] == 'D') $day = $value;
-        }
-        if (checkdate($month,$day,$year)) return true;
-      }
-    }
-  }
-  return false;
-} */
-
 /**
  * Permet de savoir si l'admin est connecté.
  *
@@ -111,5 +82,57 @@ function disp_message($message){
 
 function info_disp($message){
 	return '<img alt="'.$message.'" class="img_info" src="img/info.png" />';
+}
+
+/**
+* Display a vertical bar graph with contest votes.
+* @param string $contest Contest ID
+* 
+*/
+function contest_stats($contest){
+	global $settings, $c_path;
+	/** Get contest data. */
+	$sql=mysql_query('SELECT * FROM contests WHERE contest = "'.$contest.'"');
+	$cont = mysql_fetch_object($sql);
+	/** Get images and votes. */
+	$sql=mysql_query('SELECT *FROM images WHERE contest = "'.$contest.'" ORDER BY img_name');
+	$nbphotos = mysql_num_rows($sql);
+	/** Get number of voters (format : array with only first value populated) */
+	$nbvoters = mysql_fetch_row(mysql_query('SELECT COUNT(DISTINCT ip_add) FROM image_IP WHERE contest = "'.$contest.'"'));
+	$nbvoters = $nbvoters[0];
+	/** Let's build the graph source js array ! */
+	?>
+	<script>
+		if (typeof arrayOfData == "undefined") {
+			arrayOfData = new Array();
+		}
+		arrayOfData[<?php echo $contest; ?>] = new Array(
+	<?php
+	$disp = '';
+	$nbvotes = 0;
+	/** @param array Photo name as first value, img url as second and number of votes as third. */
+	$mostvoted = array(0,0,0);
+	while($row=mysql_fetch_array($sql)){
+		$disp .= '['.$row['love'].', "<a title=\"'.$row['img_name'].'\" href=\"'.$c_path.$contest.'/'.$row['img_url'].'\" class=\"lightbox\">'.$row['img_name'].'</a>"],';
+		$nbvotes += $row['love'];
+		if ($mostvoted[2] < $row['love']){
+			$mostvoted[0] = $row['img_name'];
+			$mostvoted[1] = $row['img_url'];
+			$mostvoted[2] = $row['love'];
+		}
+	}
+	$disp = trim($disp, ',');
+	echo $disp;
+	?>
+		);
+	</script>
+	<div class="graph" data-contest="<?php echo $contest; ?>" data-title="<h2><?php echo sprintf(_('%s contest'), $cont->contest_name); ?></h2>" id="contest_graph_<?php echo $contest; ?>"></div>
+	<ul class="stats_data">
+		<li><?php echo _('Number of votes'); ?> : <span class="stats_numbers"><?php echo $nbvotes; ?></span></li>
+		<li><?php echo _('Number of voters'); ?> : <span class="stats_numbers"><?php echo $nbvoters; ?></span></li>
+		<li><?php echo _('Number of photos'); ?> : <span class="stats_numbers"><?php echo $nbphotos; ?></span></li>
+		<li><?php echo _('Favorite'); ?> : <span class="stats_numbers"><a class="lightbox" href="<?php echo $c_path.$contest.'/'.$mostvoted[1]; ?>" title="<?php echo $mostvoted[0]; ?>"><?php echo $mostvoted[0]; ?></a></span> <?php echo _('with'); ?> <span class="stats_numbers"><?php echo $mostvoted[2]; ?></span> <?php echo ngettext('vote', 'votes', $mostvoted[2]); ?></li>
+	</ul>
+	<?php
 }
 ?>

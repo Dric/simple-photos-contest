@@ -19,7 +19,7 @@ if ($settings){
 }
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo LANG; ?>">
+<html lang="<?php echo $settings->language; ?>">
   <head>
     <title><?php echo sprintf($settings->contests_name, $contest); ?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -36,7 +36,7 @@ if ($settings){
 				<?php
 			}else{
 				?>
-			<a href="#" title="<?php echo _('settings'); ?>" id="log_button"><img alt="<?php echo _('settings'); ?>" src="img/settings.png" /></a>
+			<a href="#" title="<?php echo _('Settings'); ?>" id="log_button"><img alt="<?php echo _('Settings'); ?>" src="img/settings.png" /></a>
 			<div id="login">
 				<form class="small">
 					<div class="input_group">
@@ -50,19 +50,22 @@ if ($settings){
 			?>
 		</div>
 		<?php 
-		/** If $settings is false, then there is no settings. Let's display a message ! */
 		if (!$settings){
+			/** If $settings is false, then there is no settings. Let's display a message ! */
 			$message = (object)array('type' => 'error', 'text' => _('It seems that you just installed Simple Photos Contest. Please click on the settings button and log in to configure this site.'));
 			echo disp_message($message);
 		}elseif (empty($settings->default_contest)){
+			/** There are settings, but default contest is not defined. Let's display a message too ! */
 			$message = (object)array('type' => 'error', 'text' => _('There is no default contest defined. Please click on the settings button and log in to set one.'));
 			echo disp_message($message);
 		}else{
+			/** That's all good, let's display the page. */
 			$max_value = $settings->max_length;
 		?>
 		<div id="header"><?php echo sprintf($settings->contest_disp_title, '<span class="header-contest">'.$contest.'</span>'); ?></div>
 		<div id="contests_list">
 			<?php
+			/** If allowed and if other contests exist, display a link to them. */
 			if (count($contests) > 1 and $settings->display_other_contests){
 				echo _('Other contests').' : ';
 				foreach ($contests as $cont => $cont_item){
@@ -81,6 +84,10 @@ if ($settings){
 		<div align="center">
 			<div id="wrap">
 				<?php
+					/** Get dates variables. */
+					list($byear, $bmonth, $bday) = explode('-', $contests[$contest]->date_begin);
+					list($eyear, $emonth, $eday) = explode('-', $contests[$contest]->date_end);
+					/** Query images from db. */
 					$sql=mysql_query("SELECT * FROM images WHERE contest = ".$contest." ORDER BY img_name");
 					while($row=mysql_fetch_array($sql)){
 						$img_id=$row['img_id'];
@@ -103,7 +110,9 @@ if ($settings){
 				?>
 				<div class="img-container" <?php echo $attr; ?>>
 					<div class="box" align="left">
-						<?php if (!$settings->gallery_only){ ?>
+						<?php
+						/** If allowed and if present date is within the contest date range, display the vote icon. */
+						if (!$settings->gallery_only and (time() >= mktime(0,0,0,$bmonth,$bday,$byear) and time() <= mktime(0,0,0,$emonth,$eday,$eyear))){ ?>
 						<a href="#" class="love" id="<?php echo $img_id; ?>" data-contest="<?php echo $contest; ?>">
 							<span title="<?php echo _('I\'m in love !'); ?>" class="on_img" align="left"> <?php echo $love; ?> </span> 
 						</a>
@@ -112,7 +121,7 @@ if ($settings){
 						<?php } ?> 
 						<div class="pull-right"><?php echo $img_name; ?></div>
 					</div>
-					<a href="<?php echo $img_url; ?>" title="<?php echo $img_name; ?>" rel="lightbox"><img alt="<?php echo $img_name; ?>" class="img" src="timthumb.php?src=<?php echo $img_url.$param; //virer l'url calendrier ?>" /></a>
+					<a href="<?php echo $img_url; ?>" title="<?php echo $img_name; ?>" rel="lightbox"><img alt="<?php echo $img_name; ?>" class="img" src="timthumb.php?src=<?php echo $img_url.$param; ?>" /></a>
 				</div>
 				<?php
 					}
