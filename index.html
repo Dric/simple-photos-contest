@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Simple-photos-contest by Dric</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Simple-photos-contest</h1>
+        <p>A simple photo contest gallery written in PHP</p>
+
+        <p class="view"><a href="https://github.com/Dric/simple-photos-contest">View the Project on GitHub <small>Dric/simple-photos-contest</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/Dric/simple-photos-contest/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/Dric/simple-photos-contest/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/Dric/simple-photos-contest">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1><a href="https://github.com/Dric/simple-photos-contest">Simple Photos Contest</a></h1>
+
+<p>A Simple photos contest gallery. Vote for your favorites photos.</p>
+
+<h2>Requirements</h2>
+
+<ul>
+<li>PHP 5.3</li>
+<li>MySQL 5.5</li>
+<li>Gettext enabled (for translations)</li>
+<li>GD Image Library</li>
+</ul><p>There is nothing unusual, as GD and gettext are enabled on most of web hosting platforms. Simple Photos Contest may work with previous versions of PHP and MySQL, but it hasn't been tested.</p>
+
+<p>Runs well on IE 8+, FF, Opera, Chrome (and probably Safari, but it hasn't been tested). Javascript is required.</p>
+
+<h2>Installation</h2>
+
+<ul>
+<li>Make the cache dir writable (777).</li>
+<li>import install.sql in your mysql db.</li>
+<li>Rename config-sample.php into config.php.</li>
+<li>Edit config.php to change db connect values and admin password.</li>
+<li>Configure SPC in admin panel.</li>
+</ul><h2>Quick Start</h2>
+
+<ul>
+<li>Create directory in your photos dir.</li>
+<li>Put your photos into this dir.</li>
+<li>Activate it in admin panel.</li>
+<li>The first load of a contest page is slow. No panic, it's because TimThumb needs to create thumbnails of all the gallery photos. The next load will be a lot faster !</li>
+</ul><h2>FAQ</h2>
+
+<dl>
+<dt>Where is the admin panel ?</dt>
+    <dd>There is small icon in upper right corner of the main page. Just click on it, enter password and you will get the admin panel.</dd>
+    <dt>How can I translate Simple Photos contest ?</dt>
+    <dd>There is a pot template file in lang dir. Edit it with a po editor like [PoEdit](http://www.poedit.net) in Windows, then mimic the french translation files tree.</dd>
+</dl><h2>TO-DO</h2>
+
+<ul>
+<li>Display stats in frontend (with setting to disable it)</li>
+</ul><h2>Components used</h2>
+
+<ul>
+<li>
+<a href="http://www.binarymoon.co.uk/projects/timthumb/">TimThumb</a> 2.8.11</li>
+<li>
+<a href="http://jquery.com">jQuery</a> 1.8.2</li>
+<li>
+<a href="https://github.com/yconst/Freetile">Freetile</a> (customized)</li>
+<li>
+<a href="http://www.digitalia.be/software/slimbox2">SlimBox 2.04</a> (customized)</li>
+<li>
+<a href="http://stefangabos.ro/jquery/zebra-datepicker/">Zebra DatePicker</a> 1.6.2</li>
+<li>
+<a href="http://workshop.rs/jqbargraph/">jqBarGraph</a> 1.1</li>
+<li>
+<a href="http://baijs.nl/tinyscrollbar/">Tiny Scrollbar</a> 1.81</li>
+</ul><h2>Bug tracker</h2>
+
+<p>Have a bug? Being shocked by a poor translation (I'm french) ? Please create an issue here on GitHub !</p>
+
+<p><a href="https://github.com/Dric/simple-photos-contest/issues">https://github.com/Dric/simple-photos-contest/issues</a></p>
+
+<h2>Author</h2>
+
+<p><strong>Dric</strong></p>
+
+<ul>
+<li>Blog : <a href="http://www.driczone.net">http://www.driczone.net</a>
+</li>
+<li>Twitter : <a href="http://twitter.com/Dric">http://twitter.com/Dric</a>
+</li>
+<li>Github : <a href="http://github.com/Dric">http://github.com/Dric</a>
+</li>
+</ul><h2>Copyright and license</h2>
+
+<p>Simple Photos Contest is released under MIT licence.</p>
+
+<p>The MIT License (MIT)</p>
+
+<p>Copyright (c) 2012 Dric</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
+to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,
+and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/Dric">Dric</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
