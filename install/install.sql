@@ -38,7 +38,7 @@ CREATE TABLE `settings` (
   `max_length` int(11) NOT NULL DEFAULT '250',
   `language` varchar(15) NOT NULL,
   `date_format` varchar(10) NOT NULL,
-  `default_contest` varchar(200) NOT NULL
+  `default_contest` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

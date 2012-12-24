@@ -129,6 +129,9 @@ if ($settings){
 			</div>
 		</div>
 		<?php } ?>
+		<script>
+			var noFreetile = false;
+		</script>
 		<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
 		<script type="text/javascript" src="js/slimbox2.js"></script>
 		<script type="text/javascript" src="js/jquery.freetile.min.js"></script>

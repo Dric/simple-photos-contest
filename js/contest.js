@@ -32,7 +32,7 @@ $(function() {
 		$(this).parent().remove();
 		tooltip.hide();
 	});
-	if ($('#wrap').length){
+	if ($('#wrap').length && noFreetile == false){
 		$('#wrap').freetile();
 	}
 	$(".love").click(function(){

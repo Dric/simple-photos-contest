@@ -268,13 +268,16 @@ form{
 form.small{
 	width: 300px;
 }
+form.large{
+	width: 800px;
+}
 .small input{
 	width: 70%;
 }
 label{
 	font-size: 16px;
 }
-input, select, textarea{
+input, select, textarea, .button{
 	background-color: #303030;
 	padding: 6px;
 	border: 1px solid #303030;
@@ -287,7 +290,7 @@ input, select, textarea{
 #settings_wrap input, #settings_wrap select, #settings_wrap textarea{
 	background-color: #000;
 }
-input:hover, textarea:hover, select:hover, input:focus, textarea:focus, select:focus{
+input:hover, textarea:hover, select:hover, input:focus, textarea:focus, select:focus, .button:hover{
 	border: 1px solid #ff0056; 
 	color: #ccc;
 }

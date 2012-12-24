@@ -137,7 +137,8 @@ if (isset($_GET['contest']) and !empty($_GET['contest']) and $tab == 'contests')
 			$contest_name = $contest;
 			$begin = date('Y/m/d');
 			$end = date_create();
-			date_add($end, date_interval_create_from_date_string('1 month'));
+			//date_add($end, date_interval_create_from_date_string('1 month'));
+			date_modify($end, '+1 month');
 			$end = date_format($end, 'Y/m/d');
       $contest_dir = opendir($c_path.$contest);
       /*while (false !== ($sub_entry = readdir($contest_dir))) {
@@ -533,6 +534,7 @@ function admin_footer(){
 				var dayNames = ["<?php echo _('Sunday'); ?>", "<?php echo _('Monday'); ?>", "<?php echo _('Tuesday'); ?>", "<?php echo _('Wednesday'); ?>", "<?php echo _('Thursday'); ?>", "<?php echo _('Friday'); ?>", "<?php echo _('Saturday'); ?>"];
 				var dateFormat = "<?php echo $settings->date_format; ?>";
 				var resetLabel = "<?php echo _('Reset'); ?>";
+				var noFreetile = true;
 			</script>
 			<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
 			<script type="text/javascript" src="js/slimbox2.js"></script>

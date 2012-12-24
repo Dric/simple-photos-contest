@@ -22,7 +22,7 @@ if(isset($_POST['id']) and !empty($_POST['id'])){
 		<span class="on_img" align="left"><?php echo $love; ?></span>
 		<?php
 	}else{
-		echo 'Vous avez déjà voté !';
+		echo _('You have already voted !');
 	}
 }
 
@@ -30,10 +30,12 @@ if (isset($_POST['action'])){
 	if ($_POST['action'] == 'login'){
 		$pwd = $_POST['pwd'];
 		if ($pwd == PASSWD){
-			echo 'Success !';
-			setcookie(COOKIE_NAME, sha1(PASSWD.HASH), 0, '/', '', FALSE, TRUE);
+			$ok = setcookie(COOKIE_NAME, sha1(PASSWD.HASH), 0, '/', '', FALSE, TRUE);
+			if (!$ok){
+        echo '<div class="alert error">cookie failed !</div>';
+      }
 		}else{
-			echo '<div class="alert error"><a class="close" href="#" title="Fermer">×</a>Le mot de passe est incorrect ! </div>';
+			echo '<div class="alert error"><a class="close" href="#" title="'._('Close').'">×</a>'._('Wrong password !').'</div>';
 		}
 	}
 }

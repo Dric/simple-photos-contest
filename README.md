@@ -6,7 +6,7 @@ A Simple photos contest gallery. Vote for your favorites photos.
 Requirements
 ------------
 
-+ PHP 5.3
++ PHP 5.2
 + MySQL 5.5
 + Gettext enabled (for translations)
 + GD Image Library
@@ -17,12 +17,17 @@ Runs well on IE 8+, FF, Opera, Chrome (and probably Safari, but it hasn't been t
 
 Installation
 ------------
-
-+ Make the cache dir writable (777).
-+ import install.sql in your mysql db.
-+ Rename config-sample.php into config.php.
-+ Edit config.php to change db connect values and admin password.
-+ Configure SPC in admin panel.
+* Automatic install (recommended)
+	1. Make the cache dir writable (777).
+	2. Open the SPC url in your favorite browser.
+	3. You will be redirected to the SPC installer.
+	4. Follow the installer steps.
+* Manual install : 
+	1. Make the cache dir writable (777).
+	2. import install/install.sql in your mysql db.
+	3. Rename config-sample.php into config.php.
+	4. Edit config.php to change db connect values and admin password.
+	5. Configure SPC in admin panel.
 
 Quick Start
 -----------

@@ -31,11 +31,76 @@ $admin_logged = admin_logged();
 function date_formatting($mysql_date, $to_sql = false){
 	global $settings;
   if (!$to_sql){
-    return date_format(date_create($mysql_date), $settings->date_format);
+    //return date_format(date_create($mysql_date), $settings->date_format);
+		return changeDateFormat($mysql_date, 'Y-m-d', $settings->date_format);
   }else{
-    return date_format(date_create_from_format($settings->date_format, $mysql_date), 'Y-m-d');
+    //return date_format(date_create_from_format($settings->date_format, $mysql_date), 'Y-m-d');
+		return changeDateFormat($mysql_date, $settings->date_format, 'Y-m-d');
   }
 }
+/** For php version < 5.3 
+* http://php.net/manual/en/function.date.php#90423
+*/
+function dateParseFromFormat($stFormat, $stData)
+ {
+     $aDataRet = array('day'=>0, 'month'=>0, 'year'=>0, 'hour'=>0, 'minute'=>0, 'second'=>0);
+     $aPieces = split('[:/.\ \-]', $stFormat);
+     $aDatePart = split('[:/.\ \-]', $stData);
+     foreach($aPieces as $key=>$chPiece)    
+     {
+         switch ($chPiece)
+         {
+             case 'd':
+             case 'j':
+                 $aDataRet['day'] = $aDatePart[$key];
+                 break;
+                 
+             case 'F':
+             case 'M':
+             case 'm':
+             case 'n':
+                 $aDataRet['month'] = $aDatePart[$key];
+                 break;
+                 
+             case 'o':
+             case 'Y':
+             case 'y':
+                 $aDataRet['year'] = $aDatePart[$key];
+                 break;
+             
+             case 'g':
+             case 'G':
+             case 'h':
+             case 'H':
+                 $aDataRet['hour'] = $aDatePart[$key];
+                 break;    
+                 
+             case 'i':
+                 $aDataRet['minute'] = $aDatePart[$key];
+                 break;
+                 
+             case 's':
+                 $aDataRet['second'] = $aDatePart[$key];
+                 break;            
+         }
+         
+     }
+     return $aDataRet;
+ }
+ 
+ function changeDateFormat($stDate,$stFormatFrom,$stFormatTo)
+ {
+   // When PHP 5.3.0 becomes available to me
+   //$date = date_parse_from_format($stFormatFrom,$stDate);
+   //For now I use the function above
+   $date = dateParseFromFormat($stFormatFrom,$stDate);
+   return date($stFormatTo,mktime($date['hour'],
+                                     $date['minute'],
+                                     $date['second'],
+                                     $date['month'],
+                                     $date['day'],
+                                     $date['year']));
+ }
 
 /**
 * Valide une date suivant un format.
