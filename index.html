@@ -32,10 +32,24 @@
 
 <p>A Simple photos contest gallery. Vote for your favorites photos.</p>
 
+<h2>Screenshots</h2>
+
+<p><img src="https://raw.github.com/Dric/simple-photos-contest/master/install/img/front1.jpg" alt="Frontend 1" title="Frontend 1">
+Look at the small cog icon in upper right corner : this is the settings button.</p>
+
+<p><img src="https://raw.github.com/Dric/simple-photos-contest/master/install/img/front2.jpg" alt="Frontend 2" title="Frontend 2">
+Photos are automatically tiled. This can be a bit messy.</p>
+
+<p><img src="https://raw.github.com/Dric/simple-photos-contest/master/install/img/admin1.jpg" alt="Admin 1" title="Admin 1">
+Admin panel - Contests list.</p>
+
+<p><img src="https://raw.github.com/Dric/simple-photos-contest/master/install/img/admin2.jpg" alt="Admin 2" title="Admin 2">
+Admin panel - SPC settings bar.</p>
+
 <h2>Requirements</h2>
 
 <ul>
-<li>PHP 5.3</li>
+<li>PHP 5.2</li>
 <li>MySQL 5.5</li>
 <li>Gettext enabled (for translations)</li>
 <li>GD Image Library</li>
@@ -46,11 +60,25 @@
 <h2>Installation</h2>
 
 <ul>
+<li>Automatic install (recommended)
+
+<ol>
 <li>Make the cache dir writable (777).</li>
-<li>import install.sql in your mysql db.</li>
+<li>Open the SPC url in your favorite browser.</li>
+<li>You will be redirected to the SPC installer.</li>
+<li>Follow the installer steps.</li>
+</ol>
+</li>
+<li>Manual install : 
+
+<ol>
+<li>Make the cache dir writable (777).</li>
+<li>import install/install.sql in your mysql db.</li>
 <li>Rename config-sample.php into config.php.</li>
 <li>Edit config.php to change db connect values and admin password.</li>
 <li>Configure SPC in admin panel.</li>
+</ol>
+</li>
 </ul><h2>Quick Start</h2>
 
 <ul>
