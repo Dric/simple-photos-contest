@@ -6,9 +6,16 @@ A Simple photos contest gallery. Vote for your favorites photos.
 Screenshots
 -----------
 ![Frontend 1](https://raw.github.com/Dric/simple-photos-contest/master/install/img/front1.jpg "Frontend 1")
+Look at the small cog icon in upper right corner : this is the settings button.
+
 ![Frontend 2](https://raw.github.com/Dric/simple-photos-contest/master/install/img/front2.jpg "Frontend 2")
+Photos are automatically tiled. This can be a bit messy.
+
 ![Admin 1](https://raw.github.com/Dric/simple-photos-contest/master/install/img/admin1.jpg "Admin 1")
+Admin panel - Contests list.
+
 ![Admin 2](https://raw.github.com/Dric/simple-photos-contest/master/install/img/admin2.jpg "Admin 2")
+Admin panel - SPC settings bar.
 
 Requirements
 ------------
