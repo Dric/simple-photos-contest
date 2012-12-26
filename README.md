@@ -3,6 +3,13 @@
 
 A Simple photos contest gallery. Vote for your favorites photos.
 
+Screenshots
+-----------
+![Frontend 1](install/img/front1.jpg "Frontend 1")
+![Frontend 2](install/img/front2.jpg "Frontend 2")
+![Admin 1](install/img/admin1.jpg "Admin 1")
+![Admin 2](install/img/admin2.jpg "Admin 2")
+
 Requirements
 ------------
 

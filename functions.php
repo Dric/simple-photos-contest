@@ -1,5 +1,5 @@
 <?php 
-DEFINE('SPC_VERSION', '1.0');
+DEFINE('SPC_VERSION', '1.1');
 $sql=mysql_query("SELECT * FROM settings");
 $settings = mysql_fetch_object($sql);
 
@@ -18,7 +18,7 @@ if (!empty($settings)){
 
 }
 
-/** Connexion en tant qu'admin */
+/** Are we authentified ? */
 $admin_logged = admin_logged();
 
 
