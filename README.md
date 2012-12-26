@@ -82,7 +82,7 @@ Bug tracker
 
 Have a bug? Being shocked by a poor translation (I'm french) ? Please create an issue here on GitHub !
 
-<https://github.com/Dric/contests-gallery/issues>
+<https://github.com/Dric/simple-photos-contest/issues>
 
 
 Author
