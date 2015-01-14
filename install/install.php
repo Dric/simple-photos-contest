@@ -376,7 +376,7 @@ $result = new stdClass;
 						</div>
 						<div class="input_group">
 							<label>Max thumbnail length</label>
-							<input type="text" name="s_max_length" id="s_max_length" value="<?php echo (isset($_SESSION['s_max_length'])) ? $_SESSION['s_max_length'] : '250'; ?>" />px <img alt="This value is the max width or height of thumbnails, depending of the biggest side of the photo." src="./../img/info.png" />
+							<input type="text" name="s_max_length" id="s_max_length" value="<?php echo (isset($_SESSION['s_max_length'])) ? $_SESSION['s_max_length'] : '400'; ?>" />px <img alt="This value is the max width or height of thumbnails, depending of the biggest side of the photo." src="./../img/info.png" />
 						</div>
 						<div class="input_group">
 							<label>Language</label>

@@ -1,8 +1,7 @@
 <?php 
-DEFINE('SPC_VERSION', '1.1');
-$sql=mysql_query("SELECT * FROM settings");
-$settings = mysql_fetch_object($sql);
-
+DEFINE('SPC_VERSION', '1.2');
+$sql=mysqli_query($bd, "SELECT * FROM settings");
+$settings = mysqli_fetch_object($sql);
 if (!empty($settings)){
 	/** Translations ! */
 
@@ -44,8 +43,8 @@ function date_formatting($mysql_date, $to_sql = false){
 function dateParseFromFormat($stFormat, $stData)
  {
      $aDataRet = array('day'=>0, 'month'=>0, 'year'=>0, 'hour'=>0, 'minute'=>0, 'second'=>0);
-     $aPieces = split('[:/.\ \-]', $stFormat);
-     $aDatePart = split('[:/.\ \-]', $stData);
+     $aPieces = preg_split('[:/.\ \-]', $stFormat);
+     $aDatePart = preg_split('[:/.\ \-]', $stData);
      foreach($aPieces as $key=>$chPiece)    
      {
          switch ($chPiece)
@@ -91,9 +90,9 @@ function dateParseFromFormat($stFormat, $stData)
  function changeDateFormat($stDate,$stFormatFrom,$stFormatTo)
  {
    // When PHP 5.3.0 becomes available to me
-   //$date = date_parse_from_format($stFormatFrom,$stDate);
+   $date = date_parse_from_format($stFormatFrom,$stDate);
    //For now I use the function above
-   $date = dateParseFromFormat($stFormatFrom,$stDate);
+   //$date = dateParseFromFormat($stFormatFrom,$stDate);
    return date($stFormatTo,mktime($date['hour'],
                                      $date['minute'],
                                      $date['second'],
@@ -155,15 +154,15 @@ function info_disp($message){
 * 
 */
 function contest_stats($contest){
-	global $settings, $c_path;
+	global $settings, $c_path, $bd;
 	/** Get contest data. */
-	$sql=mysql_query('SELECT * FROM contests WHERE contest = "'.$contest.'"');
-	$cont = mysql_fetch_object($sql);
+	$sql=mysqli_query($bd, 'SELECT * FROM contests WHERE contest = "'.$contest.'"');
+	$cont = mysqli_fetch_object($sql);
 	/** Get images and votes. */
-	$sql=mysql_query('SELECT *FROM images WHERE contest = "'.$contest.'" ORDER BY img_name');
-	$nbphotos = mysql_num_rows($sql);
+	$sql=mysqli_query($bd, 'SELECT *FROM images WHERE contest = "'.$contest.'" ORDER BY img_name');
+	$nbphotos = mysqli_num_rows($sql);
 	/** Get number of voters (format : array with only first value populated) */
-	$nbvoters = mysql_fetch_row(mysql_query('SELECT COUNT(DISTINCT ip_add) FROM image_IP WHERE contest = "'.$contest.'"'));
+	$nbvoters = mysqli_fetch_row(mysqli_query($bd, 'SELECT COUNT(DISTINCT ip_add) FROM image_IP WHERE contest = "'.$contest.'"'));
 	$nbvoters = $nbvoters[0];
 	/** Let's build the graph source js array ! */
 	?>
@@ -177,7 +176,7 @@ function contest_stats($contest){
 	$nbvotes = 0;
 	/** @param array Photo name as first value, img url as second and number of votes as third. */
 	$mostvoted = array(0,0,0);
-	while($row=mysql_fetch_array($sql)){
+	while($row=mysqli_fetch_array($sql)){
 		$disp .= '['.$row['love'].', "<a title=\"'.$row['img_name'].'\" href=\"'.$c_path.$contest.'/'.$row['img_url'].'\" class=\"lightbox\">'.$row['img_name'].'</a>"],';
 		$nbvotes += $row['love'];
 		if ($mostvoted[2] < $row['love']){

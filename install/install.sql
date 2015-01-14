@@ -7,6 +7,7 @@ CREATE TABLE `contests` (
   `description` text,
   `date_begin` date NOT NULL,
   `date_end` date NOT NULL,
+  `voting_type` varchar(10) NOT NULL,
   UNIQUE KEY `contest` (`contest`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -35,7 +36,7 @@ CREATE TABLE `settings` (
   `gallery_only` tinyint(1) DEFAULT '0',
   `contest_disp_title` varchar(255) NOT NULL,
   `display_other_contests` tinyint(1) NOT NULL DEFAULT '1',
-  `max_length` int(11) NOT NULL DEFAULT '250',
+  `max_length` int(11) NOT NULL DEFAULT '400',
   `language` varchar(15) NOT NULL,
   `date_format` varchar(10) NOT NULL,
   `default_contest` varchar(200) DEFAULT NULL

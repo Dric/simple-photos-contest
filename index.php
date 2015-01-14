@@ -8,8 +8,8 @@ if ($settings){
 		$contest = $settings->default_contest;
 	}
 	$contests = array();
-	$sql=mysql_query("SELECT * FROM contests");
-	while($row=mysql_fetch_array($sql)){
+	$sql=mysqli_query($bd, "SELECT * FROM contests");
+	while($row=mysqli_fetch_array($sql)){
 		$contests[$row['contest']] = (object)array(	'contest_name'=> $row['contest_name'],
 																								'description' => $row['description'],
 																								'date_begin'	=> $row['date_begin'],
@@ -88,13 +88,24 @@ if ($settings){
 					list($byear, $bmonth, $bday) = explode('-', $contests[$contest]->date_begin);
 					list($eyear, $emonth, $eday) = explode('-', $contests[$contest]->date_end);
 					/** Query images from db. */
-					$sql=mysql_query("SELECT * FROM images WHERE contest = ".$contest." ORDER BY img_name");
-					while($row=mysql_fetch_array($sql)){
+					$sql=mysqli_query($bd, "SELECT * FROM images WHERE contest = ".$contest." ORDER BY img_name");
+					while($row=mysqli_fetch_array($sql)){
 						$img_id=$row['img_id'];
 						$img_name=$row['img_name'];
-						$img_url= $c_path.$contest.'/'.$row['img_url']; 
+						$img_url= $c_path.$contest.'/'.$row['img_url'];
+            $thumb_url = 'cache/'.$contest.'/'.$row['img_url'];
 						$love=$row['love'];
-						list($width, $height) = getimagesize($img_url);
+            if (file_exists($thumb_url)) {
+              list($width, $height) = getimagesize($thumb_url);
+            }
+            if (!file_exists($thumb_url) or ($width != $max_value and $height != $max_value)){
+              include_once('SimpleImage.php');
+              $img_thumb = new SimpleImage($img_url);
+              $img_thumb->best_fit($max_value, $max_value);
+              if (!file_exists('cache/'.$contest)) mkdir('cache/'.$contest);
+              $img_thumb->save($thumb_url);
+              list($width, $height) = getimagesize($thumb_url);
+            }
 						$attr = '';
 						if ($width>$height){
 							if ($height > $max_value){
@@ -121,7 +132,7 @@ if ($settings){
 						<?php } ?> 
 						<div class="pull-right"><?php echo $img_name; ?></div>
 					</div>
-					<a href="<?php echo $img_url; ?>" title="<?php echo $img_name; ?>" rel="lightbox"><img alt="<?php echo $img_name; ?>" class="img" src="timthumb.php?src=<?php echo $img_url.$param; ?>" /></a>
+					<a href="<?php echo $img_url; ?>" title="<?php echo $img_name; ?>" rel="lightbox"><img alt="<?php echo $img_name; ?>" class="img" src="<?php echo $thumb_url; ?>" /></a>
 				</div>
 				<?php
 					}

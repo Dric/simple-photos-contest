@@ -20,12 +20,12 @@ Admin panel - SPC settings bar.
 Requirements
 ------------
 
-+ PHP 5.2
++ PHP 5.3
 + MySQL 5.5
 + Gettext enabled (for translations)
 + GD Image Library
 
-There is nothing unusual, as GD and gettext are enabled on most of web hosting platforms. Simple Photos Contest may work with previous versions of PHP and MySQL, but it hasn't been tested.
+There is nothing unusual, as GD and gettext are enabled on most of web hosting platforms. Simple Photos Contest may work with previous versions of MySQL, but it hasn't been tested.
 
 Runs well on IE 8+, FF, Opera, Chrome (and probably Safari, but it hasn't been tested). Javascript is required.
 
@@ -43,13 +43,25 @@ Installation
 	4. Edit config.php to change db connect values and admin password.
 	5. Configure SPC in admin panel.
 
+
+Update from 1.1
+---------------
+Run this SQL command :
+    ALTER TABLE `contests` ADD `voting_type` VARCHAR( 10 ) NOT NULL DEFAULT "open" ;
+
+Changelog
+---------
+* 1.2
+  - Use of SimpleImage class instead of TimThumb
+  - Add a setting to allow voting once in a contest or unlimited votes (you are still not allowed to vote more than once for a photo)
+
 Quick Start
 -----------
 
 + Create directory in your photos dir.
 + Put your photos into this dir.
 + Activate it in admin panel.
-+ The first load of a contest page is slow. No panic, it's because TimThumb needs to create thumbnails of all the gallery photos. The next load will be a lot faster !
++ The first load of a contest page is slow. No panic, it's because SPC needs to create thumbnails of all the gallery photos. The next load will be a lot faster !
 
 FAQ
 ---
@@ -69,7 +81,7 @@ TO-DO
 Components used
 ---------------
 
-+ [TimThumb](http://www.binarymoon.co.uk/projects/timthumb/) 2.8.11
++ [SimpleImage](https://github.com/claviska/SimpleImage) 2.4
 + [jQuery](http://jquery.com) 1.8.2
 + [Freetile](https://github.com/yconst/Freetile) (customized)
 + [SlimBox 2.04](http://www.digitalia.be/software/slimbox2) (customized)
@@ -102,7 +114,7 @@ Simple Photos Contest is released under MIT licence.
 
 The MIT License (MIT)
 
-Copyright (c) 2012 Dric
+Copyright (c) 2012-2015 Dric
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
 to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,

@@ -39,25 +39,26 @@ if (isset($_GET['contest']) and !empty($_GET['contest']) and $tab == 'contests')
 			$desc = htmlspecialchars($_POST['description']);
 			$date_begin = date_formatting(htmlspecialchars($_POST['date_begin']), true);
 			$date_end = date_formatting(htmlspecialchars($_POST['date_end']), true);
+      $voting_type = htmlspecialchars($_POST['voting_type']);
 			if ($desc == ''){
 				$desc = 'NULL';
 			}else{
 				$desc = "'".$desc."'";
 			}
-			$query = "UPDATE contests SET contest_name = '".$contest_name."', description = ".$desc.", date_begin = '".$date_begin."', date_end = '".$date_end."' WHERE contests.contest = '".$contest."'";
-			$sql=mysql_query($query);
-			$nb = mysql_affected_rows();
+			$query = "UPDATE contests SET contest_name = '".$contest_name."', description = ".$desc.", date_begin = '".$date_begin."', date_end = '".$date_end."', voting_type = '".$voting_type."' WHERE contests.contest = '".$contest."'";
+			$sql=mysqli_query($bd, $query);
+			$nb = mysqli_affected_rows($bd);
 			if ($nb > 0){
 				$message->text = sprintf(_('Settings for %s contest saved !'), $contest);
 				$message->type = 'success';
 			}else{
-				$message->text = sprintf(_('Error : I couldn\'t save the %s contest settings !'), $contest).'<br />'.mysql_info();
+				$message->text = sprintf(_('Error : I couldn\'t save the %s contest settings !'), $contest).'<br />'.mysqli_info($bd);
 				$message->type = 'error';
 			}
 			break;
 		case 'reset':
-			$sql0=mysql_query('UPDATE images SET love = 0 WHERE contest = "'.$contest.'"');
-			$sql1=mysql_query('DELETE FROM image_ip WHERE contest = "'.$contest.'"');
+			$sql0=mysqli_query($bd, 'UPDATE images SET love = 0 WHERE contest = "'.$contest.'"');
+			$sql1=mysqli_query($bd, 'DELETE FROM image_ip WHERE contest = "'.$contest.'"');
 			if ($sql0 and $sql1){
 				$message->text = sprintf(_('Votes for %s contest reinitialized !'), $contest);
 				$message->type = 'success';
@@ -84,13 +85,13 @@ if (isset($_GET['contest']) and !empty($_GET['contest']) and $tab == 'contests')
 		    }
 				closedir($handle);
 		  }
-			$sql=mysql_query("SELECT * FROM images WHERE contest = ".$contest." ORDER BY img_name");
-			while($row=mysql_fetch_array($sql)){
+			$sql=mysqli_query($bd, "SELECT * FROM images WHERE contest = ".$contest." ORDER BY img_name");
+			while($row=mysqli_fetch_array($sql)){
 				$img_id=$row['img_id'];
 				$img_name=$row['img_name'];
 				if (!array_key_exists($img_name, $images)){
-					$sql = mysql_query('DELETE FROM images WHERE img_id = '.$img_id);
-					$nb = mysql_affected_rows();
+					$sql = mysqli_query($bd, 'DELETE FROM images WHERE img_id = '.$img_id);
+					$nb = mysqli_affected_rows($bd);
 					if ($nb < 1){
 						$ok = false;
 						break;
@@ -103,8 +104,8 @@ if (isset($_GET['contest']) and !empty($_GET['contest']) and $tab == 'contests')
 			}
 			if ($ok){
 				foreach ($images as $img_name => $img_url){
-					$sql=mysql_query('INSERT INTO images (img_name, img_url, contest) VALUES ("'.$img_name.'", "'.$img_url.'", "'.$contest.'")');
-					$nb = mysql_affected_rows();
+					$sql=mysqli_query($bd, 'INSERT INTO images (img_name, img_url, contest) VALUES ("'.$img_name.'", "'.$img_url.'", "'.$contest.'")');
+					$nb = mysqli_affected_rows($bd);
 					if ($nb < 1){
 						$ok = false;
 						break;
@@ -132,11 +133,12 @@ if (isset($_GET['contest']) and !empty($_GET['contest']) and $tab == 'contests')
 			break;
 		case 'add':
 			/** We add contest in db. */
-			$sql = mysql_query('DELETE FROM contests WHERE contest = "'.$contest.'"');
+			$sql = mysqli_query($bd, 'DELETE FROM contests WHERE contest = "'.$contest.'"');
 			$desc = null;
 			$contest_name = $contest;
 			$begin = date('Y/m/d');
 			$end = date_create();
+      $voting_type = "open";
 			//date_add($end, date_interval_create_from_date_string('1 month'));
 			date_modify($end, '+1 month');
 			$end = date_format($end, 'Y/m/d');
@@ -171,13 +173,13 @@ if (isset($_GET['contest']) and !empty($_GET['contest']) and $tab == 'contests')
 				}
       }*/
 			closedir($contest_dir);
-			$sql = mysql_query('INSERT INTO contests (contest, contest_name, description, date_begin, date_end) VALUES ("'.$contest.'", "'.$contest_name.'", "'.$desc.'", "'.$begin.'", "'.$end.'")');
+			$sql = mysqli_query($bd, 'INSERT INTO contests (contest, contest_name, description, date_begin, date_end, voting_type) VALUES ("'.$contest.'", "'.$contest_name.'", "'.$desc.'", "'.$begin.'", "'.$end.'", "'.$voting_type.'")');
 			if ($handle = opendir($c_path.$contest)) {
 		    while (false !== ($entry = readdir($handle))) {
 		      if ($entry != "." && $entry != "..") {
             if(in_array(substr($entry, strrpos($entry, ".")+1), $allowed_ext)){
 							$img_name = str_replace('_', ' ',substr($entry, 0, strrpos($entry, ".")));
-              $sql=mysql_query('INSERT INTO images (img_name, img_url, contest) VALUES ("'.$img_name.'", "'.$entry.'", "'.$contest.'")');
+              $sql=mysqli_query($bd, 'INSERT INTO images (img_name, img_url, contest) VALUES ("'.$img_name.'", "'.$entry.'", "'.$contest.'")');
 						}
 					}
 		    }
@@ -186,8 +188,8 @@ if (isset($_GET['contest']) and !empty($_GET['contest']) and $tab == 'contests')
 			break;
 		case 'del':
 			/** We delete contest from db. With foreign keys magic, contest images are also removed from db. */
-			$sql = mysql_query('DELETE FROM contests WHERE contest = "'.$contest.'"');
-			$nb = mysql_affected_rows();
+			$sql = mysqli_query($bd, 'DELETE FROM contests WHERE contest = "'.$contest.'"');
+			$nb = mysqli_affected_rows($bd);
 			if ($nb > 0){
 				$message->text = sprintf(_('%s contest deleted !'), $contest);
 				$message->type = 'success';
@@ -210,14 +212,14 @@ if (isset($_POST['action']) and $_POST['action'] == 'settings_save'){
 	}else{
 		$sql = 'INSERT INTO settings values ("'.htmlspecialchars($_POST['contests_name']).'", '.intval((isset($_POST['gallery_only']))?1:0).', "'.htmlspecialchars($_POST['contest_disp_title']).'", '.intval((isset($_POST['display_other_contests']))?1:0).', '.intval($_POST['max_length']).', "'.htmlspecialchars($_POST['language']).'", "'.htmlspecialchars($_POST['date_format']).'", "'.htmlspecialchars($_POST['default_contest']).'")';
 	}
-	$res = mysql_query($sql);
-	$error = mysql_error();
+	$res = mysqli_query($bd, $sql);
+	$error = mysqli_error($bd);
 	/** Get number of rows affected. If equal to 0, it means that the settings has not been saved. */
-	$nb = mysql_affected_rows();
+	$nb = mysqli_affected_rows($bd);
 	
 	/** reloading settings now. */
-	$sql=mysql_query("SELECT * FROM settings");
-	$settings = mysql_fetch_object($sql);
+	$sql=mysqli_query($bd, "SELECT * FROM settings");
+	$settings = mysqli_fetch_object($sql);
 	
 	/** Language could have changed, let's reset it. */
 	putenv("LC_ALL=".$settings->language);
@@ -244,7 +246,7 @@ switch ($tab){
 }
 
 function settings_tab($message = null){
-	global $settings, $c_path;
+	global $settings, $bd, $c_path;
 	?>
 	<form action="" class="small" method="post">
 		<div class="input_group">
@@ -337,8 +339,8 @@ function settings_tab($message = null){
 			<select name="default_contest" id="default_contest"> 
 			<?php
 			$contests = array();
-			$sql=mysql_query("SELECT contest FROM contests");
-			while($row=mysql_fetch_array($sql)){
+			$sql=mysqli_query($bd, "SELECT contest FROM contests");
+			while($row=mysqli_fetch_array($sql)){
 				$contests[] = $row['contest'];
 			}
 			if (empty($contests)){
@@ -364,9 +366,10 @@ function settings_tab($message = null){
 }
 
 function contest_tab($c_path, $contest = null, $message = null){
+  global $bd;
 	/** Let's populate $contests array. */
-	$sql=mysql_query("SELECT * FROM contests");
-	while($row=mysql_fetch_array($sql)){
+	$sql=mysqli_query($bd, "SELECT * FROM contests");
+	while($row=mysqli_fetch_array($sql)){
 		$contests[$row['contest']] = (object)array(	'contest_name'=> $row['contest_name'],
 																								'description' => $row['description'],
 																								'date_begin'	=> $row['date_begin'],
@@ -465,6 +468,13 @@ function contest_tab($c_path, $contest = null, $message = null){
 				<br />
 				<label for="date_end"><?php echo _('To'); ?> </label>
 				<input type="text" name="date_end" id="date_end" value="<?php echo date_formatting($cont->date_end); ?>" />
+			</div>
+      <div class="input_group">
+				<label><?php echo _('Voting'); ?> : </label>
+				<select name="voting_type" id="voting_type" value="<?php echo $cont->voting_type; ?>" >
+          <option value="contest"><?php echo _('Only one vote per contest'); ?></option>
+          <option value="open"><?php echo _('Unlimited'); ?></option>
+        </select>
 			</div>
 			<div class="form_buttons">
 				<input type="submit" class="btn_primary" value="<?php echo _('Save'); ?>" id="save" name="save" /> 
