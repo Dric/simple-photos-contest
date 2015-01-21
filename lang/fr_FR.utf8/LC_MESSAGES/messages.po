@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Simple Photos Contest\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-14 09:42+0100\n"
-"PO-Revision-Date: 2015-01-14 09:42+0100\n"
+"POT-Creation-Date: 2015-01-20 11:58+0100\n"
+"PO-Revision-Date: 2015-01-20 11:59+0100\n"
 "Last-Translator: Dric <cedric@driczone.net>\n"
 "Language-Team:  <cedric@driczone.net>\n"
 "Language: fr\n"
@@ -37,57 +37,57 @@ msgstr "Les votes du concours %s ont été réinitialisés !"
 msgid "Error : I couldn't reinitialize votes for %s contest !"
 msgstr "Erreur : impossible de réinitialiser les votes du concours %s !"
 
-#: ../../../admin.php:126
+#: ../../../admin.php:127
 #, php-format
 msgid "%s contest photos updated !"
 msgstr "Les photos du concours %s ont été mises à jour !"
 
-#: ../../../admin.php:126
+#: ../../../admin.php:127
 #, php-format
 msgid "%s photo added"
 msgid_plural "%s photos added"
 msgstr[0] "%s photo ajoutée"
 msgstr[1] "%s photos ajoutées"
 
-#: ../../../admin.php:126
+#: ../../../admin.php:127
 #, php-format
 msgid "%s photo deleted"
 msgid_plural "%s photos deleted"
 msgstr[0] "%s photo supprimée"
 msgstr[1] "%s photos supprimées"
 
-#: ../../../admin.php:129
+#: ../../../admin.php:130
 #, php-format
 msgid "Error : I couldn't update photos for %s contest !"
 msgstr "Erreur : impossible de mettre à jour les photos du concours %s !"
 
-#: ../../../admin.php:194
+#: ../../../admin.php:195
 #, php-format
 msgid "%s contest deleted !"
 msgstr "Concours %s supprimé !"
 
-#: ../../../admin.php:197
+#: ../../../admin.php:198
 #, php-format
 msgid "Error : I couldn't delete %s contest !"
 msgstr "Erreur : impossible de supprimer le concours %s !"
 
-#: ../../../admin.php:233
+#: ../../../admin.php:234
 msgid "Settings updated !"
 msgstr "Paramètres mis à jour !"
 
-#: ../../../admin.php:236
+#: ../../../admin.php:237
 msgid "Error : I was unable to update settings !"
 msgstr "Erreur : Impossible de mettre à jour les paramètres !"
 
-#: ../../../admin.php:253
+#: ../../../admin.php:254
 msgid "Contests Name"
 msgstr "Libellé des concours"
 
-#: ../../../admin.php:254
+#: ../../../admin.php:255
 msgid "Contest"
 msgstr "Concours"
 
-#: ../../../admin.php:254
+#: ../../../admin.php:255
 msgid ""
 "Contests name examples : 'Calendar', 'Country', 'Category'. Defaut value : "
 "'Contest'"
@@ -95,11 +95,11 @@ msgstr ""
 "Exemples de libellés : 'Calendrier', 'Pays', 'Catégorie'. Valeur par "
 "défaut : 'Concours'"
 
-#: ../../../admin.php:257
+#: ../../../admin.php:258
 msgid "Gallery only"
 msgstr "Pas de votes"
 
-#: ../../../admin.php:269
+#: ../../../admin.php:270
 msgid ""
 "Disable voting system. This will transform Simple Photos Contest in a photos "
 "gallery."
@@ -107,16 +107,16 @@ msgstr ""
 "Désactive les votes. Simple Photos Contest sera utilisé comme un album photo "
 "classique."
 
-#: ../../../admin.php:272
+#: ../../../admin.php:273
 msgid "Contest display title"
 msgstr "Titre d'entête des concours"
 
-#: ../../../admin.php:273
+#: ../../../admin.php:274
 #, php-format
 msgid "Select your favorites photos for %s contest"
 msgstr "Mes photos favorites pour le concours %s"
 
-#: ../../../admin.php:273
+#: ../../../admin.php:274
 #, php-format
 msgid ""
 "This is the short text displayed in header of a contest page. The %s "
@@ -126,19 +126,19 @@ msgstr ""
 "varaible %s sera remplacée par le nom du concours, et doit être présente "
 "dans la chaîne."
 
-#: ../../../admin.php:276
+#: ../../../admin.php:277
 msgid "Display other contests"
 msgstr "Afficher les autres concours"
 
-#: ../../../admin.php:288
+#: ../../../admin.php:289
 msgid "Display a link to the other contests (if present)."
 msgstr "Afficher un lien vers les autres concours (s'il y en a)."
 
-#: ../../../admin.php:291
+#: ../../../admin.php:292
 msgid "Max thumbnail length"
 msgstr "Longueur maximale du côté d'une miniature"
 
-#: ../../../admin.php:292
+#: ../../../admin.php:293
 msgid ""
 "This value is the max width or height of thumbnails, depending of the "
 "biggest side of the photo."
@@ -146,11 +146,11 @@ msgstr ""
 "La valeur est le maximum en largeur ou hauteur d'une image, suivant quel est "
 "le plus grand côté."
 
-#: ../../../admin.php:295
+#: ../../../admin.php:296
 msgid "Language"
 msgstr "Langue"
 
-#: ../../../admin.php:319
+#: ../../../admin.php:320
 msgid ""
 "Select one of the available languages (based on languages files present in "
 "'lang' dir."
@@ -158,11 +158,11 @@ msgstr ""
 "Sélectionnez une des langues disponibles (d'après les fichiers de traduction "
 "dans le répertoire 'lang')."
 
-#: ../../../admin.php:322
+#: ../../../admin.php:323
 msgid "Date format"
 msgstr "Format des dates"
 
-#: ../../../admin.php:335
+#: ../../../admin.php:336
 msgid ""
 "The date format is the same as php date format. d = days, m = months, Y = "
 "year (4 digits)."
@@ -170,15 +170,15 @@ msgstr ""
 "Le format des dates est le même que celui de PHP. d = jours, m= mois, Y = "
 "année (sur 4 chiffres)."
 
-#: ../../../admin.php:338
+#: ../../../admin.php:339
 msgid "Default contest"
 msgstr "Concours par défaut"
 
-#: ../../../admin.php:347
+#: ../../../admin.php:348
 msgid "No contests registered in db !"
 msgstr "Aucun concours enregistré dans la base !"
 
-#: ../../../admin.php:358
+#: ../../../admin.php:359
 msgid ""
 "Select one the registered contests in db to be the default contest displayed "
 "in frontend."
@@ -186,181 +186,185 @@ msgstr ""
 "Choisissez un des concours enregistrés dans la base comme concours affiché "
 "par défaut."
 
-#: ../../../admin.php:361 ../../../admin.php:480
+#: ../../../admin.php:362 ../../../admin.php:481
 msgid "Save"
 msgstr "Sauvegarder"
 
-#: ../../../admin.php:408
+#: ../../../admin.php:409
 msgid "Add"
 msgstr "Ajouter"
 
-#: ../../../admin.php:412
+#: ../../../admin.php:413
 msgid "This album has not been added to db yet."
 msgstr "Cet album n'a pas encore été intégré à la base."
 
-#: ../../../admin.php:428
+#: ../../../admin.php:429
 msgid "Stats"
 msgstr "Statistiques"
 
-#: ../../../admin.php:429
+#: ../../../admin.php:430
 msgid "Update"
 msgstr "Mettre à jour"
 
-#: ../../../admin.php:430
+#: ../../../admin.php:431
 msgid "Edit"
 msgstr "Modifier"
 
-#: ../../../admin.php:431
+#: ../../../admin.php:432
 msgid "Reinitialize votes"
 msgstr "Réinitialiser les votes"
 
-#: ../../../admin.php:432
+#: ../../../admin.php:433
 msgid "Delete contest"
 msgstr "Supprimer le concours"
 
-#: ../../../admin.php:437
+#: ../../../admin.php:435
+msgid "See contest"
+msgstr "Voir le concours"
+
+#: ../../../admin.php:438
 #, php-format
 msgid "Contest open to votes between %s and %s"
 msgstr "Votes ouverts du %s au %s"
 
-#: ../../../admin.php:454 ../../../functions.php:193
+#: ../../../admin.php:455 ../../../functions.php:193
 #, php-format
 msgid "%s contest"
 msgstr "Concours %s"
 
-#: ../../../admin.php:457
+#: ../../../admin.php:458
 msgid "Name"
 msgstr "Nom"
 
-#: ../../../admin.php:461
+#: ../../../admin.php:462
 msgid "Description"
 msgstr "Description"
 
-#: ../../../admin.php:464
+#: ../../../admin.php:465
 msgid "Contest opening"
 msgstr "Concours ouvert"
 
-#: ../../../admin.php:466
+#: ../../../admin.php:467
 msgid "From"
 msgstr "Du"
 
-#: ../../../admin.php:469
+#: ../../../admin.php:470
 msgid "To"
 msgstr "Au"
 
-#: ../../../admin.php:473
+#: ../../../admin.php:474
 msgid "Voting"
 msgstr "Méthode de vote"
 
-#: ../../../admin.php:475
+#: ../../../admin.php:476
 msgid "Only one vote per contest"
 msgstr "Un seul vote par concours"
 
-#: ../../../admin.php:476
+#: ../../../admin.php:477
 msgid "Unlimited"
 msgstr "Illimitée"
 
-#: ../../../admin.php:481
+#: ../../../admin.php:482
 msgid "Delete"
 msgstr "Supprimer"
 
-#: ../../../admin.php:494 ../../../admin.php:504
+#: ../../../admin.php:495 ../../../admin.php:505
 msgid "Admin panel"
 msgstr "Administration"
 
-#: ../../../admin.php:503
+#: ../../../admin.php:504
 msgid "Back"
 msgstr "Retour"
 
-#: ../../../admin.php:514 ../../../admin.php:516
+#: ../../../admin.php:515 ../../../admin.php:517
 msgid "General settings"
 msgstr "Paramètres généraux"
 
-#: ../../../admin.php:526
+#: ../../../admin.php:527
 msgid "Contests"
 msgstr "Concours"
 
-#: ../../../admin.php:527 ../../../index.php:39
+#: ../../../admin.php:528 ../../../index.php:42
 msgid "Settings"
 msgstr "Paramètres"
 
-#: ../../../admin.php:543
+#: ../../../admin.php:544
 msgid "January"
 msgstr "Janvier"
 
-#: ../../../admin.php:543
+#: ../../../admin.php:544
 msgid "February"
 msgstr "Février"
 
-#: ../../../admin.php:543
+#: ../../../admin.php:544
 msgid "March"
 msgstr "Mars"
 
-#: ../../../admin.php:543
+#: ../../../admin.php:544
 msgid "April"
 msgstr "Avril"
 
-#: ../../../admin.php:543
+#: ../../../admin.php:544
 msgid "May"
 msgstr "Mai"
 
-#: ../../../admin.php:543
+#: ../../../admin.php:544
 msgid "June"
 msgstr "Juin"
 
-#: ../../../admin.php:543
+#: ../../../admin.php:544
 msgid "July"
 msgstr "Juillet"
 
-#: ../../../admin.php:543
+#: ../../../admin.php:544
 msgid "August"
 msgstr "Août"
 
-#: ../../../admin.php:543
+#: ../../../admin.php:544
 msgid "September"
 msgstr "Septembre"
 
-#: ../../../admin.php:543
+#: ../../../admin.php:544
 msgid "October"
 msgstr "Octobre"
 
-#: ../../../admin.php:543
+#: ../../../admin.php:544
 msgid "November"
 msgstr "Novembre"
 
-#: ../../../admin.php:543
+#: ../../../admin.php:544
 msgid "December"
 msgstr "Décembre"
 
-#: ../../../admin.php:544
+#: ../../../admin.php:545
 msgid "Sunday"
 msgstr "Dimanche"
 
-#: ../../../admin.php:544
+#: ../../../admin.php:545
 msgid "Monday"
 msgstr "Lundi"
 
-#: ../../../admin.php:544
+#: ../../../admin.php:545
 msgid "Tuesday"
 msgstr "Mardi"
 
-#: ../../../admin.php:544
+#: ../../../admin.php:545
 msgid "Wednesday"
 msgstr "Mercredi"
 
-#: ../../../admin.php:544
+#: ../../../admin.php:545
 msgid "Thursday"
 msgstr "Jeudi"
 
-#: ../../../admin.php:544
+#: ../../../admin.php:545
 msgid "Friday"
 msgstr "Vendredi"
 
-#: ../../../admin.php:544
+#: ../../../admin.php:545
 msgid "Saturday"
 msgstr "Samedi"
 
-#: ../../../admin.php:546
+#: ../../../admin.php:547
 msgid "Reset"
 msgstr "Réinitialiser"
 
@@ -402,19 +406,19 @@ msgid_plural "votes"
 msgstr[0] "vote"
 msgstr[1] "votes"
 
-#: ../../../index.php:35
+#: ../../../index.php:38
 msgid "settings"
 msgstr "Paramètres"
 
-#: ../../../index.php:43
+#: ../../../index.php:46
 msgid "Password"
 msgstr "Mot de passe"
 
-#: ../../../index.php:44
+#: ../../../index.php:47
 msgid "Login"
 msgstr "Se connecter"
 
-#: ../../../index.php:55
+#: ../../../index.php:58
 msgid ""
 "It seems that you just installed Simple Photos Contest. Please click on the "
 "settings button and log in to configure this site."
@@ -423,7 +427,7 @@ msgstr ""
 "cliquer sur le bouton des paramètres et de vous connecter pour configurer le "
 "site."
 
-#: ../../../index.php:59
+#: ../../../index.php:62
 msgid ""
 "There is no default contest defined. Please click on the settings button and "
 "log in to set one."
@@ -431,10 +435,10 @@ msgstr ""
 "Il n'y a pas de concours par défaut. Merci d'en configurer un dans les "
 "paramètres."
 
-#: ../../../index.php:70
+#: ../../../index.php:79
 msgid "Other contests"
 msgstr "Autres concours"
 
-#: ../../../index.php:128
+#: ../../../index.php:137
 msgid "I'm in love !"
 msgstr "Je suis amoureux"

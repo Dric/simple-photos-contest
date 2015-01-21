@@ -51,6 +51,16 @@ Run this SQL command :
 
 Changelog
 ---------
+* 1.3
+	- `mysql_*` obsolete php functions replaced by `mysqli_*` functions.
+	- When `config.php` file is not found, user will be redirected to install script.
+	- Link to admin panel in breadcrumb
+	- When contests are saved in Db but no default contest is set, SPC will display the first contest saved in Db
+	- Better SQL error check
+	- A few bugs fixed
+	- Updated jQuery to v1.11.2
+	- Updated freeTile to v0.3.1
+	- Custom Slimbox2 replaced by LightBox
 * 1.2
   - Use of SimpleImage class instead of TimThumb
   - Add a setting to allow voting once in a contest or unlimited votes (you are still not allowed to vote more than once for a photo)
@@ -76,15 +86,16 @@ FAQ
 TO-DO
 -----
 
-+ Display stats in frontend (with setting to disable it)
++ Use of responsive template
++ Use of HTML5 + CSS3 to replace jQuery animations
 
 Components used
 ---------------
 
 + [SimpleImage](https://github.com/claviska/SimpleImage) 2.4
-+ [jQuery](http://jquery.com) 1.8.2
-+ [Freetile](https://github.com/yconst/Freetile) (customized)
-+ [SlimBox 2.04](http://www.digitalia.be/software/slimbox2) (customized)
++ [jQuery](http://jquery.com) 1.11.2
++ [Freetile](https://github.com/yconst/Freetile) 0.3.1
++ [Lightbox](http://lokeshdhakar.com/projects/lightbox2) 2.7.1
 + [Zebra DatePicker](http://stefangabos.ro/jquery/zebra-datepicker/) 1.6.2
 + [jqBarGraph](http://workshop.rs/jqbargraph/) 1.1
 + [Tiny Scrollbar](http://baijs.nl/tinyscrollbar/) 1.81

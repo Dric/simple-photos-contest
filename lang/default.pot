@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Simple Photos Contest\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-14 09:43+0100\n"
-"PO-Revision-Date: 2015-01-14 09:43+0100\n"
+"POT-Creation-Date: 2015-01-20 11:58+0100\n"
+"PO-Revision-Date: 2015-01-20 11:58+0100\n"
 "Last-Translator: Dric <cedric@driczone.net>\n"
 "Language-Team:  <cedric@driczone.net>\n"
 "Language: en_US\n"
@@ -37,315 +37,319 @@ msgstr ""
 msgid "Error : I couldn't reinitialize votes for %s contest !"
 msgstr ""
 
-#: ../admin.php:126
+#: ../admin.php:127
 #, php-format
 msgid "%s contest photos updated !"
 msgstr ""
 
-#: ../admin.php:126
+#: ../admin.php:127
 #, php-format
 msgid "%s photo added"
 msgid_plural "%s photos added"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../admin.php:126
+#: ../admin.php:127
 #, php-format
 msgid "%s photo deleted"
 msgid_plural "%s photos deleted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../admin.php:129
+#: ../admin.php:130
 #, php-format
 msgid "Error : I couldn't update photos for %s contest !"
 msgstr ""
 
-#: ../admin.php:194
+#: ../admin.php:195
 #, php-format
 msgid "%s contest deleted !"
 msgstr ""
 
-#: ../admin.php:197
+#: ../admin.php:198
 #, php-format
 msgid "Error : I couldn't delete %s contest !"
 msgstr ""
 
-#: ../admin.php:233
+#: ../admin.php:234
 msgid "Settings updated !"
 msgstr ""
 
-#: ../admin.php:236
+#: ../admin.php:237
 msgid "Error : I was unable to update settings !"
 msgstr ""
 
-#: ../admin.php:253
+#: ../admin.php:254
 msgid "Contests Name"
 msgstr ""
 
-#: ../admin.php:254
+#: ../admin.php:255
 msgid "Contest"
 msgstr ""
 
-#: ../admin.php:254
+#: ../admin.php:255
 msgid ""
 "Contests name examples : 'Calendar', 'Country', 'Category'. Defaut value : "
 "'Contest'"
 msgstr ""
 
-#: ../admin.php:257
+#: ../admin.php:258
 msgid "Gallery only"
 msgstr ""
 
-#: ../admin.php:269
+#: ../admin.php:270
 msgid ""
 "Disable voting system. This will transform Simple Photos Contest in a photos "
 "gallery."
 msgstr ""
 
-#: ../admin.php:272
+#: ../admin.php:273
 msgid "Contest display title"
 msgstr ""
 
-#: ../admin.php:273
+#: ../admin.php:274
 #, php-format
 msgid "Select your favorites photos for %s contest"
 msgstr ""
 
-#: ../admin.php:273
+#: ../admin.php:274
 #, php-format
 msgid ""
 "This is the short text displayed in header of a contest page. The %s "
 "variable is replaced by the contest name and must be present."
 msgstr ""
 
-#: ../admin.php:276
+#: ../admin.php:277
 msgid "Display other contests"
 msgstr ""
 
-#: ../admin.php:288
+#: ../admin.php:289
 msgid "Display a link to the other contests (if present)."
 msgstr ""
 
-#: ../admin.php:291
+#: ../admin.php:292
 msgid "Max thumbnail length"
 msgstr ""
 
-#: ../admin.php:292
+#: ../admin.php:293
 msgid ""
 "This value is the max width or height of thumbnails, depending of the "
 "biggest side of the photo."
 msgstr ""
 
-#: ../admin.php:295
+#: ../admin.php:296
 msgid "Language"
 msgstr ""
 
-#: ../admin.php:319
+#: ../admin.php:320
 msgid ""
 "Select one of the available languages (based on languages files present in "
 "'lang' dir."
 msgstr ""
 
-#: ../admin.php:322
+#: ../admin.php:323
 msgid "Date format"
 msgstr ""
 
-#: ../admin.php:335
+#: ../admin.php:336
 msgid ""
 "The date format is the same as php date format. d = days, m = months, Y = "
 "year (4 digits)."
 msgstr ""
 
-#: ../admin.php:338
+#: ../admin.php:339
 msgid "Default contest"
 msgstr ""
 
-#: ../admin.php:347
+#: ../admin.php:348
 msgid "No contests registered in db !"
 msgstr ""
 
-#: ../admin.php:358
+#: ../admin.php:359
 msgid ""
 "Select one the registered contests in db to be the default contest displayed "
 "in frontend."
 msgstr ""
 
-#: ../admin.php:361 ../admin.php:480
+#: ../admin.php:362 ../admin.php:481
 msgid "Save"
 msgstr ""
 
-#: ../admin.php:408
+#: ../admin.php:409
 msgid "Add"
 msgstr ""
 
-#: ../admin.php:412
+#: ../admin.php:413
 msgid "This album has not been added to db yet."
 msgstr ""
 
-#: ../admin.php:428
+#: ../admin.php:429
 msgid "Stats"
 msgstr ""
 
-#: ../admin.php:429
+#: ../admin.php:430
 msgid "Update"
 msgstr ""
 
-#: ../admin.php:430
+#: ../admin.php:431
 msgid "Edit"
 msgstr ""
 
-#: ../admin.php:431
+#: ../admin.php:432
 msgid "Reinitialize votes"
 msgstr ""
 
-#: ../admin.php:432
+#: ../admin.php:433
 msgid "Delete contest"
 msgstr ""
 
-#: ../admin.php:437
+#: ../admin.php:435
+msgid "See contest"
+msgstr ""
+
+#: ../admin.php:438
 #, php-format
 msgid "Contest open to votes between %s and %s"
 msgstr ""
 
-#: ../admin.php:454 ../functions.php:193
+#: ../admin.php:455 ../functions.php:193
 #, php-format
 msgid "%s contest"
 msgstr ""
 
-#: ../admin.php:457
+#: ../admin.php:458
 msgid "Name"
 msgstr ""
 
-#: ../admin.php:461
+#: ../admin.php:462
 msgid "Description"
 msgstr ""
 
-#: ../admin.php:464
+#: ../admin.php:465
 msgid "Contest opening"
 msgstr ""
 
-#: ../admin.php:466
+#: ../admin.php:467
 msgid "From"
 msgstr ""
 
-#: ../admin.php:469
+#: ../admin.php:470
 msgid "To"
 msgstr ""
 
-#: ../admin.php:473
+#: ../admin.php:474
 msgid "Voting"
 msgstr ""
 
-#: ../admin.php:475
+#: ../admin.php:476
 msgid "Only one vote per contest"
 msgstr ""
 
-#: ../admin.php:476
+#: ../admin.php:477
 msgid "Unlimited"
 msgstr ""
 
-#: ../admin.php:481
+#: ../admin.php:482
 msgid "Delete"
 msgstr ""
 
-#: ../admin.php:494 ../admin.php:504
+#: ../admin.php:495 ../admin.php:505
 msgid "Admin panel"
 msgstr ""
 
-#: ../admin.php:503
+#: ../admin.php:504
 msgid "Back"
 msgstr ""
 
-#: ../admin.php:514 ../admin.php:516
+#: ../admin.php:515 ../admin.php:517
 msgid "General settings"
 msgstr ""
 
-#: ../admin.php:526
+#: ../admin.php:527
 msgid "Contests"
 msgstr ""
 
-#: ../admin.php:527 ../index.php:39
+#: ../admin.php:528 ../index.php:42
 msgid "Settings"
 msgstr ""
 
-#: ../admin.php:543
+#: ../admin.php:544
 msgid "January"
 msgstr ""
 
-#: ../admin.php:543
+#: ../admin.php:544
 msgid "February"
 msgstr ""
 
-#: ../admin.php:543
+#: ../admin.php:544
 msgid "March"
 msgstr ""
 
-#: ../admin.php:543
+#: ../admin.php:544
 msgid "April"
 msgstr ""
 
-#: ../admin.php:543
+#: ../admin.php:544
 msgid "May"
 msgstr ""
 
-#: ../admin.php:543
+#: ../admin.php:544
 msgid "June"
 msgstr ""
 
-#: ../admin.php:543
+#: ../admin.php:544
 msgid "July"
 msgstr ""
 
-#: ../admin.php:543
+#: ../admin.php:544
 msgid "August"
 msgstr ""
 
-#: ../admin.php:543
+#: ../admin.php:544
 msgid "September"
 msgstr ""
 
-#: ../admin.php:543
+#: ../admin.php:544
 msgid "October"
 msgstr ""
 
-#: ../admin.php:543
+#: ../admin.php:544
 msgid "November"
 msgstr ""
 
-#: ../admin.php:543
+#: ../admin.php:544
 msgid "December"
 msgstr ""
 
-#: ../admin.php:544
+#: ../admin.php:545
 msgid "Sunday"
 msgstr ""
 
-#: ../admin.php:544
+#: ../admin.php:545
 msgid "Monday"
 msgstr ""
 
-#: ../admin.php:544
+#: ../admin.php:545
 msgid "Tuesday"
 msgstr ""
 
-#: ../admin.php:544
+#: ../admin.php:545
 msgid "Wednesday"
 msgstr ""
 
-#: ../admin.php:544
+#: ../admin.php:545
 msgid "Thursday"
 msgstr ""
 
-#: ../admin.php:544
+#: ../admin.php:545
 msgid "Friday"
 msgstr ""
 
-#: ../admin.php:544
+#: ../admin.php:545
 msgid "Saturday"
 msgstr ""
 
-#: ../admin.php:546
+#: ../admin.php:547
 msgid "Reset"
 msgstr ""
 
@@ -387,34 +391,34 @@ msgid_plural "votes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../index.php:35
+#: ../index.php:38
 msgid "settings"
 msgstr ""
 
-#: ../index.php:43
+#: ../index.php:46
 msgid "Password"
 msgstr ""
 
-#: ../index.php:44
+#: ../index.php:47
 msgid "Login"
 msgstr ""
 
-#: ../index.php:55
+#: ../index.php:58
 msgid ""
 "It seems that you just installed Simple Photos Contest. Please click on the "
 "settings button and log in to configure this site."
 msgstr ""
 
-#: ../index.php:59
+#: ../index.php:62
 msgid ""
 "There is no default contest defined. Please click on the settings button and "
 "log in to set one."
 msgstr ""
 
-#: ../index.php:70
+#: ../index.php:79
 msgid "Other contests"
 msgstr ""
 
-#: ../index.php:128
+#: ../index.php:137
 msgid "I'm in love !"
 msgstr ""

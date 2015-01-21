@@ -5,15 +5,15 @@ $(document).ready(function(){
   $("span.on_img").mouseout(function (){
     $(this).removeClass("over_img");
   });
-	$('.img').mouseover(function (){
+	/*$('.img').mouseover(function (){
   	$(this).stop().animate({ opacity: 1.0 }, 350);
   });
   $('.img').mouseout(function (){
-    $(this).stop().animate({ opacity: 0.8 }, 350);
-  });
+    $(this).stop().animate({ opacity: 0.9 }, 350);
+  });*/
 });
 $(function() {
-	if ($(".graph").length > 0){
+		if ($(".graph").length > 0){
   	// We have a graph to display !
 		$(".graph").each(function(){
 			var contest = $(this).data('contest');
@@ -25,15 +25,32 @@ $(function() {
 				width: '90%' 
 			});
 		});
-		jQuery(".lightbox").slimbox();
 	}
 
 	$(document).on('click', '.close', function(){
 		$(this).parent().remove();
 		tooltip.hide();
 	});
-	if ($('#wrap').length && noFreetile == false){
-		$('#wrap').freetile();
+
+	if ($('#wrap').length && noTiling == false) {
+		/*var wall = new freewall("#wrap");
+		 wall.reset({
+		 selector: '.img-container',
+		 animate: true,
+		 cellW: 'auto',
+		 cellH: maxWidth,
+		 gutterY: 20,
+		 onResize: function() {
+		 wall.fitWidth();
+		 }
+		 });
+		 wall.fitWidth();*/
+		$('#wrap').freetile({
+			selector    : '.img-container',
+			animate     : true,
+			elementDelay: 30
+		});
+
 	}
 	$(".love").click(function(){
 		var id = $(this).attr("id");

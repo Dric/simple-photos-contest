@@ -1,7 +1,10 @@
 <?php 
-DEFINE('SPC_VERSION', '1.2');
+DEFINE('SPC_VERSION', '1.3');
+
 $sql=mysqli_query($bd, "SELECT * FROM settings");
 $settings = mysqli_fetch_object($sql);
+unset($sql);
+
 if (!empty($settings)){
 	/** Translations ! */
 
@@ -17,7 +20,7 @@ if (!empty($settings)){
 
 }
 
-/** Are we authentified ? */
+/** Are we logged in ? */
 $admin_logged = admin_logged();
 
 

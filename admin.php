@@ -45,7 +45,7 @@ if (isset($_GET['contest']) and !empty($_GET['contest']) and $tab == 'contests')
 			}else{
 				$desc = "'".$desc."'";
 			}
-			$query = "UPDATE contests SET contest_name = '".$contest_name."', description = ".$desc.", date_begin = '".$date_begin."', date_end = '".$date_end."', voting_type = '".$voting_type."' WHERE contests.contest = '".$contest."'";
+			$query = "UPDATE contests SET contest_name = '".$contest_name."', description = ''".$desc."'', date_begin = '".$date_begin."', date_end = '".$date_end."', voting_type = '".$voting_type."' WHERE contests.contest = '".$contest."'";
 			$sql=mysqli_query($bd, $query);
 			$nb = mysqli_affected_rows($bd);
 			if ($nb > 0){
@@ -85,8 +85,9 @@ if (isset($_GET['contest']) and !empty($_GET['contest']) and $tab == 'contests')
 		    }
 				closedir($handle);
 		  }
-			$sql=mysqli_query($bd, "SELECT * FROM images WHERE contest = ".$contest." ORDER BY img_name");
-			while($row=mysqli_fetch_array($sql)){
+			$query = 'SELECT * FROM `images` WHERE `contest` = "'.$contest.'" ORDER BY `img_name`';
+			$sql_query=mysqli_query($bd, $query);
+			while($row=mysqli_fetch_array($sql_query)){
 				$img_id=$row['img_id'];
 				$img_name=$row['img_name'];
 				if (!array_key_exists($img_name, $images)){
@@ -104,7 +105,7 @@ if (isset($_GET['contest']) and !empty($_GET['contest']) and $tab == 'contests')
 			}
 			if ($ok){
 				foreach ($images as $img_name => $img_url){
-					$sql=mysqli_query($bd, 'INSERT INTO images (img_name, img_url, contest) VALUES ("'.$img_name.'", "'.$img_url.'", "'.$contest.'")');
+					$sql=mysqli_query($bd, 'INSERT INTO images (img_name, img_url, contest) VALUES ("'.$img_name.'", "'.$img_url.'", "'.$contest.'") ON DUPLICATE KEY UPDATE img_name = img_name');
 					$nb = mysqli_affected_rows($bd);
 					if ($nb < 1){
 						$ok = false;
@@ -431,7 +432,7 @@ function contest_tab($c_path, $contest = null, $message = null){
 						<a href="?tab=contests&contest=<?php echo $cont_id; ?>&action=reset" title="<?php echo _('Reinitialize votes'); ?>"><img src="img/reset.png" alt="<?php echo _('Reinitialize votes'); ?>"/></a>&nbsp;
 						<a href="?tab=contests&contest=<?php echo $cont_id; ?>&action=del" title="<?php echo _('Delete contest'); ?>"><img src="img/del.png" alt="<?php echo _('Delete contest'); ?>"/></a>&nbsp;
 					</li>
-					<li class="item_title"><?php echo $cont->contest_name; ?></li>
+					<li class="item_title"><a title="<?php echo _('See contest'); ?>" href=".?contest=<?php echo $cont_id; ?>"><?php echo $cont->contest_name; ?></a></li>
 					<li class="item_desc"><?php echo $cont->description; ?></li>
 					<li class="item_id">Id : <?php echo $cont_id; ?></li>
 					<li class="item_dates"><?php echo sprintf(_('Contest open to votes between %s and %s'), '<span class="date_begin">'.date_formatting($cont->date_begin).'</span>', '<span class="date_end">'.date_formatting($cont->date_end).'</span>'); ?></li>
@@ -501,7 +502,7 @@ function admin_header($tab, $sub = null, $message = null){
 		<div id="content">
 		<div id="header">
 			<a href="<?php if (!empty($sub)){ echo 'admin'; } else { echo 'index'; } ?>.php<?php if (!empty($sub)){ echo '?tab='.strtolower($tab);} ?>" title="<?php echo _('Back'); ?>"><img src="img/back.png" /></a> 
-			<?php echo _('Admin panel').' / '._($tab); ?>
+			<a href="admin.php"><?php echo _('Admin panel').' / '._($tab); ?></a>
 			<?php
 			if (!empty($sub)){
 				?> / <span id="sub_title"><?php echo $sub;
@@ -544,7 +545,7 @@ function admin_footer(){
 				var dayNames = ["<?php echo _('Sunday'); ?>", "<?php echo _('Monday'); ?>", "<?php echo _('Tuesday'); ?>", "<?php echo _('Wednesday'); ?>", "<?php echo _('Thursday'); ?>", "<?php echo _('Friday'); ?>", "<?php echo _('Saturday'); ?>"];
 				var dateFormat = "<?php echo $settings->date_format; ?>";
 				var resetLabel = "<?php echo _('Reset'); ?>";
-				var noFreetile = true;
+				var noTiling = true;
 			</script>
 			<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
 			<script type="text/javascript" src="js/slimbox2.js"></script>

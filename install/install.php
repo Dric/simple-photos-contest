@@ -144,13 +144,13 @@ $result = new stdClass;
 							$result->message .= '<div class="alert error">Database user password is empty !</div>';
 						}
 						if ($result->ok){
-							$bd = mysql_connect($_SESSION['db_host'], $_SESSION['db_user'], $_SESSION['db_pwd']);
+							$bd = mysqli_connect($_SESSION['db_host'], $_SESSION['db_user'], $_SESSION['db_pwd']);
 							if (!$bd){
 								$result->ok = false;
 								$result->message .= '<div class="alert error">Can\'t connect to MySQL Server !</div>';
 							}else{
 								$db_name = (isset($_SESSION['db_prefix'])) ? $_SESSION['db_prefix'].'_'.$_SESSION['db_name'] : $_SESSION['db_name'];
-								$res = mysql_select_db($db_name, $bd);
+								$res = mysqli_select_db($bd, $db_name);
 								if (!$res){
 									$result->ok = false;
 									$result->message .= '<div class="alert error">Can\'t select database !</div>';
@@ -251,13 +251,13 @@ $result = new stdClass;
 						header('Location: ?step=3');
 					}else{
 						/** Connection to DB. */
-						$bd = mysql_connect($_SESSION['db_host'], $_SESSION['db_user'], $_SESSION['db_pwd']);
+						$bd = mysqli_connect($_SESSION['db_host'], $_SESSION['db_user'], $_SESSION['db_pwd']);
 						if (!$bd){
 							$result->ok = false;
 							$result->message .= '<div class="alert error">Can\'t connect to MySQL Server !</div>';
 						}else{
 							$db_name = (isset($_SESSION['db_prefix'])) ? $_SESSION['db_prefix'].'_'.$_SESSION['db_name'] : $_SESSION['db_name'];
-							$res = mysql_select_db($db_name, $bd);
+							$res = mysqli_select_db($bd, $db_name);
 							if (!$res){
 								$result->ok = false;
 								$result->message .= '<div class="alert error">Can\'t select database !</div>';
@@ -277,10 +277,10 @@ $result = new stdClass;
 						$sqlArray = explode(';',$sqlFile);
 						foreach ($sqlArray as $stmt) {
 						  if (strlen($stmt)>3) {
-						    $res = mysql_query($stmt);
+						    $res = mysqli_query($bd, $stmt);
 						    if (!$res) {
-						      $sqlErrorCode = mysql_errno();
-						      $sqlErrorText = mysql_error();
+						      $sqlErrorCode = mysqli_errno($bd);
+						      $sqlErrorText = mysqli_error($bd);
 						      $sqlStmt = $stmt;
 									$result->ok = false;
 									$result->message .= '<div class="alert error">An error occured during installation!<br/>Error code: '.$sqlErrorCode.'<br/>Error text: '.$sqlErrorText.'<br/>Statement:<br/>'.$sqlStmt.'</div>';
@@ -482,13 +482,13 @@ $result = new stdClass;
 						header('Location: ?step=5');
 					}else{
 						/** Connection to DB. */
-						$bd = mysql_connect($_SESSION['db_host'], $_SESSION['db_user'], $_SESSION['db_pwd']);
+						$bd = mysqli_connect($_SESSION['db_host'], $_SESSION['db_user'], $_SESSION['db_pwd']);
 						if (!$bd){
 							$result->ok = false;
 							$result->message .= '<div class="alert error">Can\'t connect to MySQL Server !</div>';
 						}else{
 							$db_name = (isset($_SESSION['db_prefix'])) ? $_SESSION['db_prefix'].'_'.$_SESSION['db_name'] : $_SESSION['db_name'];
-							$res = mysql_select_db($db_name, $bd);
+							$res = mysqli_select_db($bd, $db_name);
 							if (!$res){
 								$result->ok = false;
 								$result->message .= '<div class="alert error">Can\'t select database !</div>';
@@ -496,10 +496,10 @@ $result = new stdClass;
 						}
 						/** Write settings in DB */
 						$sql = 'INSERT INTO settings values("'.$_SESSION['s_contests_name'].'", '.((empty($_SESSION['s_gallery_only'])) ? 0 : 1 ).', "'.$_SESSION['s_contest_disp_title'].'", '.((empty($_SESSION['s_display_other_contests'])) ? 0 : 1).', '.$_SESSION['s_max_length'].', "'.$_SESSION['s_language'].'", "'.$_SESSION['s_date_format'].'", NULL)';
-						$res = mysql_query($sql);
+						$res = mysqli_query($bd, $sql);
 				    if (!$res) {
-				      $sqlErrorCode = mysql_errno();
-				      $sqlErrorText = mysql_error();
+				      $sqlErrorCode = mysqli_errno($bd);
+				      $sqlErrorText = mysqli_error($bd);
 							$result->ok = false;
 							$result->message .= '<div class="alert error">An error occured during settings save !<br/>Error code: '.$sqlErrorCode.'<br/>Error text: '.$sqlErrorText.'<br/>Statement:<br/>'.$sql.'</div>';
 				    }
@@ -526,7 +526,7 @@ $result = new stdClass;
 	            }elseif (stristr($line, 'PASSWD')){
 	              $line = 'define("PASSWD", "'.$_SESSION['admin_pwd'].'");';
 	            }elseif (stristr($line, 'HASH')){
-	              $line = 'define("HASH", "'.generateRandomString().'");';
+	              $line = 'define("HASH", \''.generateRandomString().'\');';
 	            }
 							$config_array[] = $line.PHP_EOL;
 	          }
@@ -613,7 +613,7 @@ $result = new stdClass;
 			?>
 		</div>
 		<script>
-			var noFreetile = true;
+			var noTiling = true;
 		</script>
 		<script type="text/javascript" src="./../js/jquery-1.8.2.min.js"></script>
 		<script type="text/javascript" src="./../js/zebra_datepicker.js"></script>

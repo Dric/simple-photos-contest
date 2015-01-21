@@ -1,4 +1,7 @@
 <?php
+if (!file_exists('config.php')){
+	header('Location:install/install.php');
+}
 include('config.php');
 include('functions.php');
 if ($settings){
@@ -25,6 +28,7 @@ if ($settings){
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+	  <link rel="stylesheet" href="css/lightbox.css" type="text/css" media="screen" />
 		<link rel="icon" type="image/png" href="favicon.png" />
 	</head>
 	<body>
@@ -50,15 +54,21 @@ if ($settings){
 			?>
 		</div>
 		<?php 
-		if (!$settings){
+		if (!$settings) {
 			/** If $settings is false, then there is no settings. Let's display a message ! */
 			$message = (object)array('type' => 'error', 'text' => _('It seems that you just installed Simple Photos Contest. Please click on the settings button and log in to configure this site.'));
 			echo disp_message($message);
-		}elseif (empty($settings->default_contest)){
+		}elseif (empty($settings->default_contest)and count($contests) < 1){
 			/** There are settings, but default contest is not defined. Let's display a message too ! */
 			$message = (object)array('type' => 'error', 'text' => _('There is no default contest defined. Please click on the settings button and log in to set one.'));
 			echo disp_message($message);
 		}else{
+			/** The first contest will be the default contest if none is set */
+			if (is_null($contest)){
+				reset($contests);
+				$contest = key($contests);
+			}
+
 			/** That's all good, let's display the page. */
 			$max_value = $settings->max_length;
 		?>
@@ -88,7 +98,7 @@ if ($settings){
 					list($byear, $bmonth, $bday) = explode('-', $contests[$contest]->date_begin);
 					list($eyear, $emonth, $eday) = explode('-', $contests[$contest]->date_end);
 					/** Query images from db. */
-					$sql=mysqli_query($bd, "SELECT * FROM images WHERE contest = ".$contest." ORDER BY img_name");
+					$sql=mysqli_query($bd, "SELECT * FROM images WHERE contest = '".$contest."' ORDER BY img_name");
 					while($row=mysqli_fetch_array($sql)){
 						$img_id=$row['img_id'];
 						$img_name=$row['img_name'];
@@ -120,19 +130,19 @@ if ($settings){
 						}
 				?>
 				<div class="img-container" <?php echo $attr; ?>>
-					<div class="box" align="left">
-						<?php
+					<div  id="box-<?php echo $img_id; ?>" class="caption">
+					<?php
 						/** If allowed and if present date is within the contest date range, display the vote icon. */
 						if (!$settings->gallery_only and (time() >= mktime(0,0,0,$bmonth,$bday,$byear) and time() <= mktime(0,0,0,$emonth,$eday,$eyear))){ ?>
-						<a href="#" class="love" id="<?php echo $img_id; ?>" data-contest="<?php echo $contest; ?>">
-							<span title="<?php echo _('I\'m in love !'); ?>" class="on_img" align="left"> <?php echo $love; ?> </span> 
-						</a>
+						<div href="#" class="love" id="<?php echo $img_id; ?>" data-contest="<?php echo $contest; ?>">
+							<span title="<?php echo _('I\'m in love !'); ?>" class="on_img"> <?php echo $love; ?> </span>
+						</div>
 						<?php }else{ ?>
 						&nbsp;
-						<?php } ?> 
-						<div class="pull-right"><?php echo $img_name; ?></div>
+						<?php }	?>
+						<div class="photo-title"><?php echo (strlen($img_name) > (int)round($width/10)) ? substr($img_name, 0, round($width/11)).'&hellip;':$img_name; ?></div>
 					</div>
-					<a href="<?php echo $img_url; ?>" title="<?php echo $img_name; ?>" rel="lightbox"><img alt="<?php echo $img_name; ?>" class="img" src="<?php echo $thumb_url; ?>" /></a>
+					<a href="<?php echo $img_url; ?>" title="<?php echo $img_name; ?>" data-lightbox="<?php echo $img_id; ?>" data-title="<?php echo $img_name; ?>" class=""><img alt="<?php echo $img_name; ?>" class="img" src="<?php echo $thumb_url; ?>" /></a>
 				</div>
 				<?php
 					}
@@ -141,11 +151,11 @@ if ($settings){
 		</div>
 		<?php } ?>
 		<script>
-			var noFreetile = false;
+			var noTiling = false;
 		</script>
-		<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
-		<script type="text/javascript" src="js/slimbox2.js"></script>
-		<script type="text/javascript" src="js/jquery.freetile.min.js"></script>
+		<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="js/lightbox.min.js"></script>
+		<script type="text/javascript" src="js/freetile0.3.1.js"></script>
 		<script type="text/javascript" src="js/contest.js"></script>
 	</body>
 </html>

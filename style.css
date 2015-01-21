@@ -82,6 +82,14 @@ a:hover{
 .pull-right{
 	float: right;
 }
+.love{
+	float: left;
+	padding-left: 4px;
+}
+.photo-title{
+	float: right;
+	padding-right: 8px;
+}
 .stats_data{
 	margin: 5px;
 	padding: 8px;
@@ -94,14 +102,26 @@ a:hover{
 	margin:25px 10px;
 	/*background-color: #303030;*/
 	float: left;
+	position: relative;
+}
+
+.img-container .caption{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10000;
+	background: transparent url(img/70opacity.png);
+	width: 100%;
+	padding: 4px;
+	color: #999;
 }
 
 .img{
 	vertical-align: middle;
 	padding: 0px;
 	margin: 0px;
-	opacity:0.8;
-  filter:alpha(opacity=80);
+	opacity:0.9;
+  filter:alpha(opacity=90);
 	border: none;
 }
 #header{
@@ -356,80 +376,6 @@ label:after{
 
 }
 
-/* SLIMBOX */
-/* Modifie par Charly Le Prof (30/05/2012) */
-
-#lbOverlay {
-	position: fixed;
-	z-index: 9999;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background-color: #000;
-	cursor: pointer;
-}
-#lbCenter, #lbBottomContainer {
-	position: absolute;
-	z-index: 9999;
-	overflow: hidden;
-	background-color: #303030;
-}
-.lbLoading {
-	background: #303030 url(img/loading.gif) no-repeat center;
-}
-#lbImage {
-	position: absolute;
-	left: 0;
-	top: 0;
-	border: 10px solid #303030;
-	background-repeat: no-repeat;
-}
-#lbPrevLink, #lbNextLink {
-	display: block;
-	position: absolute;
-	top: 0;
-	width: 50%;
-	outline: none;
-	z-index: 9999; /* Ajout Charly (image resize) */
-	background-image:url(img/transparent.gif); /* Ajout Charly (image resize) ie7 ie8 ie9 */
-}
-#lbPrevLink {
-	left: 0;
-}
-#lbPrevLink:hover {
-	background: transparent url(img/prev.png) no-repeat 0 15%;
-}
-#lbNextLink {
-	right: 0;
-}
-#lbNextLink:hover {
-	background: transparent url(img/next.png) no-repeat 100% 15%;
-}
-#lbBottom {
-	font-size: 12px;
-	color: #999;
-	line-height: 1.4em;
-	text-align: left;
-	border: 10px solid #303030;
-	border-bottom: 3px solid #303030; /* Ajout Charly */
-	border-top-style: none;
-}
-#lbCloseLink {
-	display: block;
-	float: right;
-	width: 20px; /* 66px Charly */
-	height: 22px;
-	background: transparent url(img/close.png) no-repeat center;
-	margin: 5px 0px 5px 0px; /* 5px 0 Charly */
-	outline: none;
-}
-#lbCaption, #lbNumber {
-	margin-right: 20px; /* 71px Charly */
-}
-#lbCaption {
-
-}
 
 /*
 
@@ -524,3 +470,5 @@ button.Zebra_DatePicker_Icon_Inside         { margin: 0 8px 0 0 }
 #settings_wrap .thumb .end { overflow: hidden; height: 5px; width: 25px; }
 #settings_wrap .disable { display: none; }
 .noSelect { user-select: none; -o-user-select: none; -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; }
+
+
