@@ -1,17 +1,3 @@
-$(document).ready(function(){
-  $("span.on_img").mouseover(function (){
-  	$(this).addClass("over_img");
-  });
-  $("span.on_img").mouseout(function (){
-    $(this).removeClass("over_img");
-  });
-	/*$('.img').mouseover(function (){
-  	$(this).stop().animate({ opacity: 1.0 }, 350);
-  });
-  $('.img').mouseout(function (){
-    $(this).stop().animate({ opacity: 0.9 }, 350);
-  });*/
-});
 $(function() {
 		if ($(".graph").length > 0){
   	// We have a graph to display !
@@ -27,24 +13,12 @@ $(function() {
 		});
 	}
 
-	$(document).on('click', '.close', function(){
+	$(document).on('click', '.alert-close', function(){
 		$(this).parent().remove();
 		tooltip.hide();
 	});
 
 	if ($('#wrap').length && noTiling == false) {
-		/*var wall = new freewall("#wrap");
-		 wall.reset({
-		 selector: '.img-container',
-		 animate: true,
-		 cellW: 'auto',
-		 cellH: maxWidth,
-		 gutterY: 20,
-		 onResize: function() {
-		 wall.fitWidth();
-		 }
-		 });
-		 wall.fitWidth();*/
 		$('#wrap').freetile({
 			selector    : '.img-container',
 			animate     : true,
@@ -53,9 +27,13 @@ $(function() {
 
 	}
 	$(".love").click(function(){
+		// Get FingerPrint, better method than IP to check if a user has already voted.
+		if (!fingerprint)	{
+			var fingerprint = new Fingerprint({canvas: true}).get();
+		}
 		var id = $(this).attr("id");
 		var contest = $(this).data('contest');
-		var dataString = 'id='+ id + '&contest=' + contest ;
+		var dataString = 'id='+ id + '&contest=' + contest + '&fingerprint=' + fingerprint ;
 		var parent = $(this);
 		$(this).fadeOut(300);
 		$.ajax({

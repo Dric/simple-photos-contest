@@ -1,0 +1,31 @@
+
+.clearfix() {
+  &:before,
+  &:after {
+    content: " "; // 1
+    display: table; // 2
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.center-block() {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.opacity(@opacity) {
+  opacity: @opacity;
+  // IE8 filter
+  @opacity-ie: (@opacity * 100);
+  filter: ~"alpha(opacity=@{opacity-ie})";
+}
+
+.transition(@type, @duration){
+  -webkit-transition: @type @duration;
+  -moz-transition: @type @duration;
+  -o-transition: @type @duration;
+  transition: @type @duration;
+}

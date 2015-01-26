@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Simple Photos Contest\n"
+"Project-Id-Version: Simple Photos Contest v2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-20 11:58+0100\n"
-"PO-Revision-Date: 2015-01-20 11:58+0100\n"
+"POT-Creation-Date: 2015-01-22 14:21+0100\n"
+"PO-Revision-Date: 2015-01-22 14:22+0100\n"
 "Last-Translator: Dric <cedric@driczone.net>\n"
 "Language-Team:  <cedric@driczone.net>\n"
 "Language: en_US\n"
@@ -212,7 +212,7 @@ msgstr ""
 msgid "Contest open to votes between %s and %s"
 msgstr ""
 
-#: ../admin.php:455 ../functions.php:193
+#: ../admin.php:455 ../functions.php:199
 #, php-format
 msgid "%s contest"
 msgstr ""
@@ -353,6 +353,10 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
+#: ../ajax_love.php:29 ../index.php:152
+msgid "I'm in love !"
+msgstr ""
+
 #: ../ajax_love.php:32
 msgid "You have already voted !"
 msgstr ""
@@ -365,27 +369,35 @@ msgstr ""
 msgid "Wrong password !"
 msgstr ""
 
-#: ../functions.php:195
+#: ../functions.php:163
+msgid ""
+"Warning : SPC does not provide voters authentication, and as a result the "
+"voting limit is not 100% reliable. People could vote multiple times with "
+"other devices or browsers and SPC would not be able to detect that this is "
+"the same voter."
+msgstr ""
+
+#: ../functions.php:201
 msgid "Number of votes"
 msgstr ""
 
-#: ../functions.php:196
+#: ../functions.php:202
 msgid "Number of voters"
 msgstr ""
 
-#: ../functions.php:197
+#: ../functions.php:203
 msgid "Number of photos"
 msgstr ""
 
-#: ../functions.php:198
+#: ../functions.php:204
 msgid "Favorite"
 msgstr ""
 
-#: ../functions.php:198
+#: ../functions.php:204
 msgid "with"
 msgstr ""
 
-#: ../functions.php:198
+#: ../functions.php:204
 msgid "vote"
 msgid_plural "votes"
 msgstr[0] ""
@@ -415,10 +427,14 @@ msgid ""
 "log in to set one."
 msgstr ""
 
-#: ../index.php:79
+#: ../index.php:84
 msgid "Other contests"
 msgstr ""
 
-#: ../index.php:137
-msgid "I'm in love !"
+#: ../index.php:103
+msgid "Voting is open for this contest."
+msgstr ""
+
+#: ../index.php:105
+msgid "Voting is closed for this contest."
 msgstr ""

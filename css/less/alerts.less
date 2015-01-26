@@ -1,0 +1,24 @@
+/* ALERTS */
+
+.alert{
+  max-width: 600px;
+  margin: 30px;
+  margin-left: 50px;
+  font-size: @alertFontSize;
+  padding: 1em;
+  border: 1px solid @linkColor;
+}
+
+.alert-close {
+  float: right;
+  font-size: (@fontSize * 1.5);
+  font-weight: bold;
+  line-height: 1;
+  .opacity(.5);
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    cursor: pointer;
+    .opacity(.7);
+  }
+}

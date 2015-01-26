@@ -1,0 +1,67 @@
+/* FORMS */
+form{
+  padding: 10px;
+  margin: 0;
+  width: 400px;
+  &.small{
+    width: 300px;
+    input{
+      width: 70%;
+    }
+  }
+  &.large{
+    width: 800px;
+  }
+}
+
+
+label{
+  font-size: (@fontSize * 1.2);
+  &:after{
+    content: '\A';
+    white-space:pre;
+  }
+}
+
+input, select, textarea, .button {
+  background-color: @boxBackgroundColor;
+  padding: 6px;
+  border: 1px solid @boxBackgroundColor;
+  font-size: (@fontSize * 1.2);
+  margin-left: 10px;
+  color: @captionColor;
+  width: 80%;
+  &:hover, &:focus{
+    border: 1px solid @loveColor;
+    color: @formInputColor;
+  }
+}
+
+textarea{
+  height: 100px;
+}
+
+.input_group{
+  position: relative;
+  margin-bottom: 20px;
+}
+.form_buttons{
+  float: right;
+  margin: 20px;
+  width: 400px;
+  text-align: right;
+  input{
+    color: @loveColor;
+    width: 150px;
+    font-size: (@fontSize * 1.4);
+    font-weight: @headerFontWeight;
+  }
+  .btn_primary{
+    color: @linkColor;
+    background-color: @loveColor;
+    border: 1px solid darken(@loveColor, 5%);
+    &:hover{
+      border: 1px solid @linkColor;
+    }
+  }
+}

@@ -1,0 +1,110 @@
+/**
+* Simple Photos Contest
+*
+* Main LESS file
+*
+* Modify values in `variables.less`
+*
+* A lot of things are imported from Bootstrap LESS
+*
+*/
+
+@import "mixins";
+@import "normalize";
+@import "fontAwesome/font-awesome";
+@import "external/lightbox";
+@import "external/tinyScrollbar";
+@import "core";
+@import "types";
+@import "alerts";
+@import "helpers";
+@import "admin";
+@import "images";
+@import "login";
+@import "love";
+@import "forms";
+@import "settingsBar";
+@import "variables";
+
+
+
+.love{
+  float: left;
+  padding-left: 4px;
+}
+.photo-title{
+  float: right;
+  padding-right: 8px;
+}
+.stats_data{
+  margin: 5px;
+  padding: 8px;
+}
+.stats_numbers{
+  color: @loveColor;
+  font-size: (@fontSize * 1.3);
+}
+.img-container{
+  margin:25px 10px;
+  /*background-color: #303030;*/
+  float: left;
+  position: relative;
+}
+
+.img-container .caption{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, .7);;
+  width: 100%;
+  padding: 4px;
+  color: @captionColor;
+}
+
+.img{
+  vertical-align: middle;
+  padding: 0px;
+  margin: 0px;
+  border: none;
+}
+#header{
+  font-weight: @headerFontWeight;
+  font-size: @headerFontSize;
+  margin-left: 50px;
+  padding-top: 20px;
+
+}
+#header img{
+  vertical-align: top;
+  padding-top: 8px;
+}
+.header-contest{
+  font-size: (@fontSize * 1.3);
+  color: @loveColor;
+}
+#sub_title{
+  font-size: (@fontSize * 0.8);
+  color: @loveColor;
+}
+#tab_list{
+  list-style: none;
+}
+
+#contests_list{
+  font-weight: @headerFontWeight;
+  font-size: (@fontSize * 1.4);
+  margin-left: 60px;
+}
+#settings-button{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+
+
+
+
+
+
