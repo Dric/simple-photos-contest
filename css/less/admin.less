@@ -1,0 +1,81 @@
+/* TABLES */
+.table{
+  margin: 4px;
+  width: 80%;
+  li{
+    padding: 8px;
+    display: inline-block;
+  }
+  .item_wrap{
+    display: block;
+    margin-bottom: 10px;
+    border: 1px solid #303030;
+    padding: 6px;
+    padding-bottom: 10px;
+  }
+  .item_title{
+    font-size: (@headerFontSize * 1.1);
+    color: @loveColor;
+    font-weight: @headerFontWeight;
+  }
+  .date_begin, .date_end{
+    color: @captionColor;
+  }
+  .item_desc{
+    font-style: italic;
+  }
+  .item_id{
+    display: block;
+  }
+  .item_actions{
+    float: right;
+    display:block;
+    height: 50px;
+    margin-top: 8px;
+  }
+  .item_dates{
+    text-align: right;
+    display: block;
+  }
+}
+
+.active{
+  border: 1px solid @loveColor !important;
+}
+.not_added{
+  color: @captionColor !important;
+}
+
+.box{
+  background-color:@boxBackgroundColor;
+  padding:6px;
+  padding-top: 4px;
+  color: @linkColor;
+  font-weight: 400;
+  margin: auto;
+  &:after{
+    clear: right;
+  }
+}
+
+#content{
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  padding: 0;
+  margin: 0 auto -38px; /* the bottom margin is the negative value of the footer's height */
+}
+
+#admin_wrap{
+  margin-left: 60px;
+  margin-top: 40px;
+}
+#footer, .push{
+  height: 26px;
+  padding: 5px;
+  padding-right: 70px;
+  text-align: right;
+}
+#footer a{
+  color: @captionColor;
+}

@@ -45,14 +45,14 @@ if (isset($_GET['contest']) and !empty($_GET['contest']) and $tab == 'contests')
 			}else{
 				$desc = "'".$desc."'";
 			}
-			$query = "UPDATE contests SET contest_name = '".$contest_name."', description = ''".$desc."'', date_begin = '".$date_begin."', date_end = '".$date_end."', voting_type = '".$voting_type."' WHERE contests.contest = '".$contest."'";
+			$query = "UPDATE contests SET contest_name = '".$contest_name."', description = ".$desc.", date_begin = '".$date_begin."', date_end = '".$date_end."', voting_type = '".$voting_type."' WHERE contests.contest = '".$contest."'";
 			$sql=mysqli_query($bd, $query);
 			$nb = mysqli_affected_rows($bd);
 			if ($nb > 0){
 				$message->text = sprintf(_('Settings for %s contest saved !'), $contest);
 				$message->type = 'success';
 			}else{
-				$message->text = sprintf(_('Error : I couldn\'t save the %s contest settings !'), $contest).'<br />'.mysqli_info($bd);
+				$message->text = sprintf(_('Error : I couldn\'t save the %s contest settings !'), $contest).'<br />'.mysqli_info($bd).mysqli_error($bd);
 				$message->type = 'error';
 			}
 			break;
@@ -290,7 +290,7 @@ function settings_tab($message = null){
 		</div>
 		<div class="input_group">
 			<label><?php echo _('Max thumbnail length'); ?> </label>
-			<input type="text" name="max_length" id="max_length" value="<?php echo (isset($settings->max_length)) ? $settings->max_length : '250'; ?>" />px <?php echo info_disp(_('This value is the max width or height of thumbnails, depending of the biggest side of the photo.')); ?>
+			<input type="text" name="max_length" id="max_length" value="<?php echo (isset($settings->max_length)) ? $settings->max_length : '600'; ?>" />px <?php echo info_disp(_('This value is the max width or height of thumbnails, depending of the biggest side of the photo.')); ?>
 		</div>
 		<div class="input_group">
 			<label><?php echo _('Language'); ?> </label>
@@ -406,7 +406,7 @@ function contest_tab($c_path, $contest = null, $message = null){
 				/** contests who are not in db yet. */
 				?>
 				<ul class="item_wrap">
-					<li class="item_actions"><a href="?tab=contests&contest=<?php echo $cont_id; ?>&action=add" title="<?php echo _('Add'); ?>"><img src="img/add.png" alt="<?php echo _('Add'); ?>"/></a></li>
+					<li class="item_actions"><a href="?tab=contests&contest=<?php echo $cont_id; ?>&action=add" title="<?php echo _('Add'); ?>"><span class="fa fa-plus win8Icon"title="<?php echo _('Add'); ?>"></span></a></li>
 					<li class="item_title not_added"><?php echo $cont_id; ?></li>
 					<li class="item_desc"></li>
 					<li class="item_id">Id : <?php echo $cont_id; ?></li>
@@ -426,11 +426,11 @@ function contest_tab($c_path, $contest = null, $message = null){
 				?>
 				<ul class="item_wrap <?php echo $class; ?>">
 					<li class="item_actions">
-						<a href="?tab=contests&contest=<?php echo $cont_id; ?>&action=stats" title="<?php echo _('Stats'); ?>"><img src="img/stats.png" alt="<?php echo _('Stats'); ?>"/></a>&nbsp;
-						<a href="?tab=contests&contest=<?php echo $cont_id; ?>&action=update" title="<?php echo _('Update'); ?>"><img src="img/refresh.png" alt="<?php echo _('Update'); ?>"/></a>&nbsp;
-						<a href="?tab=contests&contest=<?php echo $cont_id; ?>" title="<?php echo _('Edit'); ?>"><img src="img/edit.png" alt="<?php echo _('Edit'); ?>"/></a>
-						<a href="?tab=contests&contest=<?php echo $cont_id; ?>&action=reset" title="<?php echo _('Reinitialize votes'); ?>"><img src="img/reset.png" alt="<?php echo _('Reinitialize votes'); ?>"/></a>&nbsp;
-						<a href="?tab=contests&contest=<?php echo $cont_id; ?>&action=del" title="<?php echo _('Delete contest'); ?>"><img src="img/del.png" alt="<?php echo _('Delete contest'); ?>"/></a>&nbsp;
+						<a href="?tab=contests&contest=<?php echo $cont_id; ?>&action=stats" title="<?php echo _('Stats'); ?>"><span class="fa fa-bar-chart win8Icon" title="<?php echo _('Stats'); ?>"></span></a>&nbsp;
+						<a href="?tab=contests&contest=<?php echo $cont_id; ?>&action=update" title="<?php echo _('Update'); ?>"><span class="fa fa-refresh win8Icon" title="<?php echo _('Update'); ?>"></span></a>&nbsp;
+						<a href="?tab=contests&contest=<?php echo $cont_id; ?>" title="<?php echo _('Edit'); ?>"><span class="fa fa-pencil win8Icon" title="<?php echo _('Edit'); ?>"></span></a>&nbsp;
+						<a href="?tab=contests&contest=<?php echo $cont_id; ?>&action=reset" title="<?php echo _('Reinitialize votes'); ?>"><span class="fa fa-undo win8Icon" title="<?php echo _('Reinitialize votes'); ?>"></span></a>&nbsp;
+						<a href="?tab=contests&contest=<?php echo $cont_id; ?>&action=del" title="<?php echo _('Delete contest'); ?>"><span class="fa fa-trash win8Icon" title="<?php echo _('Delete contest'); ?>"></span></a>&nbsp;
 					</li>
 					<li class="item_title"><a title="<?php echo _('See contest'); ?>" href=".?contest=<?php echo $cont_id; ?>"><?php echo $cont->contest_name; ?></a></li>
 					<li class="item_desc"><?php echo $cont->description; ?></li>
@@ -465,11 +465,15 @@ function contest_tab($c_path, $contest = null, $message = null){
 			<label><?php echo _('Contest opening'); ?></label>
 			<div class="input_group">
 				<label for="date_begin"><?php echo _('From'); ?> </label>
-				<input type="text" name="date_begin" id="date_begin" value="<?php echo date_formatting($cont->date_begin); ?>" />
+				<input type="date" name="date_begin" id="date_begin" value="<?php echo date_formatting($cont->date_begin); ?>"/>
 				<br />
 				<label for="date_end"><?php echo _('To'); ?> </label>
-				<input type="text" name="date_end" id="date_end" value="<?php echo date_formatting($cont->date_end); ?>" />
+				<input type="date" name="date_end" id="date_end" value="<?php echo date_formatting($cont->date_end); ?>"/>
 			</div>
+			<script>
+				var beginDate = new Date("<?php echo date('D M d Y H:i:s O', strtotime($cont->date_begin)); ?>");
+				var endDate = new Date("<?php echo date('D M d Y H:i:s O', strtotime($cont->date_end)); ?>");
+			</script>
       <div class="input_group">
 				<label><?php echo _('Voting'); ?> : </label>
 				<select name="voting_type" id="voting_type" value="<?php echo $cont->voting_type; ?>" >
@@ -495,13 +499,13 @@ function admin_header($tab, $sub = null, $message = null){
     <title><?php echo _('Admin panel'); ?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="css/spc.css" type="text/css" />
 		<link rel="icon" type="image/png" href="favicon.png" />
 	</head>
 	<body>
 		<div id="content">
 		<div id="header">
-			<a href="<?php if (!empty($sub)){ echo 'admin'; } else { echo 'index'; } ?>.php<?php if (!empty($sub)){ echo '?tab='.strtolower($tab);} ?>" title="<?php echo _('Back'); ?>"><img src="img/back.png" /></a> 
+			<a href="<?php if (!empty($sub)){ echo 'admin'; } else { echo 'index'; } ?>.php<?php if (!empty($sub)){ echo '?tab='.strtolower($tab);} ?>" title="<?php echo _('Back'); ?>"><span class="fa fa-arrow-circle-o-left"></span><!--<img src="img/back.png" />--></a>
 			<a href="admin.php"><?php echo _('Admin panel').' / '._($tab); ?></a>
 			<?php
 			if (!empty($sub)){
@@ -512,7 +516,7 @@ function admin_header($tab, $sub = null, $message = null){
 		<?php echo disp_message($message); ?>
 			<div id="admin_wrap">
 				<div id="settings_bar">
-					<a href="#" title="<?php echo _('General settings'); ?>" id="settings_disp"><img alt="<?php echo _('General settings'); ?>" src="img/settings2.png" /></a>
+					<a href="#" title="<?php echo _('General settings'); ?>" id="settings_disp"><span class="fa fa-sliders win8Icon" title="<?php echo _('General settings'); ?>"></span></a>
 					<div id="settings_wrap">
 						<h1><?php echo _('General settings'); ?></h1>
 						<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
@@ -537,19 +541,13 @@ function admin_footer(){
 				<div class="push"></div>
 				</div>
 				<div id="footer">
-					<a href="https://github.com/Dric/simple-photos-contest"><img src="img/github.png" /></a> <a href="about.php" class="lightbox"><span class="colored">S</span>imple <span class="colored">P</span>hotos <span class="colored">C</span>ontest</a> <span class="colored"><?php echo SPC_VERSION; ?></span> by <a href="http://www.driczone.net"><span class="colored">Dric</span></a>.
+					<a href="https://github.com/Dric/simple-photos-contest"><span class="fa fa-github githubIcon"></span></a> <a href="about.php" class=""><span class="colored">S</span>imple <span class="colored">P</span>hotos <span class="colored">C</span>ontest</a> <span class="colored"><?php echo SPC_VERSION; ?></span> by <a href="http://www.driczone.net"><span class="colored">Dric</span></a>.
 				</div>
 			<script>
-				/** Localization for datePicker. */
-				var monthNames = ["<?php echo _('January'); ?>", "<?php echo _('February'); ?>", "<?php echo _('March'); ?>", "<?php echo _('April'); ?>", "<?php echo _('May'); ?>", "<?php echo _('June'); ?>", "<?php echo _('July'); ?>", "<?php echo _('August'); ?>", "<?php echo _('September'); ?>", "<?php echo _('October'); ?>", "<?php echo _('November'); ?>", "<?php echo _('December'); ?>"];
-				var dayNames = ["<?php echo _('Sunday'); ?>", "<?php echo _('Monday'); ?>", "<?php echo _('Tuesday'); ?>", "<?php echo _('Wednesday'); ?>", "<?php echo _('Thursday'); ?>", "<?php echo _('Friday'); ?>", "<?php echo _('Saturday'); ?>"];
-				var dateFormat = "<?php echo $settings->date_format; ?>";
-				var resetLabel = "<?php echo _('Reset'); ?>";
 				var noTiling = true;
 			</script>
-			<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
-			<script type="text/javascript" src="js/slimbox2.js"></script>
-			<script type="text/javascript" src="js/zebra_datepicker.js"></script>
+			<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+			<script type="text/javascript" src="js/lightbox.min.js"></script>
 			<script type="text/javascript" src="js/jqBarGraph.1.1.min.js"></script>
 			<script type="text/javascript" src="js/jquery.tinyscrollbar.min.js"></script>
 			<script type="text/javascript" src="js/contest.js"></script>

@@ -1,0 +1,67 @@
+// Core CSS
+// Check in `variables.less` first, as a lot of things can be modified from this file.
+
+
+html, body {
+  height: 100%;
+  font-family: @fontFamily;
+  font-size: @fontSize;
+  color: @textColor;
+  background-color: @backgroundColor;
+  margin: 0;
+  padding: 0;
+}
+
+// Site Container
+#wrap {
+  width: @wrapWidth;
+  margin: auto;
+}
+
+// Tooltips
+div#tooltipDiv {
+  padding: 5px;
+  border: solid 1px @boxBackgroundColor;
+  display: none; /*white-space: nowrap;*/
+  background: @loveColorHover;
+  color: @loveColor;
+  font-size: @subFontSize;
+  text-align: left;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  filter: alpha(opacity=85);
+  opacity: .85;
+}
+
+// From <http://stackoverflow.com/a/26165965/1749967>
+.win8Icon {
+  border: 0.15em solid @textColor;
+  color: @textColor;
+  font-size: (@fontSize * 1.6);
+  width: (@fontSize * 1.6);
+  text-align: center;
+  line-height: (@fontSize * 1.6);
+  border-radius: (@fontSize * 2);
+}
+
+.imgInfo {
+  cursor: help;
+  margin-left: 4px;
+  position: absolute;
+  border: none;
+  right:0px;
+  background-color: @textColor;
+  color: @boxBackgroundColor;
+  font-size: (@fontSize * 1.2);
+  width: (@fontSize * 1.2);
+  text-align: center;
+  line-height: (@fontSize * 1.2);
+  border-radius: (@fontSize * 2);
+}
+
+.githubIcon{
+  font-size: (@fontSize * 1.2);
+  color: @textColor;
+}

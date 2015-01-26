@@ -1,10 +1,10 @@
 <?php
 include("config.php");
-$ip=$_SERVER['REMOTE_ADDR']; 
 
 if(isset($_POST['id']) and !empty($_POST['id'])){
 	$id= intval($_POST['id']);
 	$contest= htmlspecialchars($_POST['contest']);
+	$ip = $_POST['fingerprint'];
   $ret = mysqli_query($bd, "select * from contests where contest = '$contest'");
   if ($ret !== null){
     $contest_settings = mysqli_fetch_object($ret);
@@ -26,7 +26,7 @@ if(isset($_POST['id']) and !empty($_POST['id'])){
   		$row=mysqli_fetch_array($result);
   		$love=$row['love'];
   		?>
-  		<span class="on_img" align="left"><?php echo $love; ?></span>
+		  <span title="<?php echo _('I\'m in love !'); ?>"><span class="fa fa-heart"></span> <?php echo $love; ?> </span>
   		<?php
   	}else{
   		echo _('You have already voted !');
@@ -43,7 +43,7 @@ if (isset($_POST['action'])){
         echo '<div class="alert error">cookie failed !</div>';
       }
 		}else{
-			echo '<div class="alert error"><a class="close" href="#" title="'._('Close').'">×</a>'._('Wrong password !').'</div>';
+			echo '<div class="alert error"><a class="alert-close" href="#" title="'._('Close').'">×</a>'._('Wrong password !').'</div>';
 		}
 	}
 }

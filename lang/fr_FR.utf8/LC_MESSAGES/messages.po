@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Simple Photos Contest\n"
+"Project-Id-Version: Simple Photos Contest v2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-20 11:58+0100\n"
-"PO-Revision-Date: 2015-01-20 11:59+0100\n"
+"POT-Creation-Date: 2015-01-22 14:22+0100\n"
+"PO-Revision-Date: 2015-01-22 14:24+0100\n"
 "Last-Translator: Dric <cedric@driczone.net>\n"
 "Language-Team:  <cedric@driczone.net>\n"
 "Language: fr\n"
@@ -227,7 +227,7 @@ msgstr "Voir le concours"
 msgid "Contest open to votes between %s and %s"
 msgstr "Votes ouverts du %s au %s"
 
-#: ../../../admin.php:455 ../../../functions.php:193
+#: ../../../admin.php:455 ../../../functions.php:199
 #, php-format
 msgid "%s contest"
 msgstr "Concours %s"
@@ -368,6 +368,10 @@ msgstr "Samedi"
 msgid "Reset"
 msgstr "Réinitialiser"
 
+#: ../../../ajax_love.php:29 ../../../index.php:152
+msgid "I'm in love !"
+msgstr "Je suis amoureux"
+
 #: ../../../ajax_love.php:32
 msgid "You have already voted !"
 msgstr "Vous avez déjà voté!"
@@ -380,27 +384,39 @@ msgstr "Fermer"
 msgid "Wrong password !"
 msgstr "Mot de passe incorrect !"
 
-#: ../../../functions.php:195
+#: ../../../functions.php:163
+msgid ""
+"Warning : SPC does not provide voters authentication, and as a result the "
+"voting limit is not 100% reliable. People could vote multiple times with "
+"other devices or browsers and SPC would not be able to detect that this is "
+"the same voter."
+msgstr ""
+"Attention : SPC n'a pas de système d'authentification pour s'assurer qu'un "
+"visiteur ne vote pas plusieurs fois. Il suffit qu'un visiteur change de "
+"navigateur ou de PC/smartphone/tablette pour pouvoir voter plusieurs fois "
+"sans que SPC ne puisse le détecter."
+
+#: ../../../functions.php:201
 msgid "Number of votes"
 msgstr "Nombre de votes"
 
-#: ../../../functions.php:196
+#: ../../../functions.php:202
 msgid "Number of voters"
 msgstr "Nombre de votants"
 
-#: ../../../functions.php:197
+#: ../../../functions.php:203
 msgid "Number of photos"
 msgstr "Nombre de photos"
 
-#: ../../../functions.php:198
+#: ../../../functions.php:204
 msgid "Favorite"
 msgstr "Gagnante"
 
-#: ../../../functions.php:198
+#: ../../../functions.php:204
 msgid "with"
 msgstr "avec"
 
-#: ../../../functions.php:198
+#: ../../../functions.php:204
 msgid "vote"
 msgid_plural "votes"
 msgstr[0] "vote"
@@ -435,10 +451,14 @@ msgstr ""
 "Il n'y a pas de concours par défaut. Merci d'en configurer un dans les "
 "paramètres."
 
-#: ../../../index.php:79
+#: ../../../index.php:84
 msgid "Other contests"
 msgstr "Autres concours"
 
-#: ../../../index.php:137
-msgid "I'm in love !"
-msgstr "Je suis amoureux"
+#: ../../../index.php:103
+msgid "Voting is open for this contest."
+msgstr "Les votes sont ouverts !"
+
+#: ../../../index.php:105
+msgid "Voting is closed for this contest."
+msgstr "Les votes sont clos !"

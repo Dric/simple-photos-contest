@@ -24,7 +24,7 @@ CREATE TABLE `images` (
 CREATE TABLE `image_IP` (
   `ip_id` int(11) NOT NULL AUTO_INCREMENT,
   `img_id_fk` int(11) DEFAULT NULL,
-  `ip_add` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
+  `ip_add` int(11) DEFAULT NULL,
   `contest` varchar(200) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`ip_id`),
   KEY `img_id_fk` (`img_id_fk`),
@@ -36,7 +36,7 @@ CREATE TABLE `settings` (
   `gallery_only` tinyint(1) DEFAULT '0',
   `contest_disp_title` varchar(255) NOT NULL,
   `display_other_contests` tinyint(1) NOT NULL DEFAULT '1',
-  `max_length` int(11) NOT NULL DEFAULT '400',
+  `max_length` int(11) NOT NULL DEFAULT '600',
   `language` varchar(15) NOT NULL,
   `date_format` varchar(10) NOT NULL,
   `default_contest` varchar(200) DEFAULT NULL

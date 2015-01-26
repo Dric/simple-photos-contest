@@ -21,7 +21,7 @@ $result = new stdClass;
     <title>Simple Photos Contest - Installation</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="./../style.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="./../css/spc.css" type="text/css" media="screen" />
 		<link rel="icon" type="image/png" href="./../favicon.png" />
 		<style type="text/css">
 			body{
@@ -376,7 +376,7 @@ $result = new stdClass;
 						</div>
 						<div class="input_group">
 							<label>Max thumbnail length</label>
-							<input type="text" name="s_max_length" id="s_max_length" value="<?php echo (isset($_SESSION['s_max_length'])) ? $_SESSION['s_max_length'] : '400'; ?>" />px <img alt="This value is the max width or height of thumbnails, depending of the biggest side of the photo." src="./../img/info.png" />
+							<input type="text" name="s_max_length" id="s_max_length" value="<?php echo (isset($_SESSION['s_max_length'])) ? $_SESSION['s_max_length'] : '600'; ?>" />px <img alt="This value is the max width or height of thumbnails, depending of the biggest side of the photo." src="./../img/info.png" />
 						</div>
 						<div class="input_group">
 							<label>Language</label>

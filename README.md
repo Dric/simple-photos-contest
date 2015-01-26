@@ -27,7 +27,7 @@ Requirements
 
 There is nothing unusual, as GD and gettext are enabled on most of web hosting platforms. Simple Photos Contest may work with previous versions of MySQL, but it hasn't been tested.
 
-Runs well on IE 8+, FF, Opera, Chrome (and probably Safari, but it hasn't been tested). Javascript is required.
+Runs well on a decent Internet Browser that support HTML5. Javascript is required.
 
 Installation
 ------------
@@ -44,13 +44,20 @@ Installation
 	5. Configure SPC in admin panel.
 
 
-Update from 1.1
----------------
-Run this SQL command :
+Update from 1.x versions
+------------------------
+Run SQL commands :
+
     ALTER TABLE `contests` ADD `voting_type` VARCHAR( 10 ) NOT NULL DEFAULT "open" ;
+    ALTER TABLE `image_ip` CHANGE `ip_add` `ip_add` INT NULL DEFAULT NULL;
 
 Changelog
 ---------
+* 2.0
+	- Major rewrite : frontend now use HTML5 and CSS3
+	- Used of LESS files to build CSS file
+	- Use fingerprinting method instead of IP address to detect if a visitor has already voted.
+	- ZebraDatePicker replaced by glDatePicker
 * 1.3
 	- `mysql_*` obsolete php functions replaced by `mysqli_*` functions.
 	- When `config.php` file is not found, user will be redirected to install script.
@@ -81,6 +88,8 @@ FAQ
 	<dd>There is small icon in upper right corner of the main page. Just click on it, enter password and you will get the admin panel.</dd>
 	<dt>How can I translate Simple Photos contest ?</dt>
 	<dd>There is a pot template file in lang dir. Edit it with a po editor like [PoEdit](http://www.poedit.net) in Windows, then mimic the french translation files tree.</dd>
+	<dt>How can I change SPC CSS ?</dt>
+  <dd>You should modify SPC LESS files (check `variables.less` first, as most of colors and sizes are defined here) and compile it to a CSS file.</dd>
 </dl>
 
 TO-DO
@@ -96,7 +105,7 @@ Components used
 + [jQuery](http://jquery.com) 1.11.2
 + [Freetile](https://github.com/yconst/Freetile) 0.3.1
 + [Lightbox](http://lokeshdhakar.com/projects/lightbox2) 2.7.1
-+ [Zebra DatePicker](http://stefangabos.ro/jquery/zebra-datepicker/) 1.6.2
++ [glDatePicker](http://glad.github.io/glDatePicker) 2.0
 + [jqBarGraph](http://workshop.rs/jqbargraph/) 1.1
 + [Tiny Scrollbar](http://baijs.nl/tinyscrollbar/) 1.81
 

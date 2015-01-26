@@ -1,5 +1,5 @@
 <?php 
-DEFINE('SPC_VERSION', '1.3');
+DEFINE('SPC_VERSION', '2.0');
 
 $sql=mysqli_query($bd, "SELECT * FROM settings");
 $settings = mysqli_fetch_object($sql);
@@ -143,12 +143,13 @@ function admin_logged(){
  */
 function disp_message($message){
 	if (isset($message->type)){
-		return '<div class="alert '.$message->type.'"><a class="close" href="#" title="Fermer">×</a>'.$message->text.'</div>';
+		return '<div class="alert '.$message->type.'"><a class="alert-close" href="#" title="Fermer">×</a>'.$message->text.'</div>';
 	}
 }
 
 function info_disp($message){
-	return '<img alt="'.$message.'" class="img_info" src="img/info.png" />';
+	return '<span class="fa fa-info imgInfo" title="'.$message.'"></span>';
+	//<img alt="'.$message.'" class="img_info" src="img/info.png" />';
 }
 
 /**
@@ -158,11 +159,13 @@ function info_disp($message){
 */
 function contest_stats($contest){
 	global $settings, $c_path, $bd;
+	// Some text to explain why the voting system is not 100% reliable
+	?><div class="width60Percent"><?php echo _('Warning : SPC does not provide voters authentication, and as a result the voting limit is not 100% reliable. People could vote multiple times with other devices or browsers and SPC would not be able to detect that this is the same voter.'); ?></div><?php
 	/** Get contest data. */
 	$sql=mysqli_query($bd, 'SELECT * FROM contests WHERE contest = "'.$contest.'"');
 	$cont = mysqli_fetch_object($sql);
 	/** Get images and votes. */
-	$sql=mysqli_query($bd, 'SELECT *FROM images WHERE contest = "'.$contest.'" ORDER BY img_name');
+	$sql=mysqli_query($bd, 'SELECT * FROM images WHERE contest = "'.$contest.'" ORDER BY img_name');
 	$nbphotos = mysqli_num_rows($sql);
 	/** Get number of voters (format : array with only first value populated) */
 	$nbvoters = mysqli_fetch_row(mysqli_query($bd, 'SELECT COUNT(DISTINCT ip_add) FROM image_IP WHERE contest = "'.$contest.'"'));
@@ -173,14 +176,14 @@ function contest_stats($contest){
 		if (typeof arrayOfData == "undefined") {
 			arrayOfData = new Array();
 		}
-		arrayOfData[<?php echo $contest; ?>] = new Array(
+		arrayOfData["<?php echo $contest; ?>"] = new Array(
 	<?php
 	$disp = '';
 	$nbvotes = 0;
 	/** @param array Photo name as first value, img url as second and number of votes as third. */
 	$mostvoted = array(0,0,0);
 	while($row=mysqli_fetch_array($sql)){
-		$disp .= '['.$row['love'].', "<a title=\"'.$row['img_name'].'\" href=\"'.$c_path.$contest.'/'.$row['img_url'].'\" class=\"lightbox\">'.$row['img_name'].'</a>"],';
+		$disp .= "\r\n".'['.$row['love'].', "<a title=\"'.$row['img_name'].'\" href=\"'.$c_path.$contest.'/'.$row['img_url'].'\" class=\"\" data-lightbox=\"'.$row['img_id'].'\">'.$row['img_name'].'</a>"],';
 		$nbvotes += $row['love'];
 		if ($mostvoted[2] < $row['love']){
 			$mostvoted[0] = $row['img_name'];
@@ -198,7 +201,7 @@ function contest_stats($contest){
 		<li><?php echo _('Number of votes'); ?> : <span class="stats_numbers"><?php echo $nbvotes; ?></span></li>
 		<li><?php echo _('Number of voters'); ?> : <span class="stats_numbers"><?php echo $nbvoters; ?></span></li>
 		<li><?php echo _('Number of photos'); ?> : <span class="stats_numbers"><?php echo $nbphotos; ?></span></li>
-		<li><?php echo _('Favorite'); ?> : <span class="stats_numbers"><a class="lightbox" href="<?php echo $c_path.$contest.'/'.$mostvoted[1]; ?>" title="<?php echo $mostvoted[0]; ?>"><?php echo $mostvoted[0]; ?></a></span> <?php echo _('with'); ?> <span class="stats_numbers"><?php echo $mostvoted[2]; ?></span> <?php echo ngettext('vote', 'votes', $mostvoted[2]); ?></li>
+		<li><?php echo _('Favorite'); ?> : <span class="stats_numbers"><a class="" data-lightbox="favorite" href="<?php echo $c_path.$contest.'/'.$mostvoted[1]; ?>" title="<?php echo $mostvoted[0]; ?>"><?php echo $mostvoted[0]; ?></a></span> <?php echo _('with'); ?> <span class="stats_numbers"><?php echo $mostvoted[2]; ?></span> <?php echo ngettext('vote', 'votes', $mostvoted[2]); ?></li>
 	</ul>
 	<?php
 }

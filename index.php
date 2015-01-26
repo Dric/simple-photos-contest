@@ -25,27 +25,32 @@ if ($settings){
 <html lang="<?php echo $settings->language; ?>">
   <head>
     <title><?php echo sprintf($settings->contests_name, $contest); ?></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
-	  <link rel="stylesheet" href="css/lightbox.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="css/spc.css" type="text/css" />
 		<link rel="icon" type="image/png" href="favicon.png" />
+	  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	  <!--[if lt IE 9]>
+	  <script src="js/html5shiv.js"></script>
+	  <script src="js/respond.min.js"></script>
+	  <![endif]-->
 	</head>
 	<body>
 		<div id="settings-button">
 			<?php
 			if ($admin_logged){
 				?>
-			<a href="admin.php" title="<?php echo _('settings'); ?>"><img alt="<?php echo _('settings'); ?>" src="img/settings.png" /></a>
+			<a href="admin.php" title="<?php echo _('settings'); ?>"><span class="fa fa-cog" title="<?php echo _('settings'); ?>"></span></a>
 				<?php
 			}else{
 				?>
-			<a href="#" title="<?php echo _('Settings'); ?>" id="log_button"><img alt="<?php echo _('Settings'); ?>" src="img/settings.png" /></a>
+			<a href="#" title="<?php echo _('Settings'); ?>" id="log_button"><span class="fa fa-cog" title="<?php echo _('settings'); ?>"></span></a>
 			<div id="login">
 				<form class="small">
 					<div class="input_group">
 						<label><?php echo _('Password'); ?> : </label>
-						<input type="password" id="login_auth"/> <img id="log_send" alt="<?php echo _('Login'); ?>" src="img/go.png" />
+						<input type="password" id="login_auth"/> <span id="log_send" class="fa fa-sign-in fa-2x" title="<?php echo _('Login'); ?>"></span>
 					</div>
 				</form> 
 			</div>
@@ -71,6 +76,11 @@ if ($settings){
 
 			/** That's all good, let's display the page. */
 			$max_value = $settings->max_length;
+			/** Get dates variables. */
+			list($byear, $bmonth, $bday) = explode('-', $contests[$contest]->date_begin);
+			list($eyear, $emonth, $eday) = explode('-', $contests[$contest]->date_end);
+			/** @var bool $activeContest Is the contest active or not ? */
+			$activeContest = (time() >= mktime(0,0,0,$bmonth,$bday,$byear) and time() <= mktime(0,0,0,$emonth,$eday,$eyear)) ? true : false;
 		?>
 		<div id="header"><?php echo sprintf($settings->contest_disp_title, '<span class="header-contest">'.$contest.'</span>'); ?></div>
 		<div id="contests_list">
@@ -92,11 +102,19 @@ if ($settings){
 			?>
 		</div>
 		<div align="center">
-			<div id="wrap">
+			<div class="contestStatus">
 				<?php
-					/** Get dates variables. */
-					list($byear, $bmonth, $bday) = explode('-', $contests[$contest]->date_begin);
-					list($eyear, $emonth, $eday) = explode('-', $contests[$contest]->date_end);
+				if (!$settings->gallery_only) {
+					if ($activeContest) {
+						?><h2><?php echo _('Voting is open for this contest.'); ?></h2><?php
+					} else {
+						?><h2><?php echo _('Voting is closed for this contest.'); ?></h2><?php
+					}
+				}
+				?>
+			</div>
+			<section id="wrap" role="main">
+				<?php
 					/** Query images from db. */
 					$sql=mysqli_query($bd, "SELECT * FROM images WHERE contest = '".$contest."' ORDER BY img_name");
 					while($row=mysqli_fetch_array($sql)){
@@ -108,10 +126,12 @@ if ($settings){
             if (file_exists($thumb_url)) {
               list($width, $height) = getimagesize($thumb_url);
             }
+						// If Image thumbnail doesn't exists or if the max_value has changed, we (re)create the thumbnail
             if (!file_exists($thumb_url) or ($width != $max_value and $height != $max_value)){
               include_once('SimpleImage.php');
               $img_thumb = new SimpleImage($img_url);
               $img_thumb->best_fit($max_value, $max_value);
+	            // If contest thumbnail folder doesn't exists, we create it
               if (!file_exists('cache/'.$contest)) mkdir('cache/'.$contest);
               $img_thumb->save($thumb_url);
               list($width, $height) = getimagesize($thumb_url);
@@ -129,25 +149,25 @@ if ($settings){
 							}
 						}
 				?>
-				<div class="img-container" <?php echo $attr; ?>>
+				<article class="img-container" <?php echo $attr; ?>>
 					<div  id="box-<?php echo $img_id; ?>" class="caption">
 					<?php
 						/** If allowed and if present date is within the contest date range, display the vote icon. */
-						if (!$settings->gallery_only and (time() >= mktime(0,0,0,$bmonth,$bday,$byear) and time() <= mktime(0,0,0,$emonth,$eday,$eyear))){ ?>
+						if (!$settings->gallery_only and $activeContest){ ?>
 						<div href="#" class="love" id="<?php echo $img_id; ?>" data-contest="<?php echo $contest; ?>">
-							<span title="<?php echo _('I\'m in love !'); ?>" class="on_img"> <?php echo $love; ?> </span>
+							<span title="<?php echo _('I\'m in love !'); ?>"><span class="fa fa-heart"></span> <?php echo $love; ?> </span>
 						</div>
 						<?php }else{ ?>
 						&nbsp;
 						<?php }	?>
-						<div class="photo-title"><?php echo (strlen($img_name) > (int)round($width/10)) ? substr($img_name, 0, round($width/11)).'&hellip;':$img_name; ?></div>
+						<div class="photo-title"><?php echo (strlen($img_name) > (int)round($width/12)) ? substr($img_name, 0, round($width/11)).'&hellip;':$img_name; ?></div>
 					</div>
 					<a href="<?php echo $img_url; ?>" title="<?php echo $img_name; ?>" data-lightbox="<?php echo $img_id; ?>" data-title="<?php echo $img_name; ?>" class=""><img alt="<?php echo $img_name; ?>" class="img" src="<?php echo $thumb_url; ?>" /></a>
-				</div>
+				</article>
 				<?php
 					}
 				?>
-			</div>
+			</section>
 		</div>
 		<?php } ?>
 		<script>
@@ -156,6 +176,7 @@ if ($settings){
 		<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
 		<script type="text/javascript" src="js/lightbox.min.js"></script>
 		<script type="text/javascript" src="js/freetile0.3.1.js"></script>
+		<script type="text/javascript" src="js/noDuplicate.js"></script>
 		<script type="text/javascript" src="js/contest.js"></script>
 	</body>
 </html>
